@@ -66,6 +66,7 @@ class  App extends Component
   }
   render() {
     return (
+
         <div className="App">
 
           <div className="page-wrapper">
@@ -93,7 +94,7 @@ class  App extends Component
                   <div className="third-nav">
 
                     <a className="search-nav" href="search-main.html">Search</a>
-
+                    <Link to={`search`} activeClassName="active">my search</Link>
                   </div>
                   <a href="#" className="btn btn-primary btn-small btn-rounded icon shadow add-listing"
                      data-modal-external-file="modal_submit.php" data-target="modal-submit">
