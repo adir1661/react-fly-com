@@ -1,5 +1,5 @@
 import React ,{Component} from 'react';
-import { Link } from 'react-router-dom'
+import { Link } from 'react-router-dom';
 
 
 import logo from './logo.svg';
@@ -91,7 +91,7 @@ class  App extends Component
                        data-target="modal-register">Register</a>
                   </div>
                   <div className="third-nav">
-                    <Link className ="search-nav" to="/about">About</Link>
+
                     <a className="search-nav" href="search-main.html">Search</a>
 
                   </div>
