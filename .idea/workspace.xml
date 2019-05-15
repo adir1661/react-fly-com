@@ -1,13 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="9b05bc55-b0ca-4a6b-b1cc-ca8ef0d9c0fb" name="Default Changelist" comment="map files">
+    <list default="true" id="9b05bc55-b0ca-4a6b-b1cc-ca8ef0d9c0fb" name="Default Changelist" comment="push">
       <change afterPath="$PROJECT_DIR$/public/assets/bootstrap/css/bootstrap.css.map" afterDir="false" />
       <change afterPath="$PROJECT_DIR$/public/assets/bootstrap/css/bootstrap.min.css.map" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/our-components/ourSearch.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/App.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/App.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/index.js" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/.tmp/" />
     <ignored path="$PROJECT_DIR$/temp/" />
@@ -269,8 +266,8 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/our-components/ourSearch.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="231">
-              <caret line="374" column="56" selection-start-line="374" selection-start-column="56" selection-end-line="374" selection-end-column="56" />
+            <state relative-caret-position="197">
+              <caret line="375" column="88" selection-start-line="375" selection-start-column="88" selection-end-line="375" selection-end-column="88" />
               <folding>
                 <element signature="e#1347#1422#0" />
                 <element signature="e#249#15104#0" />
@@ -649,7 +646,7 @@
       <workItem from="1557768203597" duration="3876000" />
       <workItem from="1557822857738" duration="87000" />
       <workItem from="1557823860388" duration="4615000" />
-      <workItem from="1557908683921" duration="3973000" />
+      <workItem from="1557908683921" duration="4510000" />
     </task>
     <task id="LOCAL-00001" summary="test">
       <created>1557768448719</created>
@@ -679,11 +676,18 @@
       <option name="project" value="LOCAL" />
       <updated>1557773500470</updated>
     </task>
-    <option name="localTasksCounter" value="5" />
+    <task id="LOCAL-00005" summary="push">
+      <created>1557913180317</created>
+      <option name="number" value="00005" />
+      <option name="presentableId" value="LOCAL-00005" />
+      <option name="project" value="LOCAL" />
+      <updated>1557913180317</updated>
+    </task>
+    <option name="localTasksCounter" value="6" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="12551000" />
+    <option name="totallyTimeSpent" value="13088000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1616" height="876" extended-state="6" />
@@ -716,7 +720,8 @@
     <MESSAGE value="init" />
     <MESSAGE value="test" />
     <MESSAGE value="map files" />
-    <option name="LAST_COMMIT_MESSAGE" value="map files" />
+    <MESSAGE value="push" />
+    <option name="LAST_COMMIT_MESSAGE" value="push" />
   </component>
   <component name="editorHistoryManager">
     <entry file="file://$PROJECT_DIR$/package.json">
@@ -999,8 +1004,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/our-components/ourSearch.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="231">
-          <caret line="374" column="56" selection-start-line="374" selection-start-column="56" selection-end-line="374" selection-end-column="56" />
+        <state relative-caret-position="197">
+          <caret line="375" column="88" selection-start-line="375" selection-start-column="88" selection-end-line="375" selection-end-column="88" />
           <folding>
             <element signature="e#1347#1422#0" />
             <element signature="e#249#15104#0" />
