@@ -34,7 +34,6 @@ class  App extends Component
       "assets/js/bootstrap-datetimepicker.min.js",
       "assets/js/icheck.min.js",
       "assets/js/owl.carousel.min.js","assets/js/ourMain.js","assets/js/maps.js","assets/js/custom.js","assets/js/temp.js"]
-    //const script =[];
     let insertScript =  function(srcs,i,cb){
       let script;
       script= document.createElement("script");
@@ -66,9 +65,7 @@ class  App extends Component
   }
   render() {
     return (
-
         <div className="App">
-
           <div className="page-wrapper">
             <header data-component="Header" id="page-header">
               <nav data-component="Navbar">
@@ -94,7 +91,7 @@ class  App extends Component
                   <div className="third-nav">
 
                     <a className="search-nav" href="search-main.html">Search</a>
-                    <Link to={`search`} activeClassName="active">my search</Link>
+                    <Link to={`search`}>my search</Link>
                   </div>
                   <a href="#" className="btn btn-primary btn-small btn-rounded icon shadow add-listing"
                      data-modal-external-file="modal_submit.php" data-target="modal-submit">
@@ -150,7 +147,7 @@ class  App extends Component
                               <option value="wellness">Wellness</option>
                             </select>
                           </div>
-                          // end form-group
+                         {/*end form-group*/}
                         </div>
                         <div className="col-md-2 col-sm-4">
                           <div className="form-group">
@@ -181,43 +178,43 @@ class  App extends Component
                               <div className="form-group">
                                 <label className="no-margin"><input type="checkbox" name="1"/>Hotel</label>
                               </div>
-                              // end form-group
+                               {/*end form-group*/}
                             </li>
                             <li>
                               <div className="form-group">
                                 <label className="no-margin"><input type="checkbox" name="2"/>Event</label>
                               </div>
-                              // end form-group
+                              {/*// end form-group*/}
                             </li>
                             <li>
                               <div className="form-group">
                                 <label className="no-margin"><input type="checkbox" name="3"/>Restaurant</label>
                               </div>
-                              // end form-group
+                              {/*// end form-group*/}
                             </li>
                             <li>
                               <div className="form-group">
                                 <label className="no-margin"><input type="checkbox" name="4"/>Trip</label>
                               </div>
-                              // end form-group
+                              {/*// end form-group*/}
                             </li>
                             <li>
                               <div className="form-group">
                                 <label className="no-margin"><input type="checkbox" name="5"/>Concert</label>
                               </div>
-                              // end form-group
+                              {/*// end form-group*/}
                             </li>
                             <li>
                               <div className="form-group">
                                 <label className="no-margin"><input type="checkbox" name="6"/>Adrenaline</label>
                               </div>
-                              // end form-group
+                              {/*// end form-group*/}
                             </li>
                             <li>
                               <div className="form-group">
                                 <label className="no-margin"><input type="checkbox" name="6"/>Wellness</label>
                               </div>
-                              // end form-group
+                              {/*// end form-group*/}
                             </li>
                           </ul>
                         </div>

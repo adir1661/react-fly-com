@@ -2,15 +2,16 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import './index.css';
 import App from './App';
+import Search from './our-components/ourSearch';
 import * as serviceWorker from './serviceWorker';
-import { BrowserRouter,Route,browserHistory,Link,Switch } from 'react-router-dom';
+import { BrowserRouter as Router,Route,browserHistory ,Link,Switch } from 'react-router-dom';
 ReactDOM.render(
-    <BrowserRouter>
+    <Router>
         <Switch>
-        <Route path="/" component={App}></Route>
-            <Route path="/search" component={App}></Route>
+        <Route  path="/" exact component={App}></Route>
+            <Route path="/search" component={Search}></Route>
             </Switch>
-    </BrowserRouter>
+    </Router>
 , document.getElementById('root'));
 
 // If you want your app to work offline and load faster, you can change
