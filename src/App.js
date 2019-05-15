@@ -13,7 +13,6 @@ const cache = new ScriptCache([
   'https://cdnjs.cloudflare.com/ajax/libs/jquery/3.0.0-beta1/jquery.js',
   'https://cdnjs.com/some/library.js'
 ]).onLoad(() => {
-  // everything is loaded after here
 })
 class  App extends Component
 {
@@ -50,7 +49,7 @@ class  App extends Component
 
     //script[ourScripts.length-1].onload = () => this.scriptLoaded();
   }
-  scriptLoaded() {
+  scriptLoaded = ()=> {
     console.log(new Date().toLocaleTimeString())
     var optimizedDatabaseLoading = 0;
     var _latitude = 40.7344458;
@@ -147,7 +146,6 @@ class  App extends Component
                               <option value="wellness">Wellness</option>
                             </select>
                           </div>
-                         {/*end form-group*/}
                         </div>
                         <div className="col-md-2 col-sm-4">
                           <div className="form-group">
@@ -178,43 +176,36 @@ class  App extends Component
                               <div className="form-group">
                                 <label className="no-margin"><input type="checkbox" name="1"/>Hotel</label>
                               </div>
-                               {/*end form-group*/}
                             </li>
                             <li>
                               <div className="form-group">
                                 <label className="no-margin"><input type="checkbox" name="2"/>Event</label>
                               </div>
-                              {/*// end form-group*/}
                             </li>
                             <li>
                               <div className="form-group">
                                 <label className="no-margin"><input type="checkbox" name="3"/>Restaurant</label>
                               </div>
-                              {/*// end form-group*/}
                             </li>
                             <li>
                               <div className="form-group">
                                 <label className="no-margin"><input type="checkbox" name="4"/>Trip</label>
                               </div>
-                              {/*// end form-group*/}
                             </li>
                             <li>
                               <div className="form-group">
                                 <label className="no-margin"><input type="checkbox" name="5"/>Concert</label>
                               </div>
-                              {/*// end form-group*/}
                             </li>
                             <li>
                               <div className="form-group">
                                 <label className="no-margin"><input type="checkbox" name="6"/>Adrenaline</label>
                               </div>
-                              {/*// end form-group*/}
                             </li>
                             <li>
                               <div className="form-group">
                                 <label className="no-margin"><input type="checkbox" name="6"/>Wellness</label>
                               </div>
-                              {/*// end form-group*/}
                             </li>
                           </ul>
                         </div>
@@ -227,7 +218,6 @@ class  App extends Component
                             </div>
                             <div className="element"></div>
                           </div>
-                          //end price-slider
                         </div>
                       </div>
                     </form>
