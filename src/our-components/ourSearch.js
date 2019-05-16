@@ -5,6 +5,10 @@ class Search extends Component{
 
     constructor(props) {
         super(props);
+        this.submit = this.submit.bind(this);
+    }
+    submit(e){
+        e.preventDefault();
     }
     componentDidMount() {
 
@@ -313,7 +317,7 @@ class Search extends Component{
                                     <section>
                                         <h2>Search Filter</h2>
                                         <form className="form inputs-underline report-search-form"
-                                              onSubmit="return false">
+                                              onSubmit={this.submit}>
                                             <div className="form-group">
                                                 <input type="text" className="form-control antenna-address-filter"
                                                        name="keyword"
@@ -373,7 +377,7 @@ class Search extends Component{
 
                                             <div className="div-button">
                                                 <button type="submit"
-                                                        className="btn btn-primary pull-right search-button">
+                                                        className="btn btn-primary pull-right search-button" >
                                                     Search<i className="fa fa-search"></i>
                                                 </button>
                                             </div>
