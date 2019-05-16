@@ -106,13 +106,13 @@ function a(x){
                     if( markerCluster != undefined ){
                         markerCluster.clearMarkers();
                     }
-                    loadData("assets/external/data.php", ajaxData);
+                    loadData("https://a3j3kyatgb.execute-api.eu-west-1.amazonaws.com/dev/locations", ajaxData,"GET");
                 }
             });
         }
         else {
             google.maps.event.addListenerOnce(map, 'idle', function(){
-                loadData("assets/external/data.php");
+                loadData("https://a3j3kyatgb.execute-api.eu-west-1.amazonaws.com/dev/locations",null,"GET");
             });
         }
 
@@ -579,11 +579,11 @@ function a(x){
             loadData(dataFile, ajaxData);
         });
 
-        function loadData(url, ajaxData){
+        function loadData(url,ajaxData,methud ='POST'){
             $.ajax({
                 url: url,
                 dataType: "json",
-                method: "POST",
+                method: methud,
                 data: ajaxData,
                 cache: false,
                 success: function(results){
