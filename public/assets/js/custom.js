@@ -175,7 +175,7 @@ $(document).ready(function ($) {
             lastModal.modal("hide");
             setTimeout(function () {
                 openModal(modalTarget, modalFile);
-            }, 400);
+            }, 100);
         }
         else {
             openModal(modalTarget, modalFile);
@@ -477,7 +477,13 @@ $(document).keyup(function (e) {
 
 //   Open modal from server
  function openModal(target, modalPath, clusterData, mapsFullScreen) {
+    if(modalPath.slice(0,1)==='#'){
+        console.log(arguments)
+        $("#" + target + ".modal").on("show.bs.modal", function () {
 
+        });
+        return;
+    }
     if (mapsFullScreen === true) {
         $(".gm-style").append('<div class="modal modal-external fade" id="' + target + '" tabindex="-1" role="dialog" aria-labelledby="' + target + '"><i class="loading-icon fa fa-circle-o-notch fa-spin"></i></div>');
     }
