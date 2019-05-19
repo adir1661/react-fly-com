@@ -378,7 +378,7 @@ $(document).ready(function ($) {
 // On Load
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-$(window).load(function () {
+document.addEventListener('initializeScripts',function () {
     initializeOwl();
 });
 
@@ -418,7 +418,9 @@ $(document).keyup(function (e) {
                 $(".hero-section.full-screen").height($(window).height() - $("#page-header").height());
                 $(".hero-section .map-wrapper").css("height", "100%");
                 if ($(".map-wrapper").length > 0) {
-                    reloadMap();
+                    document.addEventListener('initializeScripts',()=>{
+                        reloadMap();
+                    })
                 }
             }
         }
@@ -478,10 +480,7 @@ $(document).keyup(function (e) {
 //   Open modal from server
  function openModal(target, modalPath, clusterData, mapsFullScreen) {
     if(modalPath.slice(0,1)==='#'){
-        console.log(arguments)
-        $("#" + target + ".modal").on("show.bs.modal", function () {
-
-        });
+        openModalFromTemplates(modalPath,target,clusterData,mapsFullScreen);
         return;
     }
     if (mapsFullScreen === true) {
@@ -501,7 +500,9 @@ $(document).keyup(function (e) {
             data: {id: target, marker_in_cluster_id: clusterData},
             success: function (results) {
                 _this.append(results);
-                $('head').append($('<link rel="stylesheet" type="text/css">').attr('href', 'assets/css/bootstrap-select.min.css'));
+                if($('link[href="assets/css/bootstrap-select.min.css"]').length === 0) {
+                    $('head').append($('<link rel="stylesheet" type="text/css">').attr('href', 'assets/css/bootstrap-select.min.css'));
+                }
                 $(".selectpicker").selectpicker();
 
                 if ($("input[type=file]").length) {
@@ -556,28 +557,24 @@ $(document).keyup(function (e) {
     });
 
     $("#" + target + ".modal").modal("show");
+     function timeOutActions(_this) {
+         setTimeout(function () {
+             if (_this.find(".map").length) {
+                 if (_this.find(".modal-dialog").attr("data-address")) {
+                     simpleMap(0, 0, "map-modal", _this.find(".modal-dialog").attr("data-marker-drag"), _this.find(".modal-dialog").attr("data-address"));
+                 }
+                 else {
+                     simpleMap(_this.find(".modal-dialog").attr("data-latitude"), _this.find(".modal-dialog").attr("data-longitude"), "map-modal", _this.find(".modal-dialog").attr("data-marker-drag"));
+                 }
+             }
+             initializeOwl();
+             initializeFitVids();
+             initializeReadMore();
+             $(".tse-scrollable").TrackpadScrollEmulator();
+             _this.addClass("show");
+         }, 200);
 
-      timeOutActions(_this);
-
-}
-
- function timeOutActions(_this) {
-    setTimeout(function () {
-        if (_this.find(".map").length) {
-            if (_this.find(".modal-dialog").attr("data-address")) {
-                simpleMap(0, 0, "map-modal", _this.find(".modal-dialog").attr("data-marker-drag"), _this.find(".modal-dialog").attr("data-address"));
-            }
-            else {
-                simpleMap(_this.find(".modal-dialog").attr("data-latitude"), _this.find(".modal-dialog").attr("data-longitude"), "map-modal", _this.find(".modal-dialog").attr("data-marker-drag"));
-            }
-        }
-        initializeOwl();
-        initializeFitVids();
-        initializeReadMore();
-        $(".tse-scrollable").TrackpadScrollEmulator();
-        _this.addClass("show");
-    }, 200);
-
+     }
 }
 //  Transfer "img" into CSS background-image
 

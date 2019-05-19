@@ -15,6 +15,7 @@ var searchClicked;
 var mapAutoZoom;
 var map;
 var isFullScreen;
+let locations;
 var mapStyle = [
     {
         featureType: "administrative.land_parcel",
@@ -244,7 +245,7 @@ function a(x){
                                 openInfobox( $(this.content.firstChild).attr("data-id"), this, i );															
                             }
                             else if( markerTarget == "modal" ){
-                                openModal($(this.content.firstChild).attr("data-id"), "modal_item.php", false, isFullScreen);
+                                openModal($(this.content.firstChild).attr("data-id"), "#modalItem", false, isFullScreen);
                             }
                         }
                     })(marker, i));
@@ -591,6 +592,7 @@ function a(x){
                         newMarkers[i].setMap(null);
                     }
                     allMarkers = results;
+                    locations = results;
                     placeMarkers(results);
                 },
                 error : function (e) {

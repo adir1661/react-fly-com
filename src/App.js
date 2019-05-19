@@ -1,11 +1,17 @@
 import React, {Component} from 'react';
 import {Link} from 'react-router-dom';
-import Libraries from './external/external'
+import Libraries from './external/external';
 
 import logo from './logo.svg';
 import './App.css';
 class App extends Component {
-    componentDidMount() {
+    constructor(props){
+        super(props);
+        this.scriptsLoaded = new window.Event('initializeScripts');
+
+    }
+
+    componentDidMount = ()=> {
         const ourScripts = Libraries;
         let insertScript = function (srcs, i, cb) {
             let script;
@@ -28,6 +34,7 @@ class App extends Component {
     }
 
     scriptLoaded = () => {
+        document.dispatchEvent(this.scriptsLoaded);
         var optimizedDatabaseLoading = 0;
         var _latitude = 40.71807182;
         var _longitude = -73.853;
@@ -38,7 +45,7 @@ class App extends Component {
         var mapDefaultZoom = 14; // default zoom
         window.heroMap(_latitude, _longitude, element, markerTarget, sidebarResultTarget, showMarkerLabels, mapDefaultZoom);
 
-    }
+    };
 
     render() {
         return (
@@ -72,7 +79,7 @@ class App extends Component {
                                     <Link to={`search`}>my search</Link>
                                 </div>
                                 <a href="#" className="btn btn-primary btn-small btn-rounded icon shadow add-listing"
-                                   data-modal-external-file="#modal-submit" data-target="modal-submit">
+                                   data-modal-external-file="#modalSubmit" data-target="modal-submit">
                                     <i
                                         className="fa fa-plus"></i>
                                     <span>Add Antenna</span>
