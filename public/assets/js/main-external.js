@@ -180,19 +180,19 @@ let Templates = {
     </div>
 </div>
 </div>`),
-    modalItem: ($id, $site) => (
-        `<div class="modal-item-detail modal-dialog" role="document" data-latitude="$site.address" data-longitude="${ $site.longitude}" data-address data-id="${$id}">
+    modalItem: (id, site) => (
+        `<div class="modal-item-detail modal-dialog" role="document" data-latitude="$site.address" data-longitude="${ site.longitude}" data-address data-id="${id}">
     <div class="modal-content">
         <div class="modal-header">
             <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
             <div class="section-title">
-                <h2>${ $site.title }                 
-                <span class="location" style="margin-left: 3px;font-size: 15px;">${$site.address.split(',')[1]?$site.address.split(',')[1].trim():$site.address}</span>
+                <h2>${site.title}                 
+                <span class="location" style="margin-left: 3px;font-size: 15px;">${site.address.split(',')[1]?site.address.split(',')[1].trim():site.address}</span>
                 </h2>
-                <div class="label label-default">${$site.type}</div>
-                <div class="rating-passive" data-rating="${$site.rating}">
+                <div class="label label-default">${site.type}</div>
+                <div class="rating-passive" data-rating="${site.rating}">
                         <span class="stars"></span>
-                        <span class="reviews">${$site.reports ? $site.reports.length : 4}</span>
+                        <span class="reviews">${site.reports ? site.reports.length : 4}</span>
                        
 
                     </div>
@@ -207,24 +207,24 @@ let Templates = {
         <div class="modal-body">
             <div class="left">
             <div class="gallery">
-            ${$site.gallery ? $site.gallery.map((image) => (`<img src="${image}">`)).join('\n') : $site.marker_image?`<img src="${$site.marker_image}">`:''}
+            ${site.gallery ? site.gallery.map((image) => (`<img src="${image}">`)).join('\n') : site.marker_image?`<img src="${site.marker_image}">`:''}
             </div>
             <div class="map" id="map-modal"></div>
                 <section>
                 <h3>Contact</h3>
-                <h5><i class="fa fa-map-marker"></i>${$site.address}</h5>
-                <h5><i class="fa fa-phone"></i>${`Lng: ${$site.longitude}, Lat:${$site.latitude}`}</h5>
-                <h5><i class="fa fa-envelope"></i>${$site.contact}</h5>
+                <h5><i class="fa fa-map-marker"></i>${site.address}</h5>
+                <h5><i class="fa fa-phone"></i>${`Lng: ${site.longitude}, Lat:${site.latitude}`}</h5>
+                <h5><i class="fa fa-envelope"></i>${site.contact}</h5>
                 </section>
             </div>
             <div class="right">
                 <section>
                     <h3>Overview</h3>
-                    <div class="read-more"><p>${$site.description}</p></div>
+                    <div class="read-more"><p>${site.description}</p></div>
                 </section>
                 <section>
                         <h3><strong>Latest Reports</strong></h3>
-                        ${$site.reports ? $site.reports.map((report) => (`<div class="review">
+                        ${site.reports ? site.reports.map((report) => (`<div class="review">
                                 <div class="image">
                                     <div class="bg-transfer" style="background-image: url('${report.author_image}')"></div>
                                 </div>
@@ -254,8 +254,8 @@ let openModalFromTemplates = (key, target, clusterData,) => {
     $targetModal.on("show.bs.modal", function () {
         var _this = $(this);
         lastModal = _this;
-        let sites = locations.find((item => (item.id === target))) || {};
-        InsertTemplate(Templates[key](target, sites), _this);
+        let site = locations.find((item => (item.id === target))) || {};
+        InsertTemplate(Templates[key](target, site), _this);
     });
     let InsertTemplate = (results, _this) => {
         _this.append(results);
@@ -320,7 +320,6 @@ let openModalFromTemplates = (key, target, clusterData,) => {
             }
         });
     };
-
     function timeOutActions(_this) {
         setTimeout(function () {
             if (_this.find(".map").length) {
@@ -344,8 +343,6 @@ let openModalFromTemplates = (key, target, clusterData,) => {
             $tse.TrackpadScrollEmulator ? $tse.TrackpadScrollEmulator() : "";
             _this.addClass("show");
         }, 200);
-
     }
-
 };
 

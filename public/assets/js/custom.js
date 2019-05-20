@@ -913,7 +913,6 @@ function fixedNavigation(state) {
 }
 
 //  Show element after desired time ------------------------------------------------------------------------------------
-
 if (!viewport.is('xs')) {
     var messagesArray = [];
     $("[data-toggle=popover]").popover({
