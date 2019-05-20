@@ -4,7 +4,56 @@
 // global.jQuery = $;
 // const bootstrap = require('bootstrap');
 // console.log(bootstrap)
+let submitFormListener = (formElement,_this) => {
+    function checkInputs(formElement) {
+        var required = formElement.find('input,textarea,select').filter('[required]:visible');
+        var allRequired = true;
+        required.each(function () {
+            if ($(this).val() == '') {
+                allRequired = false;
+            }
+        });
+        return allRequired;
+    }
 
+    formElement.on('submit', (ev) => {
+        ev.preventDefault();
+        let formDetails = formElement.serializeArray();
+        let allRequired = checkInputs(formElement);
+        let formDetailsObject = {};
+        formDetails.forEach((detail) => {
+            if(detail.name !== "longtitude" && detail.name !== "latitude" ){
+                formDetailsObject[detail.name] = detail.value;
+            }else{
+                if(!formDetailsObject.location){
+                    formDetailsObject.location = {};
+                }
+                formDetailsObject['location'][detail.name ==="latitude"?"lat":"lng"]=detail.value;
+            }
+        });
+        var CurrentDate = moment().format();
+        formDetailsObject.created = CurrentDate;
+        console.log(formDetailsObject);
+        if (allRequired) {
+            console.log('all required')
+            //DO SOMETHING HERE... POPUP AN ERROR MESSAGE, ALERT , ETC.
+            $.ajax({
+                url: 'https://a3j3kyatgb.execute-api.eu-west-1.amazonaws.com/dev/sites',
+                method: "POST",
+                data: JSON.stringify(formDetailsObject),
+                dataType: "json",
+                success:(result)=>{
+                    _this.modal('hide');                },
+                error:(jqXHR,textStatus,errorThrown )=>{
+                    console.log(errorThrown);
+                }
+            })
+        } else {
+            console.log('not all required')
+        }
+        return false;
+    });
+}
 $(document).on('click', '.add-report', function (ev) {
     let $this = $(this),
         item_Id = $this.closest('.modal-item-detail').attr('data-id');
@@ -40,7 +89,7 @@ let Templates = {
                     <div class="col-md-7 col-sm-9">
                         <div class="form-group">
                             <label for="title">Antenna's ID</label>
-                            <input type="text" class="form-control" name="title" id="provAntennaId" placeholder="Proveider Antenna's ID">
+                            <input type="text" class="form-control" required name="provAntennaId" id="provAntennaId" placeholder="Proveider Antenna's ID">
                         </div>
                         <!--end form-group-->
                     </div>
@@ -48,13 +97,13 @@ let Templates = {
                     <div class="col-md-5 col-sm-3">
                         <div class="form-group">
                             <label for="category">Type</label>
-                            <select class="form-control selectpicker" name="category" id="type">
+                            <select class="form-control selectpicker" name="type" id="type" required>
                                 <option value="">Antenna's Type</option>
-                                <option value="1">Rooftop Site</option>
-                                <option value="2">Cell Tower Site</option>
-                                <option value="3">Small Cell</option>
-                                <option value="4">Outdoor DAS</option>
-                                <option value="5">Indoor DAS</option>
+                                <option value="Rooftop-Site">Rooftop Site</option>
+                                <option value="Cell-Tower-Site">Cell Tower Site</option>
+                                <option value="Small-Cell">Small Cell</option>
+                                <option value="Outdoor-DAS">Outdoor DAS</option>
+                                <option value="Indoor-DAS">Indoor DAS</option>
                             </select>
                         </div>
                         <!--end form-group-->
@@ -84,26 +133,25 @@ let Templates = {
                         <div class="map height-200px shadow" id="map-modal"></div>
                         <!--end map-->
                         <div class="form-group hidden">
-                            <input type="text" class="form-control" id="latitude" name="latitude" hidden="">
-                            <input type="text" class="form-control" id="longitude" name="longitude" hidden="">
+                            <!--<input type="text" class="form-control" id="latitude" name="latitude" hidden="">-->
+                            <!--<input type="text" class="form-control" id="longitude" name="longitude" hidden="">-->
                         </div>
                         <p class="note">Enter the exact latitude and longtitude or drag the map marker to position</p>
                     </div>
                     <div class="col-md-6 col-sm-6">
                         <div class="form-group">
-                            <label for="address-autocomplete disbaled">Address</label>
-                            <input type="text" class="form-control" name="address" id="address" placeholder="Address">
-                        </div>
-                        <div class="form-group">
                             <label for="lat">Latitude</label>
-                            <input type="number" class="form-control" name="phone" id="lat" placeholder="Phone number">
+                            <input type="number" step="0.0000000001" class="form-control" name="latitude" id="lat" placeholder="Phone number" required>
                         </div>
                         <div class="form-group">
                             <label for="lng">Longtitude</label>
-                            <input type="number" class="form-control" name="phone" id="lng" placeholder="Phone number">
+                            <input type="number" step="0.0000000001" class="form-control" name="longtitude" id="lng" placeholder="Phone number" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="address-autocomplete disbaled">Address</label>
+                            <input type="text" readonly="readonly" class="form-control" name="address" id="address" placeholder="Address" required>
                         </div>
                     </div>
-                    
                 </div>
             </section>
             <section>
@@ -115,10 +163,10 @@ let Templates = {
                     </div>
                     <div class="col-md-12 col-sm-12">
                         <div class="file-upload">
-                            <label for="MultiFile1">images</label>
-                            <input type="file" name="files[]" class="file-upload-input with-preview MultiFile-applied" multiple="" title="Click to add files" maxlength="10" accept="gif|jpg|png" id="MultiFile1" value="">
+                            <input type="file" name="files[]" class="file-upload-input with-preview" multiple title="Click to add files" maxlength="10" accept="jpg|png">
                             <span>Click or drag images here</span>
                         </div>
+                        <div class="file-upload-previews"></div>
                     </div>
                 </div>
             </section>
@@ -133,21 +181,25 @@ let Templates = {
 </div>
 </div>`),
     modalItem: ($id, $site) => (
-        `<div class="modal-item-detail modal-dialog" role="document" data-latitude="${$site.latitude}" data-longitude="${ $site.longitude}" data-address data-id="${$id}">
+        `<div class="modal-item-detail modal-dialog" role="document" data-latitude="$site.address" data-longitude="${ $site.longitude}" data-address data-id="${$id}">
     <div class="modal-content">
         <div class="modal-header">
             <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
             <div class="section-title">
-                <h2>${ $site.title }</h2>
-                <div class="label label-default">Antenna</div>
-                <div class="rating-passive" data-rating="$site.rating">
+                <h2>${ $site.title }                 
+                <span class="location" style="margin-left: 3px;font-size: 15px;">${$site.address.split(',')[1]?$site.address.split(',')[1].trim():$site.address}</span>
+                </h2>
+                <div class="label label-default">${$site.type}</div>
+                <div class="rating-passive" data-rating="${$site.rating}">
                         <span class="stars"></span>
                         <span class="reviews">${$site.reports ? $site.reports.length : 4}</span>
+                       
+
                     </div>
                 <div class="controls-more">
                     <ul>
-                        <li class="add-report"><a href="#">Add another issue</a></li>
-                        <li class="add-report"><a href="#">Edit</a></li>
+                        <li class="add-report"><a href="#">Add New Report</a></li>
+                        <li class="edit-site"><a href="#">Edit Site Profile</a></li>
                     </ul>
                 </div>
             </div>
@@ -155,14 +207,14 @@ let Templates = {
         <div class="modal-body">
             <div class="left">
             <div class="gallery">
-            ${$site.gallery ? $site.gallery.map((image) => (`<img src="${image}">`)).join('\n') : `<img src="${$site.marker_image}">`}
+            ${$site.gallery ? $site.gallery.map((image) => (`<img src="${image}">`)).join('\n') : $site.marker_image?`<img src="${$site.marker_image}">`:''}
             </div>
             <div class="map" id="map-modal"></div>
                 <section>
                 <h3>Contact</h3>
-                <h5><i class="fa fa-map-marker"></i>${$site.location}</h5>
-                <h5><i class="fa fa-phone"></i>${$site.phone}</h5>
-                <h5><i class="fa fa-envelope"></i>${$site.email}</h5>
+                <h5><i class="fa fa-map-marker"></i>${$site.address}</h5>
+                <h5><i class="fa fa-phone"></i>${`Lng: ${$site.longitude}, Lat:${$site.latitude}`}</h5>
+                <h5><i class="fa fa-envelope"></i>${$site.contact}</h5>
                 </section>
             </div>
             <div class="right">
@@ -196,6 +248,7 @@ let Templates = {
 };
 let openModalFromTemplates = (key, target, clusterData,) => {
     key = key.slice(1);
+    if(key !=='modalSubmit' && key !=='modalItem') return;
     $("body").append('<div class="modal modal-external fade" id="' + target + '" tabindex="-1" role="dialog" aria-labelledby="' + target + '"><i class="loading-icon fa fa-circle-o-notch fa-spin"></i></div>');
     let $targetModal = $("#" + target + ".modal");
     $targetModal.on("show.bs.modal", function () {
@@ -211,7 +264,7 @@ let openModalFromTemplates = (key, target, clusterData,) => {
         }
         $(".selectpicker").selectpicker();
 
-        if ($("input[type=file]").length||key==='modalSubmit') {
+        if ($("input[type=file]").length || key === 'modalSubmit') {
             $.getScript("assets/js/jQuery.MultiFile.min.js", function (data, textStatus, jqxhr) {
                 $("input.file-upload-input").MultiFile({
                     list: ".file-upload-previews"
@@ -248,23 +301,40 @@ let openModalFromTemplates = (key, target, clusterData,) => {
             timeOutActions(_this);
         }
         var title = $(results).find("h2").text();
-        socialShare(window.location + "?title=" + title.replace(/\s+/g, '-').toLowerCase());
+        socialShare(window.location + "?title=" + title.replace(/\s+/g, '-').toLowerCase());// todo figure out what is social share
         _this.on("hidden.bs.modal", function () {
             $(lastClickedMarker).removeClass("active");
             $(".pac-container").remove();
             _this.remove();
         });
+        submitFormListener($(_this).find('form'),_this);
     };
     $targetModal.modal("show");
+    let onLatLngChange = (marker) => {
+        $('#lat,#lng').on('blur', () => {
+            let lat = $('#lat').val();
+            let lng = $('#lng').val();
+            if (!!lat && !!lng) {
+                marker.setPosition(new google.maps.LatLng(lat, lng));
+                google.maps.event.trigger(marker, 'dragend');
+            }
+        });
+    };
 
     function timeOutActions(_this) {
         setTimeout(function () {
             if (_this.find(".map").length) {
                 if (_this.find(".modal-dialog").attr("data-address")) {
-                    simpleMap(0, 0, "map-modal", _this.find(".modal-dialog").attr("data-marker-drag"), _this.find(".modal-dialog").attr("data-address"));
+                    simpleMap(0, 0, "map-modal", _this.find(".modal-dialog").attr("data-marker-drag"),
+                        _this.find(".modal-dialog").attr("data-address"));
                 }
                 else {
-                    simpleMap(_this.find(".modal-dialog").attr("data-latitude"), _this.find(".modal-dialog").attr("data-longitude"), "map-modal", _this.find(".modal-dialog").attr("data-marker-drag"));
+                    simpleMap(_this.find(".modal-dialog").attr("data-latitude"), _this.find(".modal-dialog").attr("data-longitude"),
+                        "map-modal", _this.find(".modal-dialog").attr("data-marker-drag"), null,
+                        (marker) => {
+                            onLatLngChange(marker);
+                        }
+                    );
                 }
             }
             initializeOwl();
@@ -276,4 +346,6 @@ let openModalFromTemplates = (key, target, clusterData,) => {
         }, 200);
 
     }
+
 };
+

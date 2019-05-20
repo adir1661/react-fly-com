@@ -64,8 +64,23 @@ class App extends Component {
                             <div className="right">
                                 <div className="primary-nav has-mega-menu">
                                     <ul className="navigation">
+                                        <li className="active has-child"><a href="#nav-homepages">Controls</a>
+                                            <div className="wrapper">
+                                                <div id="nav-homepages" className="nav-wrapper">
+                                                    <ul>
+                                                        <li><a href="#" className="add-listing"
+                                                               data-modal-external-file="#modalSubmit" data-target="modal-submit">
+                                                            <i
+                                                                className="fa fa-plus"></i>
+                                                            <span>Add Antenna</span>
+                                                        </a></li>
+                                                    </ul>
+                                                </div>
+                                            </div>
+                                        </li>
                                         <li><a href="contact.html">Contact</a></li>
                                     </ul>
+
                                 </div>
                                 <div className="secondary-nav">
                                     <a href="#" data-modal-external-file="modal_sign_in.php"
@@ -79,10 +94,10 @@ class App extends Component {
                                     <Link to={`search`}>my search</Link>
                                 </div>
                                 <a href="#" className="btn btn-primary btn-small btn-rounded icon shadow add-listing"
-                                   data-modal-external-file="#modalSubmit" data-target="modal-submit">
+                                   data-modal-external-file="#modalReport" data-target="modal-submit">
                                     <i
                                         className="fa fa-plus"></i>
-                                    <span>Add Antenna</span>
+                                    <span>Add Report</span>
                                 </a>
                                 <div className="nav-btn">
                                     <i></i>

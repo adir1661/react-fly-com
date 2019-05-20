@@ -488,57 +488,57 @@ function a(x){
 
                 // Ajax load data for sidebar results after markers are placed
 
-                if( $(".hero-section").hasClass("sidebar-grid") ){
-                    var sidebarUrl = "assets/external/sidebar_results_grid.php";
-                }
-                else {
-                    sidebarUrl = "assets/external/sidebar_results.php";
-                }	
+                // if( $(".hero-section").hasClass("sidebar-grid") ){
+                //     var sidebarUrl = "assets/external/sidebar_results_grid.php";
+                // }
+                // else {
+                //     sidebarUrl = "assets/external/sidebar_results.php";
+                // }
 				
-                $.ajax({
-                    url: sidebarUrl,
-                    method: "POST",
-                    data: { markers: visibleMarkersId},
-                    success: function(results){						
-                        resultsArray.push(results); // push the results from php into array
-                        $(".results-wrapper .results-content").html(results); // render the new php data into html element
-                        $(".results-wrapper .section-title h2 .results-number").html(visibleMarkersId.length); // show the number of results
-                        ratingPassive(".results-wrapper .results"); // render rating stars
-
-                        // Hover on the result in sidebar will highlight the marker
-
-                        $(".result-item").on("mouseenter", function(){
-                            $(".map .marker[data-id="+ $(this).attr("data-id") +"]").addClass("hover-state");
-                        }).on("mouseleave", function(){
-                                $(".map .marker[data-id="+ $(this).attr("data-id") +"]").removeClass("hover-state");
-                        });
-
-                        trackpadScroll("recalculate");
-
-
-                        // Show detailed information in sidebar
-
-                        $(".result-item, .results-content .item").children("a").on("click", function(e){
-                            if( sidebarResultTarget == "sidebar" ){
-                                e.preventDefault();
-                                openSidebarDetail( $(this).parent().attr("data-id") );
-                            }
-                            else if( sidebarResultTarget == "modal" ){
-                                e.preventDefault();
-                                openModal( $(this).parent().attr("data-id"), "modal_item.php",false, isFullScreen );
-                            }
-
-                            $(lastClickedMarker).removeClass("active");
-
-                            $(".map .marker[data-id="+ $(this).parent().attr("data-id") +"]").addClass("active");
-                            lastClickedMarker = $(".map .marker[data-id="+ $(this).parent().attr("data-id") +"]");
-                        });
-
-                    },
-                    error : function (e) {
-                        console.log(e);
-                    }
-                });
+                // $.ajax({
+                //     url: sidebarUrl,
+                //     method: "POST",
+                //     data: { markers: visibleMarkersId},
+                //     success: function(results){
+                //         resultsArray.push(results); // push the results from php into array
+                //         $(".results-wrapper .results-content").html(results); // render the new php data into html element
+                //         $(".results-wrapper .section-title h2 .results-number").html(visibleMarkersId.length); // show the number of results
+                //         ratingPassive(".results-wrapper .results"); // render rating stars
+                //
+                //         // Hover on the result in sidebar will highlight the marker
+                //
+                //         $(".result-item").on("mouseenter", function(){
+                //             $(".map .marker[data-id="+ $(this).attr("data-id") +"]").addClass("hover-state");
+                //         }).on("mouseleave", function(){
+                //                 $(".map .marker[data-id="+ $(this).attr("data-id") +"]").removeClass("hover-state");
+                //         });
+                //
+                //         trackpadScroll("recalculate");
+                //
+                //
+                //         // Show detailed information in sidebar
+                //
+                //         $(".result-item, .results-content .item").children("a").on("click", function(e){
+                //             if( sidebarResultTarget == "sidebar" ){
+                //                 e.preventDefault();
+                //                 openSidebarDetail( $(this).parent().attr("data-id") );
+                //             }
+                //             else if( sidebarResultTarget == "modal" ){
+                //                 e.preventDefault();
+                //                 openModal( $(this).parent().attr("data-id"), "modal_item.php",false, isFullScreen );
+                //             }
+                //
+                //             $(lastClickedMarker).removeClass("active");
+                //
+                //             $(".map .marker[data-id="+ $(this).parent().attr("data-id") +"]").addClass("active");
+                //             lastClickedMarker = $(".map .marker[data-id="+ $(this).parent().attr("data-id") +"]");
+                //         });
+                //
+                //     },
+                //     error : function (e) {
+                //         console.log(e);
+                //     }
+                // });
 
             }
         }
@@ -644,7 +644,7 @@ function a(x){
 
 // Simple map ----------------------------------------------------------------------------------------------------------
 
-  function simpleMap(_latitude,_longitude, element, markerDrag, place){
+  function simpleMap(_latitude,_longitude, element, markerDrag, place,callback){
 
     if (!markerDrag){
         markerDrag = false;
@@ -656,22 +656,24 @@ function a(x){
         geoOptions = {
             address: place
         };
-        geocoder.geocode(geoOptions, getCenterFromAddress());
-        function getCenterFromAddress() {
-            return function(results, status) {
+        geocoder.geocode(geoOptions, function(results, status) {
                 if (status == google.maps.GeocoderStatus.OK) {
                     mapCenter = new google.maps.LatLng( results[0].geometry.location.lat(), results[0].geometry.location.lng() );
-                    drawMap(mapCenter);
+                    let marker=drawMap(mapCenter);
+                    if (typeof  callback==='function'){
+                        callback(marker);
+                    }
                 } else {
                     console.log("Geocode failed");
-                    console.log(status);
                 }
-            };
-        }
+            });
     }
     else {
         mapCenter = new google.maps.LatLng(_latitude,_longitude);
-        drawMap(mapCenter);
+        let marker=drawMap(mapCenter);
+        if (typeof  callback==='function'){
+            callback(marker);
+        }
     }
 
     function drawMap(mapCenter){
@@ -679,6 +681,8 @@ function a(x){
             zoom: 14,
             center: mapCenter,
             disableDefaultUI: true,
+            fullscreenControl:true,
+            mapTypeControl: true,
             scrollwheel: true,
             styles: [mapStyle]
         };
@@ -692,13 +696,28 @@ function a(x){
             flat: true
         });
         google.maps.event.addListener(marker, "dragend", function () {
-            var latitude = this.position.lat();
-            var longitude = this.position.lng();
-            $('#latitude').val( this.position.lat() );
-            $('#longitude').val( this.position.lng() );
+            var latitude = Number(this.position.lat().toFixed(10));
+            var longitude = Number(this.position.lng().toFixed(10));
+            map.setCenter(new google.maps.LatLng(latitude,longitude));
+            $('#latitude, #lat').val( latitude );
+            $('#longitude , #lng').val( longitude);
+            geocoder = new google.maps.Geocoder();
+            geocoder.geocode({'location': {lat:latitude,lng:longitude}},function(results, status){
+                if (status === 'OK') {
+                    if (results[0]) {
+                        $('#address').val(results[0].formatted_address);
+                    } else {
+                        window.alert('No results found');
+                    }
+                } else {
+                    window.alert('Geocoder failed due to: ' + status);
+                }
+            })
+
         });
 
         autoComplete(map, marker);
+        return marker;
     }
 
 }
