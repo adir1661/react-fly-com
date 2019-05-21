@@ -1,0 +1,118 @@
+.my-review{
+    background: rgba(243, 243, 243, 0.76)!important;
+    width: 100%;
+}
+.my-review:hover{
+    background: rgba(185, 182, 182, 0.76)!important;
+    width: 100%;
+}
+.my-circle-icon{
+
+}
+.div-filter-select{
+    border-width: 2px!important;
+    border-style: dashed!important;
+    border: #169f9f !important;
+    background: var(--camel-color);
+
+
+}
+
+.inline{
+    display: inline;
+}
+
+/*my test chip!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!*/
+.chip{
+    display: inline-flex;
+    flex-direction: row;
+    /*background-color: #e5e5e5;*/
+    /*border: none;*/
+    cursor: default;
+    height: 36px;
+    outline: none;
+    padding: 0;
+    font-size: 14px;
+    /*color: #fff;*/
+    font-family:"Open Sans", sans-serif;
+    white-space: nowrap;
+    align-items: center;
+    border-radius: 16px;
+    vertical-align: middle;
+    text-decoration: none;
+    justify-content: center;
+    /*////*/
+    color: #4a4646;
+    border: solid #aaaaaa;
+    background-color: #595763;
+    background-color: #fffffffc;
+    /*border-color:  #595763;*/
+    font-weight: bold;
+    font-size: 12px;
+    font-weight: bold;
+    font: inherit;
+    margin-bottom: 10px;
+    /*background-color: #fafafa;*/
+    /*border: solid;*/
+    /*border-color: #999999;*/
+}
+path{
+    z-index: -1;
+}
+.chip-head{
+    display: flex;
+    position: relative;
+    overflow: hidden;
+    background-color: #32C5D2;
+    font-size: 1.25rem;
+    flex-shrink: 0;
+    align-items: center;
+    user-select: none;
+    border-radius: 50%;
+    justify-content: center;
+    width: 36px;
+    color: #fff;
+    height: 36px;
+    font-size: 20px;
+    margin-right: -4px;
+}
+.chip-content{
+    cursor: inherit;
+    display: flex;
+    align-items: center;
+    user-select: none;
+    white-space: nowrap;
+    padding-left: 12px;
+    padding-right: 12px;
+
+}
+.chip-svg{
+    /*//color: #999999;*/
+    /*color: #595763;*/
+    /*color: #ffffff;*/
+    color:#aaaaaa;
+    cursor: pointer;
+    height: auto;
+    margin: 4px 4px 0 -8px;
+    fill: currentColor;
+    width: 1em;
+    height: 1em;
+    display: inline-block;
+    font-size: 24px;
+    transition: fill 200ms cubic-bezier(0.4, 0, 0.2, 1) 0ms;
+    user-select: none;
+    flex-shrink: 0;
+}
+.chip-svg:hover{
+    color: #e8e8e8;
+}
+.chip-button{
+    opacity: 0;
+    z-index: 1;
+}
+.div-button{
+    margin: 17px 9px 80px 9px;
+}
+.search-button{
+    width:100%;
+}

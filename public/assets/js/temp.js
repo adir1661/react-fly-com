@@ -33,6 +33,7 @@ let divCategoryEmpty = true;
 let categoriesEmpty = false;
 $(document).ready(function () {
     updateView();
+    refreshSelect();
 });
 
 function updateView() {
@@ -49,7 +50,9 @@ function updateMainSubject() {
         throw "error";//todo take care of error
     }
 }
-
+function refreshSelect(){
+    $(".report-search-form select").selectpicker("refresh");
+}
 function updateTypeButtons() {
     if (mainSubject === "reports") {
         $(".search-reports").prop('disabled', true);
@@ -1167,7 +1170,6 @@ function initSlider(value) {
         $(sliderClassName).each(function () {
             if ($("body").hasClass("rtl")) var rtl = "rtl";
             else rtl = "ltr";
-
             var step;
             if ($(this).attr('data-step')) {
                 step = parseInt($(this).attr('data-step'));

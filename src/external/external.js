@@ -17,7 +17,6 @@ const Libraries = [
     "assets/js/jquery.nouislider.all.min.js",
     "assets/js/custom.js",
     "assets/js/maps.js",
-    "assets/js/temp.js",
     "assets/js/main-external.js",
 ];
 export default Libraries;
