@@ -36,13 +36,13 @@ class App extends Component {
     scriptLoaded = () => {
         document.dispatchEvent(this.scriptsLoaded);
         var optimizedDatabaseLoading = 0;
-        var _latitude = 40.71807182;
-        var _longitude = -73.853;
+        var _latitude = 31.7825114444;
+        var _longitude = 35.1593399048;
         var element = "map-homepage";
         var markerTarget = "modal"; // use "sidebar", "infobox" or "modal" - defines the action after click on marker
         var sidebarResultTarget = "sidebar"; // use "sidebar", "modal" or "new_page" - defines the action after click on marker
         var showMarkerLabels = true; // next to every marker will be a bubble with title
-        var mapDefaultZoom = 14; // default zoom
+        var mapDefaultZoom = 12; // default zoom
         window.heroMap(_latitude, _longitude, element, markerTarget, sidebarResultTarget, showMarkerLabels, mapDefaultZoom);
 
     };

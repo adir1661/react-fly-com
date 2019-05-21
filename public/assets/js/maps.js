@@ -87,7 +87,7 @@ function a(x){
             //mapTypeId: "roadmap",
             styles: [mapStyle]
         });
-        setTimeout(()=>{map.setOptions({styles:mapStyle})},0)
+        setTimeout(()=>{map.setOptions({styles:mapStyle,scrollwheel:true,})},0)
         // Load necessary data for markers using PHP (from database) after map is loaded and ready ---------------------
 
         var allMarkers;
@@ -644,7 +644,7 @@ function a(x){
 
 // Simple map ----------------------------------------------------------------------------------------------------------
 
-  function simpleMap(_latitude,_longitude, element, markerDrag, place,callback){
+  function simpleMap(_latitude,_longitude, element, markerDrag, place,callback,options){
 
     if (!markerDrag){
         markerDrag = false;
@@ -659,9 +659,9 @@ function a(x){
         geocoder.geocode(geoOptions, function(results, status) {
                 if (status == google.maps.GeocoderStatus.OK) {
                     mapCenter = new google.maps.LatLng( results[0].geometry.location.lat(), results[0].geometry.location.lng() );
-                    let marker=drawMap(mapCenter);
+                    let {marker,map}=drawMap(mapCenter,options);
                     if (typeof  callback==='function'){
-                        callback(marker);
+                        callback(marker,map);
                     }
                 } else {
                     console.log("Geocode failed");
@@ -670,19 +670,19 @@ function a(x){
     }
     else {
         mapCenter = new google.maps.LatLng(_latitude,_longitude);
-        let marker=drawMap(mapCenter);
+        let {marker,map}=drawMap(mapCenter,options);
         if (typeof  callback==='function'){
-            callback(marker);
+            callback(marker,map);
         }
     }
 
-    function drawMap(mapCenter){
+    function drawMap(mapCenter,options){
         var mapOptions = {
             zoom: 14,
             center: mapCenter,
             disableDefaultUI: true,
-            fullscreenControl:true,
-            mapTypeControl: true,
+            fullscreenControl:options?options.fullscreenControl:false,
+            mapTypeControl: options?options.mapTypeControl:false,
             scrollwheel: true,
             styles: [mapStyle]
         };
@@ -717,7 +717,7 @@ function a(x){
         });
 
         autoComplete(map, marker);
-        return marker;
+        return {marker,map};
     }
 
 }

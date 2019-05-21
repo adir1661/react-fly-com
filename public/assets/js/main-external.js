@@ -181,7 +181,7 @@ let Templates = {
 </div>
 </div>`),
     modalItem: (id, site) => (
-        `<div class="modal-item-detail modal-dialog" role="document" data-latitude="$site.address" data-longitude="${ site.longitude}" data-address data-id="${id}">
+        `<div class="modal-item-detail modal-dialog" role="document" data-latitude="${site.latitude}" data-longitude="${ site.longitude}" data-address data-id="${id}">
     <div class="modal-content">
         <div class="modal-header">
             <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
@@ -209,7 +209,7 @@ let Templates = {
             <div class="gallery">
             ${site.gallery ? site.gallery.map((image) => (`<img src="${image}">`)).join('\n') : site.marker_image?`<img src="${site.marker_image}">`:''}
             </div>
-            <div class="map" id="map-modal"></div>
+                <div class="map height-200px shadow" id="map-modal"></div>
                 <section>
                 <h3>Contact</h3>
                 <h5><i class="fa fa-map-marker"></i>${site.address}</h5>
@@ -321,6 +321,8 @@ let openModalFromTemplates = (key, target, clusterData,) => {
         });
     };
     function timeOutActions(_this) {
+        _this.addClass("show");
+
         setTimeout(function () {
             if (_this.find(".map").length) {
                 if (_this.find(".modal-dialog").attr("data-address")) {
@@ -330,9 +332,14 @@ let openModalFromTemplates = (key, target, clusterData,) => {
                 else {
                     simpleMap(_this.find(".modal-dialog").attr("data-latitude"), _this.find(".modal-dialog").attr("data-longitude"),
                         "map-modal", _this.find(".modal-dialog").attr("data-marker-drag"), null,
-                        (marker) => {
+                        (marker,map) => {
                             onLatLngChange(marker);
-                        }
+                            setTimeout(()=> {
+                                google.maps.event.trigger(map, 'resize');
+                            },1000);
+                        },
+                        {fullscreenControl:true,
+                            mapTypeControl: true,}
                     );
                 }
             }
@@ -341,7 +348,6 @@ let openModalFromTemplates = (key, target, clusterData,) => {
             initializeReadMore();
             let $tse = $(".tse-scrollable");
             $tse.TrackpadScrollEmulator ? $tse.TrackpadScrollEmulator() : "";
-            _this.addClass("show");
         }, 200);
     }
 };
