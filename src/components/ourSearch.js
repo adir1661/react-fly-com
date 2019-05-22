@@ -17,7 +17,8 @@ class Search extends Component{
         e.preventDefault();
     }
     componentDidMount() {
-        document.addEventListener('initializeScripts',()=> {
+        console.log('here');
+        document.addEventListener('initializeScripts moveToSearch',(event)=> {
             const ourScripts = "assets/js/temp.js";
             let script;
             script = document.createElement("script");
@@ -26,7 +27,8 @@ class Search extends Component{
             script.onload = () => {
                 window.refreshSelect();
                 this.test();
-            }
+            };
+            document.removeEventListener('initializeScripts', event);
         });
 
     }

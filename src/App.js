@@ -31,7 +31,7 @@ class App extends Component {
             };
         };
         insertScript(ourScripts, 0, this.scriptLoaded);
-    }
+    };
 
     scriptLoaded = () => {
         document.dispatchEvent(this.scriptsLoaded);
