@@ -1,10 +1,13 @@
 var mongoose = require("mongoose");
-
+//todo check connection to database on this url
 var reportSchema = new mongoose.Schema({
     created: {
         type: Date,
         default: Date.now
     },
+    rating: Number,
+    video: String,
+    description:String,
     title: String,
     category:String,
     issues:[{

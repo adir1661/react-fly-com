@@ -1,0 +1,23 @@
+.issue.row{
+    margin-left: 20px;
+    padding: 10px 0;
+}
+.issue-subtitle{
+    margin-left: 5px;
+}
+.issue .col-xs-7{
+    height: 100px;
+}
+.issue .col-xs-7 h3 {
+    margin-bottom: 15px;
+}
+.issue:nth-child(2n){
+    background-color: var(--light-grey);
+}
+.report-video{
+    width:100%;
+}
+.report-video video{
+    width:100%;
+    height: 400px;
+}

@@ -1,14 +1,26 @@
 'use strict';
 const connectToDatabase = require('../helper/db_connection');
 let SiteSchema = require('../models/site');
+let ReportSchema = require('../models/report');
 const responses = require('../helper/response');
 
 
-function createSite(siteObj,reportObj) {
+function createReport(reportObj,dbConn,siteId) {
     console.log('=> query database');
-    return siteObj.save()
-        .then((site) => {
-            return responses.responseOk(site);
+    return reportObj.save()
+        .then((report) => {
+            let Site = dbConn.model('Site',SiteSchema);
+            Site.findById(siteId)
+                .then((site)=>{
+                    site.reports.push(report)
+                    return site.save();
+                }).then(site=>{
+                    return responses.responseOk(report);
+            })
+                .catch(err=>{
+                    return responses.responseError(err)
+            })
+            return responses.responseOk(report);
         })
         .catch(err => {
             console.log('=> an error occurred: ', err);
@@ -16,25 +28,29 @@ function createSite(siteObj,reportObj) {
         });
 }
 
+function getTotalRate(issues) {
+    let ratingAvg = issues.reduce((sum,issue)=>sum +Number(issue.rating))/issues.length;
+    return ratingAvg;
+}
+
 module.exports.create = (event, context, callback) => {
     context.callbackWaitsForEmptyEventLoop = false;
-    let {name, address, location, provAntennaId, description, type,contact,created,marker_image} = JSON.parse(event.body);
+    let {video,title,category,issues,description} = JSON.parse(event.body);
+    let siteId = event.pathParameters.id;
+    let rating = getTotalRate(issues);
     console.log('event: ', event);
     connectToDatabase()
         .then((dbConn) => {
-            let Site  = dbConn.model('Site', SiteSchema);
-            let site = new Site({
-                contact,
-                name,
-                address,
-                location,
-                provAntennaId,
+            let Report  = dbConn.model('Report', ReportSchema);
+            let report = new Report({
+                video,
                 description,
-                type,
-                marker_image,
-                created,
+                title,
+                category,
+                issues,
+                rating
             });
-            return createSite(site)})
+            return createReport(report,dbConn,siteId)})
         .then(response => {
             console.log('=> returning result: ', response);
             callback(null, response);

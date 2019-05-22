@@ -10,7 +10,6 @@ class App extends Component {
     constructor(props){
         super(props);
         this.scriptsLoaded = new window.Event('initializeScripts');
-
     }
 
     componentDidMount = ()=> {
@@ -31,7 +30,7 @@ class App extends Component {
             };
         };
         insertScript(ourScripts, 0, this.scriptLoaded);
-    }
+    };
 
     scriptLoaded = () => {
         document.dispatchEvent(this.scriptsLoaded);
