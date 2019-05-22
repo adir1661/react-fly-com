@@ -378,8 +378,9 @@ $(document).ready(function ($) {
 // On Load
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-document.addEventListener('initializeScripts',function () {
+document.addEventListener('initializeScripts',function (ev) {
     initializeOwl();
+    document.removeEventListener('initializeScripts',ev);
 });
 
 $(window).resize(function () {
@@ -420,6 +421,7 @@ $(document).keyup(function (e) {
                 if ($(".map-wrapper").length > 0) {
                     document.addEventListener('initializeScripts',()=>{
                         reloadMap();
+                        document.removeEventListener('initializeScripts',ev);
                     })
                 }
             }
