@@ -30,6 +30,8 @@ Headers:		'Lato', sans-serif;
 :root{
     --transparent-camel-color :#e8d0802e;
     --camel-color:#D0B576;
+    --transparent-light-grey: rgba(228, 230, 232, 0.38);
+    --light-grey: #d9dbdd;
     --transparent-light-camel: rgba(232, 208, 128, 0.53);
     --light-camel: #E8D080 ;
     --grey-dark-blue: #55535F;
@@ -6105,13 +6107,13 @@ section:not(.block) h2 {
     display: table;
     height: 100%;
     border-radius: 10px;
-    background-color:var(--transparent-light-camel) ;
+    background-color:var(--transparent-light-grey) ;
     transition: background-color 200ms ease-in;
     cursor: pointer;
 }
 .review:hover {
     transition: 500ms all ease-in-out;
-    background-color: var(--light-camel);
+    background-color: var(--light-grey);
 }
 
 .review .image {

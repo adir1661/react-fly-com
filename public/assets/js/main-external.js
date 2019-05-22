@@ -4,7 +4,7 @@
 // global.jQuery = $;
 // const bootstrap = require('bootstrap');
 // console.log(bootstrap)
-let submitFormListener = (formElement,_this) => {
+let submitFormListener = (formElement, _this) => {
     function checkInputs(formElement) {
         var required = formElement.find('input,textarea,select').filter('[required]:visible');
         var allRequired = true;
@@ -22,13 +22,13 @@ let submitFormListener = (formElement,_this) => {
         let allRequired = checkInputs(formElement);
         let formDetailsObject = {};
         formDetails.forEach((detail) => {
-            if(detail.name !== "longtitude" && detail.name !== "latitude" ){
+            if (detail.name !== "longtitude" && detail.name !== "latitude") {
                 formDetailsObject[detail.name] = detail.value;
-            }else{
-                if(!formDetailsObject.location){
+            } else {
+                if (!formDetailsObject.location) {
                     formDetailsObject.location = {};
                 }
-                formDetailsObject['location'][detail.name ==="latitude"?"lat":"lng"]=detail.value;
+                formDetailsObject['location'][detail.name === "latitude" ? "lat" : "lng"] = detail.value;
             }
         });
         var CurrentDate = moment().format();
@@ -42,9 +42,10 @@ let submitFormListener = (formElement,_this) => {
                 method: "POST",
                 data: JSON.stringify(formDetailsObject),
                 dataType: "json",
-                success:(result)=>{
-                    _this.modal('hide');                },
-                error:(jqXHR,textStatus,errorThrown )=>{
+                success: (result) => {
+                    _this.modal('hide');
+                },
+                error: (jqXHR, textStatus, errorThrown) => {
                     console.log(errorThrown);
                 }
             })
@@ -57,21 +58,21 @@ let submitFormListener = (formElement,_this) => {
 $(document).on('click', '.add-report', function (ev) {
     let $this = $(this),
         item_Id = $this.closest('.modal-item-detail').attr('data-id');
-    $.ajax(
-        {
-            url: 'assets/external/modal_report.php',
-            success: (result) => {
-                let $modal = $(`#${item_Id}.modal`);
-                let $child = $modal.find(".modal-report");
-                $child.removeClass("width-800px");
-                $child.addClass("width-700px");
-                $modal.html(result);
-                renderReportDetails()
-            }
-        }
-    )
+    let $modal = $(`#${item_Id}.modal`);
+    let $child = $modal.find(".modal-report");
+    $child.removeClass("width-800px");
+    $child.addClass("width-700px");
+    $modal.html(Templates['modalReport']());
+    renderReportDetails()
 });
-
+let chachedReports = [{
+    created:new Date('2019-03-25'),
+    rating:45,
+    title:'report 4351',
+    description:'this is report winter chached with some chrushes inside the Antenna tubes.',
+    category:'winder'
+}
+]
 
 let Templates = {
     modalSubmit: () => (`<div class="modal-dialog width-800px" role="document" data-latitude="31.771959" data-longitude="35.217018" data-marker-drag="true" >
@@ -180,14 +181,13 @@ let Templates = {
     </div>
 </div>
 </div>`),
-    modalItem: (id, site) => (
-        `<div class="modal-item-detail modal-dialog" role="document" data-latitude="${site.latitude}" data-longitude="${ site.longitude}" data-address data-id="${id}">
+    modalItem: (id, site) => (`<div class="modal-item-detail modal-dialog" role="document" data-latitude="${site.latitude}" data-longitude="${ site.longitude}" data-address data-id="${id}">
     <div class="modal-content">
         <div class="modal-header">
             <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
             <div class="section-title">
                 <h2>${site.title}                 
-                <span class="location" style="margin-left: 3px;font-size: 15px;">${site.address.split(',')[1]?site.address.split(',')[1].trim():site.address}</span>
+                <span class="location" style="margin-left: 3px;font-size: 15px;">${site.address.split(',')[1] ? site.address.split(',')[1].trim() : site.address}</span>
                 </h2>
                 <div class="label label-default">${site.type}</div>
                 <div class="rating-passive" data-rating="${site.rating}">
@@ -207,7 +207,7 @@ let Templates = {
         <div class="modal-body">
             <div class="left">
             <div class="gallery">
-            ${site.gallery ? site.gallery.map((image) => (`<img src="${image}">`)).join('\n') : site.marker_image?`<img src="${site.marker_image}">`:''}
+            ${site.gallery ? site.gallery.map((image) => (`<img src="${image}">`)).join('\n') : site.marker_image ? `<img src="${site.marker_image}">` : ''}
             </div>
                 <div class="map height-200px shadow" id="map-modal"></div>
                 <section>
@@ -222,18 +222,26 @@ let Templates = {
                     <h3>Overview</h3>
                     <div class="read-more"><p>${site.description}</p></div>
                 </section>
-                <section>
+                <section class="report-list">
                         <h3><strong>Latest Reports</strong></h3>
-                        ${site.reports ? site.reports.map((report) => (`<div class="review">
+                        ${site.reports ? site.reports.map((report) => (`<div class="review report-item">
                                 <div class="image">
-                                    <div class="bg-transfer" style="background-image: url('${report.author_image}')"></div>
+                                     <div class="bg-transfer" >
+                                         <div class="c100 p${Math.round(Number(report.rating))} small ${Number(report.rating)>50?'green':'orange'}">
+                                              <span>${Number(report.rating)}%</span>
+                                              <div class="slice">
+                                                   <div class="bar"></div>
+                                                   <div class="fill"></div>
+                                              </div>
+                                         </div>
+                                     </div>
                                 </div>
                                 <div class="description">
                                     <figure>
-                                        <div class="rating-passive" data-rating="${report.rating}">
+                                        <div class="rating-passive" data-rating="${(Number(report.rating)*5)/100}">
                                             <span class="stars"></span>
                                         </div>
-                                        <span class="date">${report.created}</span>
+                                        <span class="date">${report.created.toDateString()}</span>
                                     </figure>
                                     <h5>${report.title}</h5>
                                     <p>${report.description}</p>
@@ -244,17 +252,122 @@ let Templates = {
                 </div>
         </div>
     </div>
+</div>`),
+    modalReport: () => (`<div class="modal-dialog modal-report width-800px" role="document" data-latitude="40.7344458"
+data-longitude="-73.86704922"
+data-marker-drag="true">
+<div class="modal-content">
+   <div class="modal-header">
+       <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
+               aria-hidden="true">&times;</span></button>
+       <div class="section-title">
+           <h2>Report</h2>
+       </div>
+   </div>
+   <div class="modal-body">
+       <form class="form inputs-underline">
+           <section>
+               <div class="row">
+                   <div class="col-md-9 col-sm-9">
+                       <div class="form-group">
+                           <label for="title">Title</label>
+                           <input type="text" class="form-control" name="title" id="title" placeholder="Title">
+                       </div>
+                   </div>
+                   <div class="col-md-3 col-sm-3">
+                       <div class="form-group">
+                           <label for="category">Category</label>
+                           <select class="form-control selectpicker" name="category" id="category">
+                               <option value="">Category</option>
+                               <option value="1">Winter</option>
+                               <option value="2">Summer</option>
+                           </select>
+                       </div>
+                   </div>
+                   <div class="col-xs-12">
+                        <div class="form-group">
+                            <label for="title"><i class="fa fa-picture-o" aria-hidden="true"></i> Image Url</label>
+                            <input type="text" class="form-control" name="title" id="url" placeholder="http://image.url">
+                        </div>
+                    </div>
+               </div>
+
+           </section>
+
+           <section>
+               <h3>Antenna</h3>
+               <div class="form-group">
+                   <label for="address-autocomplete">Address</label>
+                   <input type="text" class="form-control" name="address" id="address-autocomplete"
+                          placeholder="Address">
+               </div>
+           </section>
+           <section class="reports">
+               <h3>Report Details:</h3>
+           </section>
+
+           <hr>
+           <section class="center">
+               <div class="form-group">
+                   <button type="submit" class="btn btn-primary btn-rounded">Add Report</button>
+               </div>
+           </section>
+       </form>
+   </div>
+</div>
+</div>`),
+    modalReportView: (report,antennaId,) => (`<div class="modal-dialog modal-report width-800px" role="document" data-latitude="40.7344458"
+data-longitude="-73.86704922"
+data-marker-drag="true">
+<div class="modal-content">
+   <div class="modal-header">
+       <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
+               aria-hidden="true">&times;</span></button>
+       <div class="section-title">
+           <h2>Report</h2>
+       </div>
+   </div>
+   <div class="modal-body">
+       <section>
+               <div class="row">
+                   <div class="col-md-9 col-sm-9">
+                       <div class="form-group">
+                           <h2 for="title">${report.title}</h2>
+                       </div>
+                   </div>
+                   <div class="col-md-3 col-sm-3">
+                       <div class="form-group">
+                           <h4 for="category">Category: ${report.category}</h4>
+                       </div>
+                   </div>  
+               </div>
+           </section> 
+           <section class="reports">
+               <h3>Report Details:</h3>
+           </section>
+           <hr>
+           <section class="center">
+               <div class="form-group">
+                   <button type="submit" class="btn btn-primary btn-rounded back-to-site">Back To Site Details</button>
+               </div>
+           </section>
+       </form>
+   </div>
+</div>
 </div>`)
 };
 let openModalFromTemplates = (key, target, clusterData,) => {
     key = key.slice(1);
-    if(key !=='modalSubmit' && key !=='modalItem') return;
+    if (key !== 'modalSubmit' && key !== 'modalItem') return;
     $("body").append('<div class="modal modal-external fade" id="' + target + '" tabindex="-1" role="dialog" aria-labelledby="' + target + '"><i class="loading-icon fa fa-circle-o-notch fa-spin"></i></div>');
     let $targetModal = $("#" + target + ".modal");
     $targetModal.on("show.bs.modal", function () {
         var _this = $(this);
         lastModal = _this;
         let site = locations.find((item => (item.id === target))) || {};
+        if(site&&(!site.reports||site.reports.length<1)){
+            site.reports = chachedReports;
+        }
         InsertTemplate(Templates[key](target, site), _this);
     });
     let InsertTemplate = (results, _this) => {
@@ -307,7 +420,7 @@ let openModalFromTemplates = (key, target, clusterData,) => {
             $(".pac-container").remove();
             _this.remove();
         });
-        submitFormListener($(_this).find('form'),_this);
+        submitFormListener($(_this).find('form'), _this);
     };
     $targetModal.modal("show");
     let onLatLngChange = (marker) => {
@@ -320,6 +433,7 @@ let openModalFromTemplates = (key, target, clusterData,) => {
             }
         });
     };
+
     function timeOutActions(_this) {
         _this.addClass("show");
 
@@ -332,14 +446,16 @@ let openModalFromTemplates = (key, target, clusterData,) => {
                 else {
                     simpleMap(_this.find(".modal-dialog").attr("data-latitude"), _this.find(".modal-dialog").attr("data-longitude"),
                         "map-modal", _this.find(".modal-dialog").attr("data-marker-drag"), null,
-                        (marker,map) => {
+                        (marker, map) => {
                             onLatLngChange(marker);
-                            setTimeout(()=> {
+                            setTimeout(() => {
                                 google.maps.event.trigger(map, 'resize');
-                            },1000);
+                            }, 1000);
                         },
-                        {fullscreenControl:true,
-                            mapTypeControl: true,}
+                        {
+                            fullscreenControl: true,
+                            mapTypeControl: true,
+                        }
                     );
                 }
             }

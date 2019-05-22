@@ -24,8 +24,7 @@ class Navbar extends Component{
                                         <ul>
                                             <li><a href="#" className="add-listing"
                                                    data-modal-external-file="#modalSubmit" data-target="modal-submit">
-                                                <i
-                                                    className="fa fa-plus"></i>
+                                                <i className="fa fa-plus"></i>
                                                 <span>Add Antenna</span>
                                             </a></li>
                                         </ul>
@@ -33,6 +32,8 @@ class Navbar extends Component{
                                 </div>
                             </li>
                             <li><a href="contact.html">Contact</a></li>
+                            <Link to={`search`}>Search<i style={{marginLeft:'6px'}} className="fa fa-search"></i></Link>
+
                         </ul>
 
                     </div>
@@ -43,14 +44,10 @@ class Navbar extends Component{
                            data-target="modal-register">Register</a>
                     </div>
                     <div className="third-nav">
-
-                        <a className="search-nav" href="search-main.html">Search</a>
-                        <Link to={`search`}>my search</Link>
                     </div>
                     <a href="#" className="btn btn-primary btn-small btn-rounded icon shadow add-listing"
                        data-modal-external-file="#modalReport" data-target="modal-submit">
-                        <i
-                            className="fa fa-plus"></i>
+                        <i className="fa fa-plus"></i>
                         <span>Add Report</span>
                     </a>
                     <div className="nav-btn">

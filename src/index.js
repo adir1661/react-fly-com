@@ -5,7 +5,7 @@ import App from './App';
 import Search from './components/ourSearch';
 import * as serviceWorker from './serviceWorker';
 import {BrowserRouter as Router, Route, browserHistory, Link, Switch} from 'react-router-dom';
-
+import './external/circular-css.css'
 ReactDOM.render(
     <App/>
     , document.getElementById('root'));
