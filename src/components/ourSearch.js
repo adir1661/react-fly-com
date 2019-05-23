@@ -6,8 +6,6 @@ import "./ourSearch.css";
 import ReactDOM from "react-dom";
 
 let optionsSelect = ["Antenna's Intergity", "Cabels Integrity", "Connectors Tightness", "Unwanted Cabels", "Monitor Lightness", "Blocking", "Antenna's Stickers"];
-let reports = [];
-let antennas = [];
 let anntena = {
     id: null,
     title: null,
@@ -22,7 +20,8 @@ let anntena = {
     contact: null,
     created: null
 }
-
+let antennas=[];
+let reports=[];
 class Search extends Component {
     constructor(props) {
         super(props);
@@ -34,8 +33,9 @@ class Search extends Component {
             filterOptions: optionsSelect.slice(0),
             searchObjects: [],
             chipsNames: [],
-            anntenasSearchRes:[],
-            reportsSearchRes:[]
+            antennasRes:[],
+            reportsSearchRes:[],
+            reports:[]
         }
         this.updateSearch = this.updateSearch.bind(this);
         this.takeCareDeleteChip = this.takeCareDeleteChip.bind(this);
@@ -47,11 +47,40 @@ class Search extends Component {
         this.fit = this.fit.bind(this);
 
     }
-    searchPressed() {
-        antennas.forEach((aItem)=>{
-            if(this.fit(aItem,this.state.searchObjects,"antenna")){
+    componentDidUpdate(prevProps, prevState, snapshot) {
+        // //Only if the search update
+        // if (this.state.needInit) {
+        //     window.initSliders();
+        //     //window.refreshSelect();
+        // }
+        // this.state.needInit = false;
+        window.updateAfterSearch();
+    }
 
+    searchPressed() {
+        var address = document.getElementsByClassName('address-filter')[0].value;
+        var title = document.getElementsByClassName('report-title-filter')[0].value;
+        var from = document.getElementsByClassName('from-filter')[0].value;
+        var to = document.getElementsByClassName('to-filter')[0].value;
+        var antennasResult=[];
+        var searchObj={address:address,
+        title:title,
+        from:from,
+        to:to,
+        categories: this.state.searchObjects}
+        antennas.forEach((aItem)=>{
+            if(this.fit(aItem,searchObj,"antenna")){
+                if(searchObj.address==="" || aItem.address.toLowerCase().includes(searchObj.address.toLowerCase())) {
+                    let obj = JSON.parse(JSON.stringify(aItem));
+                    antennasResult.push(obj);
+                    console.log("here3",antennasResult);
+                }
             }
+
+        });
+
+        this.setState({
+            antennasRes:antennasResult.slice(0)
         });
     }
     fit(currentObject,ourObject,type){
@@ -72,7 +101,6 @@ class Search extends Component {
     }
 
 
-
     getCategory(names) {
         let result = "";
         optionsSelect.forEach(function (element) {
@@ -86,7 +114,7 @@ class Search extends Component {
     initSearchData() {
         fetch("https://a3j3kyatgb.execute-api.eu-west-1.amazonaws.com/dev/locations").then(response => (response.json())).then(sites => {
             antennas = sites.slice(0);
-            //console.log("sites", antennas);
+            console.log("sites", antennas);
         });
         // fetch("https://a3j3kyatgb.execute-api.eu-west-1.amazonaws.com/dev/reports").then(response=>(response.json())).then(reps=>{
         // reports=reps.slice(0);
@@ -160,7 +188,6 @@ class Search extends Component {
             chipsNames: chips.slice(0)
         });
         this.chipSearchElement.current.updateChips(chips.slice(0));
-        //console.log(this.state.searchObjects);
 
     }
 
@@ -197,11 +224,50 @@ class Search extends Component {
 
     render() {
         let searchElements;
-        if (true) {
+        if (true)//if searching items not empty
+        {
             if(true)//if we in the anntenas is choose
             {
-                if(this.state.anntenasSearchRes.length!==0) {
+                if(this.state.antennasRes.length!==0) {
                     searchElements = <section className="search-elements">
+                        {this.state.antennasRes.map((item,i) => {
+                      return   <div key={"anntena_"+i} id={item.title.replace(" ","").toLowerCase()} className={"item item-row " }data-id={i}
+                                 data-latitude={item.latitude}
+                                 data-longitude={item.longitude}>
+                                <a href="detail.html">
+                                    <div className="image bg-transfer">
+                                        <figure>Average Price: $8 - $30</figure>
+                                        <img src={item.marker_image} alt=""/>
+                                    </div>
+                                   {/*end image*/}
+                                    <div className="map"></div>
+                                    <div className="description">
+                                        <h3 className="address">{item.address}</h3>
+                                        <h4 className="description-anntena">{item.description}</h4>
+                                        <div className="label label-default">Restaurant</div>
+                                    </div>
+                                   {/*end description*/}
+                                    <div className="additional-info">
+                                        <div className="rating-passive" data-rating={item.rating}>
+                                            <span className="stars"></span>
+                                            <span className="reviews">{item.reports.length}</span>
+                                        </div>
+                                    </div>
+                                    {/*end additional-info*/}
+                                </a>
+                                <div className="controls-more">
+                                    <ul>
+                                        <li><a href="#">Add to favorites</a></li>
+                                        <li><a href="#">Add to watchlist</a></li>
+                                        <li><a href="#" className="quick-detail">Quick detail</a></li>
+                                    </ul>
+                                </div>
+                                {/*end controls-more*/}
+                            </div>
+
+
+                        })}
+
                     </section>
 
                 }
@@ -210,7 +276,6 @@ class Search extends Component {
                 if(this.state.reportsSearchRes.length!==0) {
                     searchElements = <section className="search-elements">
                     </section>
-
                 }
             }
         }
@@ -227,7 +292,7 @@ class Search extends Component {
                         <div className="row">
                             <div className="col-md-3 col-sm-3">
                                 <aside className="sidebar">
-                                    <FormSearch update={this.updateSearch} ref={this.formSearchElement}
+                                    <FormSearch update={this.updateSearch} change={this.searchPressed} ref={this.formSearchElement}
                                                 removeFilter={this.removeFilter}/>
 
                                     <section>

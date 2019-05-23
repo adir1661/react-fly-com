@@ -6,34 +6,29 @@ import * as ReactDOM from "react-dom";
 // const $ = window.$;
 //
 let optionsSelect = ["Antenna's Intergity", "Cabels Integrity", "Connectors Tightness", "Unwanted Cabels", "Monitor Lightness", "Blocking", "Antenna's Stickers"];
-let filterOptionsStatus=["Stable","Problematic"];
+let filterOptionsStatus = ["Stable", "Problematic"];
+
 class FormSearch extends Component {
 
-    addPress(name){
-        var address = document.getElementsByClassName('address-filter')[0].value;
-        var title = document.getElementsByClassName('report-title-filter')[0].value;
-        var from = document.getElementsByClassName('from-filter')[0].value;
-        var to = document.getElementsByClassName('to-filter')[0].value;
+    addPress(name) {
+
         var className = this.state.currentName;
-        var status =this.state.currentCategoryStatus;
-        var min =  document.getElementsByClassName('value-min')[0].value;
-        var max =  document.getElementsByClassName('value-max')[0].value;
+        var status="";
+        if(this.state.currentCategoryStatus.toLowerCase()!=="status"){
+         status = this.state.currentCategoryStatus;
+        }
+        var min = document.getElementsByClassName('value-min')[0].value;
+        var max = document.getElementsByClassName('value-max')[0].value;
         var issueName = document.getElementsByClassName('report-num-filter')[0].value;
-        console.log(min,max);
-        var element={
-            addres:address,
-        title:title,
-        from:from,
-        to:to,
-        className:className,
-        status:status,
-        rating:{min:min,max:max},
-        issueName:issueName,
+        var element = {
+            className: className,
+            status: status,
+            rating: {min: min, max: max},
+            issueName: issueName,
         };
-        console.log(element);
         this.props.update(element);
         this.setState({
-            currentName:"",
+            currentName: "",
             disabled: false,
             needInit: false,
             currentCategoryStatus: "Status",
@@ -43,22 +38,25 @@ class FormSearch extends Component {
         });
 
     }
-    removePress(name){
+
+    removePress(name) {
 
     }
-    selectChangedStatus(e){
+
+    selectChangedStatus(e) {
         var selected = e.currentTarget.className;
         this.setState({
             currentCategoryStatus: selected,
         });
-}
+    }
+
     componentDidUpdate(prevProps, prevState, snapshot) {
         // If we have a snapshot value, we've just added new items.
         // Adjust scroll so these new items don't push the old ones out of view.
         // (snapshot here is the value returned from getSnapshotBeforeUpdate)
-        if(this.state.needInit){
-      window.initSlider(this.state.currentName);
-      window. refreshSelect();
+        if (this.state.needInit) {
+            window.initSliders();
+            //window.refreshSelect();
         }
         this.state.needInit = false;
     }
@@ -71,7 +69,7 @@ class FormSearch extends Component {
 
     }
 
-     initSlider(value) {
+    initSlider(value) {
         let sliderClassName = "." + "slider-" + value;
         if ($(sliderClassName).length > 0) {
             $(sliderClassName).each(function () {
@@ -141,7 +139,7 @@ class FormSearch extends Component {
 
     selectChanged(e) {
         var selected = e.currentTarget.className;
-        var current, placeHolder, disabled, filter,needInit;
+        var current, placeHolder, disabled, filter, needInit;
         filter = this.state.filterOptions.slice(0);
         if (selected === "add-category") {
             current = "Add category";
@@ -152,7 +150,7 @@ class FormSearch extends Component {
             placeHolder = "";
             disabled = true;
             this.props.removeFilter(selected);
-            needInit= true;
+            needInit = true;
         }
         this.setState({
             currentCategory: current,
@@ -163,23 +161,25 @@ class FormSearch extends Component {
         });
 
     }
-    searchUpdateFilter(filOptions){
+
+    searchUpdateFilter(filOptions) {
         //console.log(filOptions);
         this.setState({
-            filterOptions:filOptions
+            filterOptions: filOptions
         });
     }
+
     constructor(props) {
         super(props);
         this.submit = this.submit.bind(this);
         this.selectChanged = this.selectChanged.bind(this);
         this.getCategory = this.getCategory.bind(this);
         this.removeElementFromList = this.removeElementFromList.bind(this);
-        this.addPress=this.addPress.bind(this);
-        this.removePress=this.removePress.bind(this);
-        this.initSlider=this.initSlider.bind(this);
-        this.searchUpdateFilter=this.searchUpdateFilter.bind(this);
-        this.selectChangedStatus=this.selectChangedStatus.bind(this);
+        this.addPress = this.addPress.bind(this);
+        this.removePress = this.removePress.bind(this);
+        this.initSlider = this.initSlider.bind(this);
+        this.searchUpdateFilter = this.searchUpdateFilter.bind(this);
+        this.selectChangedStatus = this.selectChangedStatus.bind(this);
         this.state = {
             filterOptions: optionsSelect.slice(0),
             currentCategory: "Add category",
@@ -198,40 +198,41 @@ class FormSearch extends Component {
     render() {
         let moreViews;
         let categorySelect;
-        if(this.state.filterOptions.length!==0){
+        if (this.state.filterOptions.length !== 0) {
             categorySelect = <div className="form-group  temp-select">
                 <br/>
                 <div className="btn-group bootstrap-select form-control filter-select">
-                <button type="button"  disabled={this.state.disabled}
-                        className={"btn dropdown-toggle  btn-default " + this.state.placeholderIfHave}
-                        data-toggle="dropdown" role="button" title="Category"><span
-                    className="filter-option pull-left">{this.state.currentCategory}</span>&nbsp;<span
-                    className="bs-caret"><span
-                    className="caret"></span></span></button>
+                    <button type="button" disabled={this.state.disabled}
+                            className={"btn dropdown-toggle  btn-default " + this.state.placeholderIfHave}
+                            data-toggle="dropdown" role="button" title="Category"><span
+                        className="filter-option pull-left">{this.state.currentCategory}</span>&nbsp;<span
+                        className="bs-caret"><span
+                        className="caret"></span></span></button>
 
-                <div className="dropdown-menu open" role="combobox">
-                    <ul className="dropdown-menu inner" role="listbox" aria-expanded="false">
-                        <li onClick={this.selectChanged}  data-original-index="0" className="add-category">
-                            <a tabIndex="0"
-                               className="report-option-select"
-                               style={{}} data-tokens="null"
-                               role="option" aria-disabled="false"
-                               aria-selected="true"><span
-                                className="text">Add category</span><span
-                                className="glyphicon glyphicon-ok check-mark"></span></a></li>
-                        {this.state.filterOptions.map((item) => {
-                            return <li onClick={this.selectChanged}
-                                       className={item.replace(" ", "-").replace("'", "").toLowerCase()}
-                                       data-original-index={1 + this.state.filterOptions.indexOf(item)}>
-                                <a tabIndex="0" className="report-option-select" style={{}}
-                                   data-tokens="null" role="option" aria-disabled="false"
-                                   aria-selected="false"><span className="text">{item}</span><span
+                    <div className="dropdown-menu open" role="combobox">
+                        <ul className="dropdown-menu inner" role="listbox" aria-expanded="false">
+                            <li onClick={this.selectChanged} data-original-index="0" className="add-category">
+                                <a tabIndex="0"
+                                   className="report-option-select"
+                                   style={{}} data-tokens="null"
+                                   role="option" aria-disabled="false"
+                                   aria-selected="true"><span
+                                    className="text">Add category</span><span
                                     className="glyphicon glyphicon-ok check-mark"></span></a></li>
-                        })}
-                    </ul>
-                </div>
+                            {this.state.filterOptions.map((item,i) => {
+                                return <li key={'select_'+i}
+                                    onClick={this.selectChanged}
+                                           className={item.replace(" ", "-").replace("'", "").toLowerCase()}
+                                           data-original-index={1 + this.state.filterOptions.indexOf(item)}>
+                                    <a tabIndex="0" className="report-option-select" style={{}}
+                                       data-tokens="null" role="option" aria-disabled="false"
+                                       aria-selected="false"><span className="text">{item}</span><span
+                                        className="glyphicon glyphicon-ok check-mark"></span></a></li>
+                            })}
+                        </ul>
+                    </div>
 
-            </div>
+                </div>
             </div>
         }
         if (this.state.disabled) {
@@ -247,8 +248,8 @@ class FormSearch extends Component {
 
                     <div className="dropdown-menu open" role="combobox">
                         <ul className="dropdown-menu inner" role="listbox" aria-expanded="false">
-                            {filterOptionsStatus.map((item) => {
-                                return <li onClick={this.selectChangedStatus}
+                            {filterOptionsStatus.map((item,i) => {
+                                return <li key={'select_'+i} onClick={this.selectChangedStatus}
                                            className={item.toLowerCase()}
                                            data-original-index={filterOptionsStatus.indexOf(item)}>
                                     <a tabIndex="0" className="status-option-select" style={{}}
@@ -262,9 +263,9 @@ class FormSearch extends Component {
 
 
 
-                <div className={"form-group " }>
+                <div className={"form-group "+this.state.currentName}>
                     <br/><p>Rating:</p>
-                    <div className={"ui-slider slider"} id="price-slider" data-value-min="10"
+                    <div className={"ui-slider slider"+this.state.currentName} id="price-slider" data-value-min="10"
                          data-value-max="400">
                         <div className="values clearfix">
                             <input className="value-min" name="value-min[]" readOnly/>
@@ -284,15 +285,17 @@ class FormSearch extends Component {
                     <div className={"form-group inline "}>
                         <br/>
                         <a href="#"
-                           className={"btn btn-primary btn-framed btn-rounded add-search-button btn-light-frame  add-button"} onClick={()=> this.addPress(this.state.currentName)}>Add</a>
+                           className={"btn btn-primary btn-framed btn-rounded add-search-button btn-light-frame  add-button"}
+                           onClick={() => this.addPress(this.state.currentName)}>Add</a>
                     </div>
                     <div className="form-group inline antennas-intergity">
                         <a href="#"
-                           className={"btn btn-primary btn-framed btn-rounded remove-search-button btn-light-frame  remove-button"}  onClick={()=> this.addPress(this.state.currentName)}>Remove</a>
+                           className={"btn btn-primary btn-framed btn-rounded remove-search-button btn-light-frame  remove-button"}
+                           onClick={() => this.addPress(this.state.currentName)}>Remove</a>
                     </div>
                 </div>
             </div>
-            ;
+
         }
 
 
@@ -307,7 +310,7 @@ class FormSearch extends Component {
                     <div className="form-group">
                         <input type="text" className="form-control address-filter"
                                name="keyword"
-                               placeholder="antenna address"/>
+                               placeholder="antenna address" onChange={this.props.change}/>
                     </div>
                     {/*end form-group*/}
                     <div className="form-group">
@@ -330,8 +333,7 @@ class FormSearch extends Component {
                     {/*end form-group*/}
 
 
-                      {categorySelect}
-
+                    {categorySelect}
 
 
                     {/*end form-group*/}
@@ -350,7 +352,7 @@ class FormSearch extends Component {
                 </form>
             </section>
         );
-    }
-}
+        }
+        }
 
-export default FormSearch;
+        export default FormSearch;

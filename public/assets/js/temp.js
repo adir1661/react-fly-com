@@ -335,6 +335,10 @@ function setAnntenas(anntenas,contanier) {
         contanier.append(anntenaViewElement);
         //anntenaViewElement.selectPicker("refresh");
     });
+    updateAfterSearch();
+
+}
+function updateAfterSearch(){
     equalHeight(".container");
     ratingPassive("body");
     bgTransfer();
@@ -353,7 +357,6 @@ function setAnntenas(anntenas,contanier) {
         }
         simpleMap(_latitude, _longitude, element, false, place);
     });
-
 }
 function search(event) {
     updateFilterVar();
@@ -1217,7 +1220,66 @@ function initSlider(value) {
         });
     }
 }
+function initSliders() {
+    if ($('.ui-slider').length > 0) {
+        $('.ui-slider').each(function () {
+            if ($("body").hasClass("rtl")) var rtl = "rtl";
+            else rtl = "ltr";
 
+            var step;
+            if ($(this).attr('data-step')) {
+                step = parseInt($(this).attr('data-step'));
+            }
+            else {
+                step = 10;
+            }
+            var sliderElement = $(this).attr('id');
+            var element = $('#' + sliderElement);
+            var valueMin = parseInt($(this).attr('data-value-min'));
+            var valueMax = parseInt($(this).attr('data-value-max'));
+            $(this).noUiSlider({
+                start: [valueMin, valueMax],
+                connect: true,
+                direction: rtl,
+                range: {
+                    'min': valueMin,
+                    'max': valueMax
+                },
+                step: step
+            });
+            if ($(this).attr('data-value-type') == 'price') {
+                if ($(this).attr('data-currency-placement') == 'before') {
+                    $(this).Link('lower').to($(this).children('.values').children('.value-min'), null, wNumb({
+                        prefix: $(this).attr('data-currency'),
+                        decimals: 0,
+                        thousand: '.'
+                    }));
+                    $(this).Link('upper').to($(this).children('.values').children('.value-max'), null, wNumb({
+                        prefix: $(this).attr('data-currency'),
+                        decimals: 0,
+                        thousand: '.'
+                    }));
+                }
+                else if ($(this).attr('data-currency-placement') == 'after') {
+                    $(this).Link('lower').to($(this).children('.values').children('.value-min'), null, wNumb({
+                        postfix: $(this).attr('data-currency'),
+                        decimals: 0,
+                        thousand: ' '
+                    }));
+                    $(this).Link('upper').to($(this).children('.values').children('.value-max'), null, wNumb({
+                        postfix: $(this).attr('data-currency'),
+                        decimals: 0,
+                        thousand: ' '
+                    }));
+                }
+            }
+            else {
+                $(this).Link('lower').to($(this).children('.values').children('.value-min'), null, wNumb({decimals: 0}));
+                $(this).Link('upper').to($(this).children('.values').children('.value-max'), null, wNumb({decimals: 0}));
+            }
+        });
+    }
+}
 function selectPress() {
 
     var value = "";
