@@ -7,10 +7,11 @@ import Navbar from "./components/Navbar";
 import Home from "./components/Home";
 import Search from "./components/ourSearch";
 class App extends Component {
+    isScritsLoaded;
     constructor(props){
         super(props);
         this.scriptsLoaded = new window.Event('initializeScripts');
-
+        this.isScritsLoaded = false;
     }
 
     componentDidMount = ()=> {
@@ -34,6 +35,7 @@ class App extends Component {
     };
 
     scriptLoaded = () => {
+        this.isScritsLoaded=true;
         document.dispatchEvent(this.scriptsLoaded);
         var optimizedDatabaseLoading = 0;
         var _latitude = 31.7825114444;
@@ -52,12 +54,13 @@ class App extends Component {
             <Router>
             <div className="App">
                 <div className="page-wrapper">
-                    <header data-component="Header" id="page-header">
+                    <header data-component="Header" id="page-header" search={this.isScritsLoaded}>
                         <Navbar/>
                     </header>
                         <Switch>
                             <Route path="/" exact component={Home}></Route>
-                            <Route path="/search" component={Search}></Route>
+                            <Route path="/search" render={
+                                (props) => (<Search {...props} isMainScritsLoaded={this.isScritsLoaded} />)}></Route>
                         </Switch>
                 </div>
                 <a href="#" className="to-top scroll" data-show-after-scroll="600"><i className="arrow_up"></i></a>

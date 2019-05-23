@@ -35,12 +35,10 @@ $(document).ready(function () {
     updateView();
     refreshSelect();
 });
-
 function updateView() {
     updateTypeButtons();
     updateMainSubject();
 }
-
 function updateMainSubject() {
     if (mainSubject === "reports") {
         $(".head-search-title").text("Search reports");
@@ -369,11 +367,7 @@ function search(event) {
         throw "error";//todo take care of error
     }
 
-
-
-
 }
-
 function updateFilterAntennas() {
     searchAdress;
     searchTitle;
@@ -423,14 +417,16 @@ function addPress(event) {
                 removeCategoryView();
                 appendSelectCategory(className);
                 divCategoryEmpty = true;
-                $(".report-search-form select").selectpicker("refresh");
+                //refreshSelect(); in the original we need to able this
 
             }
         }
     }
 
 }
-
+function refreshSelect(){
+    $(".report-search-form select").selectpicker("refresh");
+}
 function removeCategoryView() {
     $(`.temp-select`).remove();
 }
@@ -1319,10 +1315,10 @@ function chipXpress(event) {
     //todo return to if chip press , if the x press check what to do.
 }
 
-$(document).on("click", ".add-search-button", addPress);
-$(document).on("click", ".search-button", search);
+//$(document).on("click", ".add-search-button", addPress); //in the rgular need
+//$(document).on("click", ".search-button", search); in the rgular need
 //$(document).on("click", ".remove-search-button", removeCategory);
 
-$(document).on("click", ".chip-close", chipXpress);
+//$(document).on("click", ".chip-close", chipXpress); in the rgular need
 //$(document).on("click", ".chip-button", chipXpress);
-$(document).on("change", 'select.filter-select', selectPress);
+//$(document).on("change", 'select.filter-select', selectPress); //in the rgular need

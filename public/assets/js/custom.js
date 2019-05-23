@@ -419,7 +419,7 @@ $(document).keyup(function (e) {
                 $(".hero-section.full-screen").height($(window).height() - $("#page-header").height());
                 $(".hero-section .map-wrapper").css("height", "100%");
                 if ($(".map-wrapper").length > 0) {
-                    document.addEventListener('initializeScripts',()=>{
+                    document.addEventListener('initializeScripts',(ev)=>{
                         reloadMap();
                         document.removeEventListener('initializeScripts',ev);
                     })

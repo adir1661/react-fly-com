@@ -1,24 +1,188 @@
-import React ,{Component} from 'react';
-import { Link } from 'react-router-dom';
+import React, {Component} from 'react';
+import {Link} from 'react-router-dom';
+import FormSearch from "./FormSearch";
+import ChipContainer from "./ChipContainer";
 import "./ourSearch.css";
-class Search extends Component{
-    test(){
-        fetch("https://a3j3kyatgb.execute-api.eu-west-1.amazonaws.com/dev/locations").then(response=>(response.json())).then(sites=>{
-            console.log(sites);
-            console.log(window.locations);
-        });
-    }
+import ReactDOM from "react-dom";
+
+let optionsSelect = ["Antenna's Intergity", "Cabels Integrity", "Connectors Tightness", "Unwanted Cabels", "Monitor Lightness", "Blocking", "Antenna's Stickers"];
+let reports = [];
+let antennas = [];
+let anntena = {
+    id: null,
+    title: null,
+    address: null,
+    latitude: null,
+    longitude: null,
+    marker_img: null,
+    rating: null,
+    description: null,
+    reports: [],
+    type: null,
+    contact: null,
+    created: null
+}
+
+class Search extends Component {
     constructor(props) {
         super(props);
+        this.formSearchElement = React.createRef();
+        this.chipSearchElement = React.createRef();
         this.submit = this.submit.bind(this);
-        this.test= this.test.bind(this);
+        this.initSearchData = this.initSearchData.bind(this);
+        this.state = {
+            filterOptions: optionsSelect.slice(0),
+            searchObjects: [],
+            chipsNames: [],
+            anntenasSearchRes:[],
+            reportsSearchRes:[]
+        }
+        this.updateSearch = this.updateSearch.bind(this);
+        this.takeCareDeleteChip = this.takeCareDeleteChip.bind(this);
+        this.removeFilter = this.removeFilter.bind(this);
+        this.getCategory = this.getCategory.bind(this);
+        this.deleteChip = this.deleteChip.bind(this);
+        this.removeSearchObjects = this.removeSearchObjects.bind(this);
+        this.searchPressed = this.searchPressed.bind(this);
+        this.fit = this.fit.bind(this);
+
     }
-    submit(e){
+    searchPressed() {
+        antennas.forEach((aItem)=>{
+            if(this.fit(aItem,this.state.searchObjects,"antenna")){
+
+            }
+        });
+    }
+    fit(currentObject,ourObject,type){
+        if(type==="antenna"){
+
+            return true;
+        }
+        else if(type==="report"){
+
+        }
+        return false
+    }
+    removeElementFromList(list, element) {
+        var index = list.indexOf(element);
+        if (index > -1) {
+            list.splice(index, 1);
+        }
+    }
+
+
+
+    getCategory(names) {
+        let result = "";
+        optionsSelect.forEach(function (element) {
+            if (names.includes(element.replace(" ", "-").toLowerCase().replace("'", ""))) {
+                result = element;
+            }
+        });
+        return result;
+    }
+
+    initSearchData() {
+        fetch("https://a3j3kyatgb.execute-api.eu-west-1.amazonaws.com/dev/locations").then(response => (response.json())).then(sites => {
+            antennas = sites.slice(0);
+            //console.log("sites", antennas);
+        });
+        // fetch("https://a3j3kyatgb.execute-api.eu-west-1.amazonaws.com/dev/reports").then(response=>(response.json())).then(reps=>{
+        // reports=reps.slice(0);
+        //  console.log("reports",reports);
+        // });
+
+    }
+
+    deleteChip(name) {
+        var chips = this.state.chipsNames.slice(0);
+        this.removeElementFromList(chips, name);
+        this.setState({
+            chipsNames: chips
+        });
+        this.chipSearchElement.current.updateChips(chips.slice(0));
+    }
+
+    addFilter(name) {
+        let filter = [];
+        if (this.state.filterOptions.length !== 0) {
+            filter = this.state.filterOptions.slice(0);
+        }
+        filter.push(name);
+        this.setState({filterOptions: filter.slice(0)});
+        this.formSearchElement.current.searchUpdateFilter(filter.slice(0));
+    }
+
+    takeCareDeleteChip(name) {
+        this.deleteChip(name);
+        this.addFilter(name);
+        this.removeSearchObjects(name);
+
+    }
+
+    removeSearchObjects(name) {
+        var searchObjects = this.state.searchObjects.slice(0);
+        var result = [];
+        var classN = name.replace(" ", "-").replace("'", "").toLowerCase();
+        searchObjects.forEach((item) => {
+            let obj = JSON.parse(JSON.stringify(item));
+            if (classN !== obj.className) {
+                result.push(obj);
+            }
+        });
+        this.setState({
+            searchObjects: result.slice(0)
+        });
+    }
+
+    removeFilter(name) {
+        var filter = this.state.filterOptions.slice(0);
+        this.removeElementFromList(filter, this.getCategory(name));
+        this.setState({
+            filterOptions: filter.slice(0)
+        });
+        this.formSearchElement.current.searchUpdateFilter(Array.from(filter.slice(0)));
+    }
+
+    updateSearch(element) {
+        let obj = JSON.parse(JSON.stringify(element));
+        let chips = [];
+        let myObjects = [];
+        if (this.state.searchObjects.length !== 0) {
+            myObjects = this.state.searchObjects.slice(0);
+            chips = this.state.chipsNames.slice(0);
+        }
+        myObjects.push(obj);
+        chips.push(this.getCategory(element.className));
+        this.setState({
+            searchObjects: myObjects.slice(0),
+            chipsNames: chips.slice(0)
+        });
+        this.chipSearchElement.current.updateChips(chips.slice(0));
+        //console.log(this.state.searchObjects);
+
+    }
+
+    submit(e) {
         e.preventDefault();
     }
+
     componentDidMount() {
-        console.log('here');
-        document.addEventListener('initializeScripts moveToSearch',(event)=> {
+        if (this.props.isMainScritsLoaded === false) {
+            document.addEventListener('initializeScripts', (event) => {
+                const ourScripts = "assets/js/temp.js";
+                let script;
+                script = document.createElement("script");
+                script.src = ourScripts;
+                document.body.appendChild(script);
+                script.onload = () => {
+                    window.refreshSelect();
+                    this.initSearchData();
+                };
+                document.removeEventListener('initializeScripts', event);
+            });
+        } else {
             const ourScripts = "assets/js/temp.js";
             let script;
             script = document.createElement("script");
@@ -26,14 +190,31 @@ class Search extends Component{
             document.body.appendChild(script);
             script.onload = () => {
                 window.refreshSelect();
-                this.test();
-            };
-            document.removeEventListener('initializeScripts', event);
-        });
 
+            };
+        }
     }
-    render(){
-        return(<div>
+
+    render() {
+        let searchElements;
+        if (true) {
+            if(true)//if we in the anntenas is choose
+            {
+                if(this.state.anntenasSearchRes.length!==0) {
+                    searchElements = <section className="search-elements">
+                    </section>
+
+                }
+            }else//if we in the reports is choose
+            {
+                if(this.state.reportsSearchRes.length!==0) {
+                    searchElements = <section className="search-elements">
+                    </section>
+
+                }
+            }
+        }
+        return (<div>
             <div className="page-wrapper">
                 {/*end page-header*/}
                 <div id="page-content">
@@ -46,77 +227,8 @@ class Search extends Component{
                         <div className="row">
                             <div className="col-md-3 col-sm-3">
                                 <aside className="sidebar">
-                                    <section>
-                                        <h2>Search Filter</h2>
-                                        <form className="form inputs-underline report-search-form"
-                                              onSubmit={this.submit}>
-                                            <div className="form-group">
-                                                <input type="text" className="form-control antenna-address-filter"
-                                                       name="keyword"
-                                                       placeholder="antenna address"/>
-                                            </div>
-                                            {/*end form-group*/}
-                                            <div className="form-group">
-                                                <input type="text" className="form-control report-title-filter"
-                                                       name="keyword"
-                                                       placeholder="report title"/>
-                                            </div>
-                                            {/*end form-group*/}
-                                            <div className="form-group">
-                                                <input type="text" className="form-control date-picker from-filter"
-                                                       name="min-price"
-                                                       placeholder="from"/>
-                                            </div>
-                                            {/*end form-group*/}
-                                            <div className="form-group">
-                                                <input type="text" className="form-control date-picker to-filter"
-                                                       name="min-price"
-                                                       placeholder="to"/>
-                                            </div>
-                                            {/*end form-group*/}
-
-                                            <div className="form-group  temp-select">
-                                                <br/>
-                                                    <select className="form-control selectpicker filter-select"
-                                                            name="category">
-                                                        <option className="report-option-select" value="">Category
-                                                        </option>
-                                                        <option className="report-option-select" value="1">Antenna's
-                                                            Intergity
-                                                        </option>
-                                                        <option className="report-option-select" value="2">Cabels
-                                                            Integrity
-                                                        </option>
-                                                        <option className="report-option-select" value="3">Connectors
-                                                            Tightness
-                                                        </option>
-                                                        <option className="report-option-select" value="4">Unwanted
-                                                            Cabels
-                                                        </option>
-                                                        <option className="report-option-select" value="5">Monitor
-                                                            Lightness
-                                                        </option>
-                                                        <option className="report-option-select" value="6">Blocking
-                                                        </option>
-                                                        <option className="report-option-select" value="7">Antenna's
-                                                            Stickers
-                                                        </option>
-                                                    </select>
-                                            </div>
-
-
-                                            {/*end form-group*/}
-
-                                            <div className="div-button">
-                                                <button type="submit"
-                                                        className="btn btn-primary pull-right search-button" >
-                                                    Search<i className="fa fa-search"></i>
-                                                </button>
-                                            </div>
-
-                                            {/*end form-group*/}
-                                        </form>
-                                    </section>
+                                    <FormSearch update={this.updateSearch} ref={this.formSearchElement}
+                                                removeFilter={this.removeFilter}/>
 
                                     <section>
                                         <h2>Recent Items</h2>
@@ -230,12 +342,10 @@ class Search extends Component{
                                     {/*end search-results-controls*/}
                                 </section>
                                 <section>
-                                    <div className="chip-container">
-                                    </div>
+                                    <ChipContainer chips={this.state.chipsNames} update={this.takeCareDeleteChip}
+                                                   ref={this.chipSearchElement}/>
                                 </section>
-                                <section className="search-elements">
-
-                                </section>
+                                {searchElements}
                                 <section>
                                     <div className="center">
                                         <nav aria-label="Page navigation">
@@ -315,4 +425,5 @@ class Search extends Component{
         </div>);
     }
 }
+
 export default Search;
