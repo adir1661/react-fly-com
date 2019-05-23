@@ -31,8 +31,7 @@ let submitFormListener = (formElement, _this) => {
                 formDetailsObject['location'][detail.name === "latitude" ? "lat" : "lng"] = detail.value;
             }
         });
-        var CurrentDate = moment().format();
-        formDetailsObject.created = CurrentDate;
+        formDetailsObject.created = moment().format();
         console.log(formDetailsObject);
         if (allRequired) {
             console.log('all required')
@@ -54,8 +53,11 @@ let submitFormListener = (formElement, _this) => {
         }
         return false;
     });
-}
+};
 $(document).on('click', '.add-report', function (ev) {
+    openReportSubscription.bind(this)(ev);
+});
+let openReportSubscription = function (ev) {
     let $this = $(this),
         item_Id = $this.closest('.modal-item-detail').attr('data-id');
     let $modal = $(`#${item_Id}.modal`);
@@ -63,299 +65,139 @@ $(document).on('click', '.add-report', function (ev) {
     $child.removeClass("width-800px");
     $child.addClass("width-700px");
     $modal.html(Templates['modalReport']());
-    renderReportDetails()
-});
-let chachedReports = [{
-    created:new Date('2019-03-25'),
-    rating:45,
-    title:'report 4351',
-    description:'this is report winter chached with some chrushes inside the Antenna tubes.',
-    category:'winder'
+    renderReportDetails();
+    submitFormListener($modal.find('form'),)
 }
-]
+$(document).on('click', '.report-list .report-item', function (ev) {
+    let $this = $(this),
+        report_id = $this.attr('data-id'),
+        antenna_Id = $this.closest('.modal-item-detail').attr('data-id');
+    let $modal = $(`#${antenna_Id}.modal`);
+    let $child = $modal.find(".modal-report");
+    $child.removeClass("width-800px");
+    $child.addClass("width-700px");
+    let site = locations.find((item => (item.id === antenna_Id)));
+    let report = site.reports.find((item) => item.reportId + '' === report_id);
+    $modal.html(Templates['modalReportView'](report, antenna_Id));
+    //renderReportDetails()
+});
+let issues = [
+    {name: 'Antenna\'s intergity and screw strengthening', id: 'integrity'},
+    {name: 'cabels integrity', id: 'cabels'},
+    {name: 'connectors tightness', id: 'tightness'},
+    {name: 'unwanted cabels', id: 'uncabels'},
+    {name: 'monitor lightness', id: 'monitor_lightness'},
+    {name: 'blocking', id: 'blocking'},
+    {name: 'antenna\'s stickers', id: 'stickers'},
+    // {name:'',id:''},
+];
+let chachedReports = [
+    {
+        created: new Date('2019-03-25'),
+        rating: 45,
+        title: 'report 4351',
+        description: 'this is report winter cached with some crashes inside the Antenna tubes.',
+        category: 'winder',
+        vid: 'assets/vid/1.mp4',
+        reportId: 1,
+        issues: [
+            {
+                title: issues[0].name,
+                rating: 80,
+                issueNum: 112,
+                image: 'assets/img/antennas/3.png',
+                stability: 'stable',
+                description: 'Looks Good!',
+            },
+            {
+                title: issues[1].name,
+                rating: 14,
+                issueNum: 223,
+                stability: 'problematic',
+                image: 'assets/img/antennas/4.JPG',
+                description: 'problems on the vehiles, alot of cables merged together, cables unconnected',
+            },
+            {
+                title: issues[2].name,
+                rating: 49,
+                issueNum: 324,
+                stability: 'problematic',
+                image: 'assets/img/antennas/1.png',
+                description: 'problems on the connectors, alot of cables merged together,connector unconnected on right top corner',
+            },
+        ]
+    },
+    {
+        created: new Date('2019-01-05'),
+        rating: 70,
+        title: 'report 4001',
+        description: 'this is report winter chached with some screws missing.',
+        category: 'winder',
+        reportId: 2,
+        issues: [
+            {
+                title: issues[0].name,
+                rating: 80,
+                issueNum: 112,
+                image: 'assets/img/antennas/3.png',
+                stability: 'stable',
+                description: 'Looks Good!',
+            },
+            {
+                title: issues[1].name,
+                rating: 14,
+                issueNum: 223,
+                stability: 'problematic',
+                image: 'assets/img/antennas/4.JPG',
+                description: 'problems on the vehiles, alot of cables merged together, cables unconnected',
+            },
+            {
+                title: issues[2].name,
+                rating: 49,
+                issueNum: 324,
+                stability: 'problematic',
+                image: 'assets/img/antennas/1.png',
+                description: 'problems on the connectors, alot of cables merged together,connector unconnected on right top corner',
+            },
 
-let Templates = {
-    modalSubmit: () => (`<div class="modal-dialog width-800px" role="document" data-latitude="31.771959" data-longitude="35.217018" data-marker-drag="true" >
-<div class="modal-content" >
-    <div class="modal-header">
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-        <div class="section-title">
-            <h2>Site</h2>
-        </div>
-    </div>
-    <div class="modal-body">
-        <form class="form inputs-underline">
-            <section>
-                <div class="row">
-                    <div class="col-md-7 col-sm-9">
-                        <div class="form-group">
-                            <label for="title">Antenna's ID</label>
-                            <input type="text" class="form-control" required name="provAntennaId" id="provAntennaId" placeholder="Proveider Antenna's ID">
-                        </div>
-                        <!--end form-group-->
-                    </div>
-                    <!--end col-md-9-->
-                    <div class="col-md-5 col-sm-3">
-                        <div class="form-group">
-                            <label for="category">Type</label>
-                            <select class="form-control selectpicker" name="type" id="type" required>
-                                <option value="">Antenna's Type</option>
-                                <option value="Rooftop-Site">Rooftop Site</option>
-                                <option value="Cell-Tower-Site">Cell Tower Site</option>
-                                <option value="Small-Cell">Small Cell</option>
-                                <option value="Outdoor-DAS">Outdoor DAS</option>
-                                <option value="Indoor-DAS">Indoor DAS</option>
-                            </select>
-                        </div>
-                        <!--end form-group-->
-                         
-                    </div>
-                    <!--col-md-3-->
-                    <div class="col-sm-12">
-                        <div class="form-group">
-                            <label for="description">Description</label>
-                            <textarea class="form-control dectiption-add-site" style="resize:vertical" id="description" rows="4" name="description" placeholder="Describe the Antenna for deep undrestanding"></textarea>
-                        </div>
-                    </div>
-                    
+        ]
+    },
+    {
+        created: new Date('2018-08-14'),
+        rating: 15,
+        title: 'report 3451',
+        description: 'this is report winter chached with birds nests all over the place.',
+        category: 'winder',
+        reportId: 3,
+        issues: [
+            {
+                title: issues[0].name,
+                rating: 80,
+                issueNum: 112,
+                image: 'assets/img/antennas/3.png',
+                stability: 'stable',
+                description: 'Looks Good!',
+            },
+            {
+                title: issues[1].name,
+                rating: 14,
+                issueNum: 223,
+                stability: 'problematic',
+                image: 'assets/img/antennas/4.JPG',
+                description: 'problems on the vehiles, alot of cables merged together, cables unconnected',
+            },
+            {
+                title: issues[2].name,
+                rating: 49,
+                issueNum: 324,
+                stability: 'problematic',
+                image: 'assets/img/antennas/1.png',
+                description: 'problems on the connectors, alot of cables merged together,connector unconnected on right top corner',
+            },
 
-                </div>
-               
-            </section>
-            
-            <section>
-                <h3>Area</h3>
-                <div class="row">
-                    <div class="col-md-6 col-sm-6">
-                        <div class="form-group">
-                            
-                        </div>
-                        <!--end form-group-->
-                        <div class="map height-200px shadow" id="map-modal"></div>
-                        <!--end map-->
-                        <div class="form-group hidden">
-                            <!--<input type="text" class="form-control" id="latitude" name="latitude" hidden="">-->
-                            <!--<input type="text" class="form-control" id="longitude" name="longitude" hidden="">-->
-                        </div>
-                        <p class="note">Enter the exact latitude and longtitude or drag the map marker to position</p>
-                    </div>
-                    <div class="col-md-6 col-sm-6">
-                        <div class="form-group">
-                            <label for="lat">Latitude</label>
-                            <input type="number" step="0.0000000001" class="form-control" name="latitude" id="lat" placeholder="Phone number" required>
-                        </div>
-                        <div class="form-group">
-                            <label for="lng">Longtitude</label>
-                            <input type="number" step="0.0000000001" class="form-control" name="longtitude" id="lng" placeholder="Phone number" required>
-                        </div>
-                        <div class="form-group">
-                            <label for="address-autocomplete disbaled">Address</label>
-                            <input type="text" readonly="readonly" class="form-control" name="address" id="address" placeholder="Address" required>
-                        </div>
-                    </div>
-                </div>
-            </section>
-            <section>
-                <h3>Details</h3>
-                <div class="row">
-                    <div class="col-md-6 col-sm-12">
-                        <label for="contact">Contact Deliver</label>
-                        <input type="email" class="form-control" name="contact" id="contact" placeholder="example@email.com">
-                    </div>
-                    <div class="col-md-12 col-sm-12">
-                        <div class="file-upload">
-                            <input type="file" name="files[]" class="file-upload-input with-preview" multiple title="Click to add files" maxlength="10" accept="jpg|png">
-                            <span>Click or drag images here</span>
-                        </div>
-                        <div class="file-upload-previews"></div>
-                    </div>
-                </div>
-            </section>
-            <hr>
-            <section class="center">
-                <div class="form-group">
-                    <button type="submit" class="btn btn-primary btn-rounded">Add Site</button>
-                </div>
-            </section>
-        </form>
-    </div>
-</div>
-</div>`),
-    modalItem: (id, site) => (`<div class="modal-item-detail modal-dialog" role="document" data-latitude="${site.latitude}" data-longitude="${ site.longitude}" data-address data-id="${id}">
-    <div class="modal-content">
-        <div class="modal-header">
-            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-            <div class="section-title">
-                <h2>${site.title}                 
-                <span class="location" style="margin-left: 3px;font-size: 15px;">${site.address.split(',')[1] ? site.address.split(',')[1].trim() : site.address}</span>
-                </h2>
-                <div class="label label-default">${site.type}</div>
-                <div class="rating-passive" data-rating="${site.rating}">
-                        <span class="stars"></span>
-                        <span class="reviews">${site.reports ? site.reports.length : 4}</span>
-                       
-
-                    </div>
-                <div class="controls-more">
-                    <ul>
-                        <li class="add-report"><a href="#">Add New Report</a></li>
-                        <li class="edit-site"><a href="#">Edit Site Profile</a></li>
-                    </ul>
-                </div>
-            </div>
-        </div>
-        <div class="modal-body">
-            <div class="left">
-            <div class="gallery">
-            ${site.gallery ? site.gallery.map((image) => (`<img src="${image}">`)).join('\n') : site.marker_image ? `<img src="${site.marker_image}">` : ''}
-            </div>
-                <div class="map height-200px shadow" id="map-modal"></div>
-                <section>
-                <h3>Contact</h3>
-                <h5><i class="fa fa-map-marker"></i>${site.address}</h5>
-                <h5><i class="fa fa-phone"></i>${`Lng: ${site.longitude}, Lat:${site.latitude}`}</h5>
-                <h5><i class="fa fa-envelope"></i>${site.contact}</h5>
-                </section>
-            </div>
-            <div class="right">
-                <section>
-                    <h3>Overview</h3>
-                    <div class="read-more"><p>${site.description}</p></div>
-                </section>
-                <section class="report-list">
-                        <h3><strong>Latest Reports</strong></h3>
-                        ${site.reports ? site.reports.map((report) => (`<div class="review report-item">
-                                <div class="image">
-                                     <div class="bg-transfer" >
-                                         <div class="c100 p${Math.round(Number(report.rating))} small ${Number(report.rating)>50?'green':'orange'}">
-                                              <span>${Number(report.rating)}%</span>
-                                              <div class="slice">
-                                                   <div class="bar"></div>
-                                                   <div class="fill"></div>
-                                              </div>
-                                         </div>
-                                     </div>
-                                </div>
-                                <div class="description">
-                                    <figure>
-                                        <div class="rating-passive" data-rating="${(Number(report.rating)*5)/100}">
-                                            <span class="stars"></span>
-                                        </div>
-                                        <span class="date">${report.created.toDateString()}</span>
-                                    </figure>
-                                    <h5>${report.title}</h5>
-                                    <p>${report.description}</p>
-                                </div>
-                            </div>
-                            `)).join('\n') : 'No Reports in this site...'}
-                        </section>
-                </div>
-        </div>
-    </div>
-</div>`),
-    modalReport: () => (`<div class="modal-dialog modal-report width-800px" role="document" data-latitude="40.7344458"
-data-longitude="-73.86704922"
-data-marker-drag="true">
-<div class="modal-content">
-   <div class="modal-header">
-       <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
-               aria-hidden="true">&times;</span></button>
-       <div class="section-title">
-           <h2>Report</h2>
-       </div>
-   </div>
-   <div class="modal-body">
-       <form class="form inputs-underline">
-           <section>
-               <div class="row">
-                   <div class="col-md-9 col-sm-9">
-                       <div class="form-group">
-                           <label for="title">Title</label>
-                           <input type="text" class="form-control" name="title" id="title" placeholder="Title">
-                       </div>
-                   </div>
-                   <div class="col-md-3 col-sm-3">
-                       <div class="form-group">
-                           <label for="category">Category</label>
-                           <select class="form-control selectpicker" name="category" id="category">
-                               <option value="">Category</option>
-                               <option value="1">Winter</option>
-                               <option value="2">Summer</option>
-                           </select>
-                       </div>
-                   </div>
-                   <div class="col-xs-12">
-                        <div class="form-group">
-                            <label for="title"><i class="fa fa-picture-o" aria-hidden="true"></i> Image Url</label>
-                            <input type="text" class="form-control" name="title" id="url" placeholder="http://image.url">
-                        </div>
-                    </div>
-               </div>
-
-           </section>
-
-           <section>
-               <h3>Antenna</h3>
-               <div class="form-group">
-                   <label for="address-autocomplete">Address</label>
-                   <input type="text" class="form-control" name="address" id="address-autocomplete"
-                          placeholder="Address">
-               </div>
-           </section>
-           <section class="reports">
-               <h3>Report Details:</h3>
-           </section>
-
-           <hr>
-           <section class="center">
-               <div class="form-group">
-                   <button type="submit" class="btn btn-primary btn-rounded">Add Report</button>
-               </div>
-           </section>
-       </form>
-   </div>
-</div>
-</div>`),
-    modalReportView: (report,antennaId,) => (`<div class="modal-dialog modal-report width-800px" role="document" data-latitude="40.7344458"
-data-longitude="-73.86704922"
-data-marker-drag="true">
-<div class="modal-content">
-   <div class="modal-header">
-       <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
-               aria-hidden="true">&times;</span></button>
-       <div class="section-title">
-           <h2>Report</h2>
-       </div>
-   </div>
-   <div class="modal-body">
-       <section>
-               <div class="row">
-                   <div class="col-md-9 col-sm-9">
-                       <div class="form-group">
-                           <h2 for="title">${report.title}</h2>
-                       </div>
-                   </div>
-                   <div class="col-md-3 col-sm-3">
-                       <div class="form-group">
-                           <h4 for="category">Category: ${report.category}</h4>
-                       </div>
-                   </div>  
-               </div>
-           </section> 
-           <section class="reports">
-               <h3>Report Details:</h3>
-           </section>
-           <hr>
-           <section class="center">
-               <div class="form-group">
-                   <button type="submit" class="btn btn-primary btn-rounded back-to-site">Back To Site Details</button>
-               </div>
-           </section>
-       </form>
-   </div>
-</div>
-</div>`)
-};
+        ]
+    },
+];
 let openModalFromTemplates = (key, target, clusterData,) => {
     key = key.slice(1);
     if (key !== 'modalSubmit' && key !== 'modalItem') return;
@@ -365,7 +207,7 @@ let openModalFromTemplates = (key, target, clusterData,) => {
         var _this = $(this);
         lastModal = _this;
         let site = locations.find((item => (item.id === target))) || {};
-        if(site&&(!site.reports||site.reports.length<1)){
+        if (site && (!site.reports || site.reports.length < 1)) {
             site.reports = chachedReports;
         }
         InsertTemplate(Templates[key](target, site), _this);
@@ -468,3 +310,313 @@ let openModalFromTemplates = (key, target, clusterData,) => {
     }
 };
 
+
+let Templates = {
+    modalSubmit: () => (`<div class="modal-dialog width-800px" role="document" data-latitude="31.771959" data-longitude="35.217018" data-marker-drag="true" >
+<div class="modal-content" >
+    <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <div class="section-title">
+            <h2>Site</h2>
+        </div>
+    </div>
+    <div class="modal-body">
+        <form class="form inputs-underline">
+            <section>
+                <div class="row">
+                    <div class="col-md-7 col-sm-9">
+                        <div class="form-group">
+                            <label for="title">Antenna's ID</label>
+                            <input type="text" class="form-control" required name="provAntennaId" id="provAntennaId" placeholder="Proveider Antenna's ID">
+                        </div>
+                        <!--end form-group-->
+                    </div>
+                    <!--end col-md-9-->
+                    <div class="col-md-5 col-sm-3">
+                        <div class="form-group">
+                            <label for="category">Type</label>
+                            <select class="form-control selectpicker" name="type" id="type" required>
+                                <option value="">Antenna's Type</option>
+                                <option value="Rooftop-Site">Rooftop Site</option>
+                                <option value="Cell-Tower-Site">Cell Tower Site</option>
+                                <option value="Small-Cell">Small Cell</option>
+                                <option value="Outdoor-DAS">Outdoor DAS</option>
+                                <option value="Indoor-DAS">Indoor DAS</option>
+                            </select>
+                        </div>
+                        <!--end form-group-->
+                         
+                    </div>
+                    <!--col-md-3-->
+                    <div class="col-sm-12">
+                        <div class="form-group">
+                            <label for="description">Description</label>
+                            <textarea class="form-control dectiption-add-site" style="resize:vertical" id="description" rows="4" name="description" placeholder="Describe the Antenna for deep undrestanding"></textarea>
+                        </div>
+                    </div>
+                    
+
+                </div>
+               
+            </section>
+            
+            <section>
+                <h3>Area</h3>
+                <div class="row">
+                    <div class="col-md-6 col-sm-6">
+                        <div class="form-group">
+                            
+                        </div>
+                        <!--end form-group-->
+                        <div class="map height-200px shadow" id="map-modal"></div>
+                        <!--end map-->
+                        <div class="form-group hidden">
+                            <!--<input type="text" class="form-control" id="latitude" name="latitude" hidden="">-->
+                            <!--<input type="text" class="form-control" id="longitude" name="longitude" hidden="">-->
+                        </div>
+                        <p class="note">Enter the exact latitude and longtitude or drag the map marker to position</p>
+                    </div>
+                    <div class="col-md-6 col-sm-6">
+                        <div class="form-group">
+                            <label for="lat">Latitude</label>
+                            <input type="number" step="0.0000000001" class="form-control" name="location[latitude]" id="lat" placeholder="Phone number" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="lng">Longtitude</label>
+                            <input type="number" step="0.0000000001" class="form-control" name="location[longtitude]" id="lng" placeholder="Phone number" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="address-autocomplete disbaled">Address</label>
+                            <input type="text" readonly="readonly" class="form-control" name="address" id="address" placeholder="Address" required>
+                        </div>
+                    </div>
+                </div>
+            </section>
+            <section>
+                <h3>Details</h3>
+                <div class="row">
+                    <div class="col-md-6 col-sm-12">
+                        <label for="contact">Contact Deliver</label>
+                        <input type="email" class="form-control" name="contact" id="contact" placeholder="example@email.com">
+                    </div>
+                    <div class="col-md-12 col-sm-12">
+                        <div class="file-upload">
+                            <input type="file" name="files[]" class="file-upload-input with-preview" multiple title="Click to add files" maxlength="10" accept="jpg|png">
+                            <span>Click or drag images here</span>
+                        </div>
+                        <div class="file-upload-previews"></div>
+                    </div>
+                </div>
+            </section>
+            <hr>
+            <section class="center">
+                <div class="form-group">
+                    <button type="submit" class="btn btn-primary btn-rounded">Add Site</button>
+                </div>
+            </section>
+        </form>
+    </div>
+</div>
+</div>`),
+    modalItem: (id, site) => (`<div class="modal-item-detail modal-dialog" role="document" data-latitude="${site.latitude}" data-longitude="${ site.longitude}" data-address data-id="${id}">
+    <div class="modal-content">
+        <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+            <div class="section-title">
+                <h2>${site.title}                 
+                <span class="location" style="margin-left: 3px;font-size: 15px;">${site.address.split(',')[1] ? site.address.split(',')[1].trim() : site.address}</span>
+                </h2>
+                <div class="label label-default">${site.type}</div>
+                <div class="rating-passive" data-rating="${site.rating}">
+                        <span class="stars"></span>
+                        <span class="reviews">${site.reports ? site.reports.length : 4}</span>
+                       
+
+                    </div>
+                <div class="controls-more">
+                    <ul>
+                        <li class="add-report"><a href="#">Add New Report</a></li>
+                        <li class="edit-site"><a href="#">Edit Site Profile</a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <div class="modal-body">
+            <div class="left">
+            <div class="gallery">
+            ${site.gallery ? site.gallery.map((image) => (`<img src="${image}">`)).join('\n') : site.marker_image ? `<img src="${site.marker_image}">` : ''}
+            </div>
+                <div class="map height-200px shadow" id="map-modal"></div>
+                <section>
+                <h3>Contact</h3>
+                <h5><i class="fa fa-map-marker"></i>${site.address}</h5>
+                <h5><i class="fa fa-phone"></i>${`Lng: ${site.longitude}, Lat:${site.latitude}`}</h5>
+                <h5><i class="fa fa-envelope"></i>${site.contact}</h5>
+                </section>
+            </div>
+            <div class="right">
+                <section>
+                    <h3>Overview</h3>
+                    <div class="read-more"><p>${site.description}</p></div>
+                </section>
+                <section class="report-list">
+                        <h3><strong>Latest Reports</strong></h3>
+                        ${site.reports ? site.reports.map((report) => (`<div class="review report-item" data-id="${report.reportId}">
+                                <div class="image">
+                                     <div class="bg-transfer" >
+                                         <div class="c100 p${Math.round(Number(report.rating))} small ${Number(report.rating) > 50 ? 'green' : Number(report.rating) > 30 ? 'orange' : 'red'}">
+                                              <span>${Number(report.rating)}%</span>
+                                              <div class="slice">
+                                                   <div class="bar"></div>
+                                                   <div class="fill"></div>
+                                              </div>
+                                         </div>
+                                     </div>
+                                </div>
+                                <div class="description">
+                                    <figure>
+                                        <div class="rating-passive" data-rating="${(Number(report.rating) * 5) / 100}">
+                                            <span class="stars"></span>
+                                        </div>
+                                        <span class="date">${report.created.toDateString()}</span>
+                                    </figure>
+                                    <h5>${report.title}</h5>
+                                    <p>${report.description}</p>
+                                </div>
+                            </div>
+                            `)).join('\n') : 'No Reports in this site...'}
+                        </section>
+                </div>
+        </div>
+    </div>
+</div>`),
+    modalReport: () => (`<div class="modal-dialog modal-report width-800px" role="document" data-latitude="40.7344458"
+data-longitude="-73.86704922"
+data-marker-drag="true">
+<div class="modal-content">
+   <div class="modal-header">
+       <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
+               aria-hidden="true">&times;</span></button>
+       <div class="section-title">
+           <h2>Report</h2>
+       </div>
+   </div>
+   <div class="modal-body">
+       <form class="form inputs-underline">
+           <section>
+               <div class="row">
+                   <div class="col-md-9 col-sm-9">
+                       <div class="form-group">
+                           <label for="title">Title</label>
+                           <input type="text" class="form-control" name="title" id="title" placeholder="Title">
+                       </div>
+                   </div>
+                   <div class="col-md-3 col-sm-3">
+                       <div class="form-group">
+                           <label for="category">Category</label>
+                           <select class="form-control selectpicker" name="category" id="category">
+                               <option value="">Category</option>
+                               <option value="1">Winter</option>
+                               <option value="2">Summer</option>
+                           </select>
+                       </div>
+                   </div>
+                   <div class="col-xs-12">
+                        <div class="form-group">
+                            <label for="title"><i class="fa fa-picture-o" aria-hidden="true"></i> Image Url</label>
+                            <input type="text" class="form-control" name="title" id="url" placeholder="http://image.url">
+                        </div>
+                    </div>
+               </div>
+
+           </section>
+
+           <section>
+               <h3>Antenna</h3>
+               <div class="form-group">
+                   <label for="address-autocomplete">Address</label>
+                   <input type="text" class="form-control" name="address" id="address-autocomplete"
+                          placeholder="Address">
+               </div>
+           </section>
+           <section class="reports">
+               <h3>Report Details:</h3>
+           </section>
+
+           <hr>
+           <section class="center">
+               <div class="form-group">
+                   <button type="submit" class="btn btn-primary btn-rounded">Add Report</button>
+               </div>
+           </section>
+       </form>
+   </div>
+</div>
+</div>`),
+    modalReportView: (report, antennaId,) => (`<div class="modal-dialog modal-report width-800px" role="document" data-marker-drag="true" 
+    data-id="${antennaId}">
+<div class="modal-content">
+   <div class="modal-header">
+       <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
+               aria-hidden="true">&times;</span></button>
+       <div class="section-title">
+           <h2>Report</h2>
+       </div>
+   </div>
+   <div class="modal-body">
+       <section>
+               <div class="row">
+                   <div class="col-md-9 col-sm-9">
+                       <div class="form-group">
+                           <h2 for="title">${report.title}</h2>
+                       </div>
+                   </div>
+                   <div class="col-md-3 col-sm-3">
+                       <div class="form-group">
+                           <h4 for="category">Category: ${report.category}</h4>
+                       </div>
+                   </div>  
+                   ${report.vid?`<div class="col-xs-12 report-video">
+                        <video width="320" height="240" controls>
+                          <source src="assets/vid/1.mp4" type="video/mp4">
+                          Your browser does not support the video tag.
+                        </video>                   
+                   </div>`:''}
+               </div>
+           </section> 
+           <section class="reports">
+               <h3>Report Details:</h3>
+               ${report.issues ? report.issues.map(issue => Templates['issue'](issue)).join('') : ''}
+           </section>
+           <hr>
+           <section class="center">
+               <div class="form-group">
+                   <button type="submit" class="btn btn-primary btn-rounded back-to-site">Back To Site Details</button>
+               </div>
+           </section>
+       </form>
+   </div>
+</div>
+</div>`),
+    issue: (issue) => (`<div class="issue row">
+    <div class="col-xs-7">
+        <h3>${issue.title.charAt(0).toUpperCase() + issue.title.slice(1)}</h3>
+        <div class ='issue-subtitle'style="">
+            <h5>Issue Number: ${issue.issueNum}</h5>
+            <p>${issue.description}</p>
+        </div>
+    </div>
+    <div class="col-xs-2 " >
+        <div class="c100 p${Math.round(Number(issue.rating))} small ${Number(issue.rating) > 50 ? 'green' : Number(issue.rating) > 30 ? 'orange' : 'red'}">
+             <span>${Number(issue.rating)}%</span>
+             <div class="slice">
+                  <div class="bar"></div>
+                  <div class="fill"></div>
+             </div>
+        </div>
+    </div>
+    <div class="col-xs-3" style="height:100%;border-left: 1px solid var(--light-grey);text-align: right;overflow: hidden">
+        <img style="height: 100px"  src="${issue.image}" alt="report">
+    </div>
+</div>`)
+};

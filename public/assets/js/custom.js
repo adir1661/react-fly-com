@@ -434,27 +434,27 @@ $(document).keyup(function (e) {
 }
 //  Render report details-----------------------------------------------------------------------------------------------
  function renderReportDetails() {
-    let template = function(issueName,id)
+    let template = function(issueName,id,i)
     {
         let template =  $(
-            '<div class="form-group detail">\n' +
-            '      <label for="integrity">'+issueName+'</label>\n' +
-            '      <select class="form-control selectpicker" name="category" id="'+id+'">\n' +
-            '          <option value="">Status</option>\n' +
-            '          <option value="1">Stable</option>\n' +
-            '          <option value="2">Problematic</option>\n' +
-            '      </select>\n' +
-            '      <input class="input" type="number" placeholder="Issue Num.">\n' +
-            '      <textarea class="form-control" id="'+id+'_desc" rows="4" name="description"\n' +
-            '                    placeholder="describle the issue"></textarea>\n' +
-            '      <div class="url-input">' +
-            '         <label><i class="fa fa-picture-o" aria-hidden="true"></i> Image Url</label>' +
-            '         <input type="text" class="form-control" name="title" id="url_'+id+'" placeholder="http://image.url">' +
-            '           <label>Rating</label>\n'+
-            '           <input id="'+id+'_slider" class="slider" data-slider-id=\'ex1Slider\' type="text" data-slider-min="1" data-slider-max="100" '+
-            '                   data-slider-step="1" data-slider-value="14"/>'+
-            '      </div>'+
-            '</div>'
+            `<div class="form-group detail">
+                  <label for="integrity">${issueName}</label>
+                  <select class="form-control selectpicker" name="issues[${i}][stability]" id="'+id+'">
+                      <option value="">Status</option>
+                      <option value="1">Stable</option>
+                      <option value="2">Problematic</option>
+                  </select>
+                  <input class="input" type="number" placeholder="Issue Num." name="issues[${i}][issueNum]">
+                  <textarea class="form-control" id="'+id+'_desc" rows="4" name="description"
+                                placeholder="describle the issue" name="issues[${i}][description]"/>
+                  <div class="url-input">
+                     <label><i class="fa fa-picture-o" aria-hidden="true"></i> Image Url</label>
+                     <input type="text" class="form-control" name="issues[${i}][image]" id="url_${id}" placeholder="http://image.url">
+                       <label>Rating</label>
+                       <input id="'+id+'_slider" class="slider" data-slider-id="'+id+'_slider" type="number" data-slider-min="1" data-slider-max="100" 
+                               name="issues[${i}][rating]" data-slider-step="1" data-slider-value="14"/>
+                  </div>
+            </div>`
         );
         template.find("#"+id+"_slider").slider({
             formatter: function(value) {
@@ -475,7 +475,7 @@ $(document).keyup(function (e) {
     ];
     let $reports = $('.reports');
     issues.forEach((issue,i)=>{
-        $reports.append(template(issue.name+":",issue.id));
+        $reports.append(template(issue.name+":",issue.id,i));
     })
 }
 
