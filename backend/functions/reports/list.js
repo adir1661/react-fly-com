@@ -1,11 +1,9 @@
 'use strict';
 //let mongoose = require('mongoose');
 //mongoose.connect(process.env.MONGODB_URI);
-let SiteSchema = require('../models/site');
+let reportSchema = require('../models/report');
 const mongoose = require('mongoose');
 const connectToDatabase = require("../helper/db_connection");
-const reportSchema = require('../models/report');
-
 exports.list = function (event, context, callback) {
     // Make sure to add this so you can re-use `conn` between function calls.
     // See https://www.mongodb.com/blog/post/serverless-development-with-nodejs-aws-lambda-mongodb-atlas
@@ -18,20 +16,15 @@ exports.list = function (event, context, callback) {
     connectToDatabase()
         .then(async (dbConn) => {
             console.log('dbConn', dbConn);
-            const Site = dbConn.model('Sites', SiteSchema);
-            dbConn.model('Report',reportSchema);
-            Site.find({}).populate("reports").then((sitesResponse) => {
-                console.log(sitesResponse);
-                callback(null, {
-                    statusCode: 200,
-                    body: JSON.stringify(sitesResponse)
-                });
-            })
-                .catch(err=>{
-                    console.log(err);
-                    callback(err);
-                });
-        })
+            const Report = dbConn.model('Report', reportSchema);
+            return Report.find({});
+        }).then((reportsResponse) => {
+            console.log(reportsResponse);
+        callback(null, {
+            statusCode: 200,
+            body: JSON.stringify(reportsResponse)
+        });
+    })
         .catch((err) => {
             console.log(err);
             callback(err);

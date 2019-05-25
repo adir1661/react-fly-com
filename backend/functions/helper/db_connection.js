@@ -1,4 +1,6 @@
 const Mongoose = require('mongoose');
+const Promise = require('bluebird');
+Mongoose.Promise = Promise;
 let cachedDb = null;
 let MONGO_URI = process.env.MONGODB_URI;
 const  connectToDatabase = function(){

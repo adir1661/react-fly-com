@@ -388,7 +388,7 @@ $(window).resize(function () {
     resizeId = setTimeout(doneResizing, 250);
 });
 
-$(document).keyup(function (e) {
+$(document).click(function (e) {
     switch (e.which) {
         case 27: // ESC
             $(".sidebar-wrapper .back").trigger('click');
@@ -439,28 +439,33 @@ $(document).keyup(function (e) {
         let template =  $(
             `<div class="form-group detail">
                   <label for="integrity">${issueName}</label>
-                  <select class="form-control selectpicker" name="issues[${i}][stability]" id="'+id+'">
+                  <select class="form-control selectpicker" name="issues[${i}][stability]" id="'+id+'" required>
                       <option value="">Status</option>
-                      <option value="1">Stable</option>
-                      <option value="2">Problematic</option>
+                      <option value="Stable">Stable</option>
+                      <option value="Problematic">Problematic</option>
+                      <option value="Not Relevant">Not Relevant</option>
                   </select>
                   <input class="input" type="number" placeholder="Issue Num." name="issues[${i}][issueNum]">
-                  <textarea class="form-control" id="'+id+'_desc" rows="4" name="description"
+                  <input type="hidden" name="issues[${i}][name]" value="${issueName}" />
+                  <textarea class="form-control" id="'+id+'_desc" rows="4" name="issues[${i}][description]"
                                 placeholder="describle the issue" name="issues[${i}][description]"/>
                   <div class="url-input">
-                     <label><i class="fa fa-picture-o" aria-hidden="true"></i> Image Url</label>
+                     <label><i class="fa fa-picture-o" aria-hidden="true"/> Image Url</label>
                      <input type="text" class="form-control" name="issues[${i}][image]" id="url_${id}" placeholder="http://image.url">
                        <label>Rating</label>
-                       <input id="'+id+'_slider" class="slider" data-slider-id="'+id+'_slider" type="number" data-slider-min="1" data-slider-max="100" 
-                               name="issues[${i}][rating]" data-slider-step="1" data-slider-value="14"/>
+                       <input id="${id}_slider" class="slider" data-slider-id="${id}_slider" type="number" data-slider-min="1" data-slider-max="100" 
+                               name="issues[${i}][rating]" data-slider-step="1" data-slider-value="20"/>
                   </div>
             </div>`
         );
-        template.find("#"+id+"_slider").slider({
-            formatter: function(value) {
-                return 'Rating: ' + value;
-            }
+        let slider = template.find("#"+id+"_slider");
+        slider.slider({
+            // formatter: function(value) {
+            //     return 'Rating: ' + value;
+            // },
+            tooltip:'always',
         });
+        slider.on('slide');
         return template;
     };
     let issues = [

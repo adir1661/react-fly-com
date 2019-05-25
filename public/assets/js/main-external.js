@@ -4,12 +4,12 @@
 // global.jQuery = $;
 // const bootstrap = require('bootstrap');
 // console.log(bootstrap)
-let submitFormListener = (formElement, _this) => {
+let submitFormListener = (formElement, _this, url = 'sites') => {
     function checkInputs(formElement) {
         var required = formElement.find('input,textarea,select').filter('[required]:visible');
         var allRequired = true;
         required.each(function () {
-            if ($(this).val() == '') {
+            if ($(this).val() === '') {
                 allRequired = false;
             }
         });
@@ -18,26 +18,24 @@ let submitFormListener = (formElement, _this) => {
 
     formElement.on('submit', (ev) => {
         ev.preventDefault();
-        let formDetails = formElement.serializeArray();
         let allRequired = checkInputs(formElement);
-        let formDetailsObject = {};
-        formDetails.forEach((detail) => {
-            if (detail.name !== "longtitude" && detail.name !== "latitude") {
-                formDetailsObject[detail.name] = detail.value;
-            } else {
-                if (!formDetailsObject.location) {
-                    formDetailsObject.location = {};
-                }
-                formDetailsObject['location'][detail.name === "latitude" ? "lat" : "lng"] = detail.value;
+        let formDetailsObject = formElement.getForm2obj();
+        if (formDetailsObject.issues && formDetailsObject.issues[0]) {
+            let array = [];
+            let i = 0;
+            while (formDetailsObject.issues[i]) {
+                array.push(formDetailsObject.issues[i]);
+                i++;
             }
-        });
+            formDetailsObject.issues = array;
+        }
         formDetailsObject.created = moment().format();
         console.log(formDetailsObject);
         if (allRequired) {
-            console.log('all required')
+            console.log('all required');
             //DO SOMETHING HERE... POPUP AN ERROR MESSAGE, ALERT , ETC.
             $.ajax({
-                url: 'https://a3j3kyatgb.execute-api.eu-west-1.amazonaws.com/dev/sites',
+                url: 'https://a3j3kyatgb.execute-api.eu-west-1.amazonaws.com/dev/' + url,
                 method: "POST",
                 data: JSON.stringify(formDetailsObject),
                 dataType: "json",
@@ -64,10 +62,10 @@ let openReportSubscription = function (ev) {
     let $child = $modal.find(".modal-report");
     $child.removeClass("width-800px");
     $child.addClass("width-700px");
-    $modal.html(Templates['modalReport']());
+    $modal.html(Templates['reportSubmit']());
     renderReportDetails();
-    submitFormListener($modal.find('form'),)
-}
+    submitFormListener($modal.find('form'), $modal, 'sites/' + item_Id + '/reports');
+};
 $(document).on('click', '.report-list .report-item', function (ev) {
     let $this = $(this),
         report_id = $this.attr('data-id'),
@@ -79,7 +77,7 @@ $(document).on('click', '.report-list .report-item', function (ev) {
     let site = locations.find((item => (item.id === antenna_Id)));
     let report = site.reports.find((item) => item.reportId + '' === report_id);
     $modal.html(Templates['modalReportView'](report, antenna_Id));
-    //renderReportDetails()
+    //renderReportDetails() todo: implement come back to
 });
 let issues = [
     {name: 'Antenna\'s intergity and screw strengthening', id: 'integrity'},
@@ -105,7 +103,7 @@ let chachedReports = [
                 title: issues[0].name,
                 rating: 80,
                 issueNum: 112,
-                image: 'assets/img/antennas/3.png',
+                image: 'assets/img/antennas/issue1.jpg',
                 stability: 'stable',
                 description: 'Looks Good!',
             },
@@ -114,7 +112,7 @@ let chachedReports = [
                 rating: 14,
                 issueNum: 223,
                 stability: 'problematic',
-                image: 'assets/img/antennas/4.JPG',
+                image: 'assets/img/antennas/issue2.jpg',
                 description: 'problems on the vehiles, alot of cables merged together, cables unconnected',
             },
             {
@@ -122,7 +120,7 @@ let chachedReports = [
                 rating: 49,
                 issueNum: 324,
                 stability: 'problematic',
-                image: 'assets/img/antennas/1.png',
+                image: 'assets/img/antennas/issue3.jpg',
                 description: 'problems on the connectors, alot of cables merged together,connector unconnected on right top corner',
             },
         ]
@@ -379,11 +377,11 @@ let Templates = {
                     <div class="col-md-6 col-sm-6">
                         <div class="form-group">
                             <label for="lat">Latitude</label>
-                            <input type="number" step="0.0000000001" class="form-control" name="location[latitude]" id="lat" placeholder="Phone number" required>
+                            <input type="number" step="0.0000000001" class="form-control" name="location[lat]" id="lat" placeholder="Phone number" required>
                         </div>
                         <div class="form-group">
                             <label for="lng">Longtitude</label>
-                            <input type="number" step="0.0000000001" class="form-control" name="location[longtitude]" id="lng" placeholder="Phone number" required>
+                            <input type="number" step="0.0000000001" class="form-control" name="location[lng]" id="lng" placeholder="Phone number" required>
                         </div>
                         <div class="form-group">
                             <label for="address-autocomplete disbaled">Address</label>
@@ -478,7 +476,7 @@ let Templates = {
                                         <div class="rating-passive" data-rating="${(Number(report.rating) * 5) / 100}">
                                             <span class="stars"></span>
                                         </div>
-                                        <span class="date">${report.created.toDateString()}</span>
+                                        <span class="date">${report.created?new Date(report.created).toDateString():''}</span>
                                     </figure>
                                     <h5>${report.title}</h5>
                                     <p>${report.description}</p>
@@ -490,7 +488,7 @@ let Templates = {
         </div>
     </div>
 </div>`),
-    modalReport: () => (`<div class="modal-dialog modal-report width-800px" role="document" data-latitude="40.7344458"
+    reportSubmit: () => (`<div class="modal-dialog modal-report width-800px" role="document" data-latitude="40.7344458"
 data-longitude="-73.86704922"
 data-marker-drag="true">
 <div class="modal-content">
@@ -502,7 +500,7 @@ data-marker-drag="true">
        </div>
    </div>
    <div class="modal-body">
-       <form class="form inputs-underline">
+       <form class="form inputs-underline report-form">
            <section>
                <div class="row">
                    <div class="col-md-9 col-sm-9">
@@ -553,40 +551,64 @@ data-marker-drag="true">
    </div>
 </div>
 </div>`),
-    modalReportView: (report, antennaId,) => (`<div class="modal-dialog modal-report width-800px" role="document" data-marker-drag="true" 
+    modalReportView: (report, antennaId,) => {
+        let antenna = locations.find((location) => location.id === antennaId)
+        return `<div class="modal-dialog modal-report width-800px" role="document" data-marker-drag="true" 
     data-id="${antennaId}">
 <div class="modal-content">
    <div class="modal-header">
        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
                aria-hidden="true">&times;</span></button>
        <div class="section-title">
-           <h2>Report</h2>
+           <h2 class="pull-left">${report.title.charAt(0).toUpperCase() + report.title.slice(1)}</h2>
+           <div class="pull-right"><img  src="assets/img/items/company.png" alt=""></div>
        </div>
    </div>
    <div class="modal-body">
        <section>
-               <div class="row">
-                   <div class="col-md-9 col-sm-9">
-                       <div class="form-group">
-                           <h2 for="title">${report.title}</h2>
-                       </div>
+       <h3>Antenna:</h3>
+               <div class="row small-font">
+                   <div class="col-md-3 col-sm-3">
+                           <h5 for="title">Site Name: ${antenna.address}</h5>
                    </div>
                    <div class="col-md-3 col-sm-3">
+                         <h5 for="title">Site ID: ${antenna.title}</h5>
+                   </div> 
+                   ${antenna.created?`
+                   <div class="col-md-3 col-sm-3">
+                         <h5 for="title">Site Date: ${antenna.created}</h5>
+                   </div>  `:'<div class="col-md-3 col-sm-3"></div>'}
+                   <div class="col-md-3 col-sm-3">
+                         <h5 for="title">Site Type: ${antenna.type}</h5>
+                   </div>
+                   
+               </div>
+           </section>
+           <hr>
+           <section>
+               <div class="row">
+                  <!-- <div class="col-md-9 col-sm-9">
                        <div class="form-group">
-                           <h4 for="category">Category: ${report.category}</h4>
+                           <h2 for="title">${'Report Details'}</h2>
                        </div>
-                   </div>  
-                   ${report.vid?`<div class="col-xs-12 report-video">
+                   </div>-->
+                   
+                   ${report.vid ? `<div class="col-xs-12 report-video">
                         <video width="320" height="240" controls>
                           <source src="assets/vid/1.mp4" type="video/mp4">
                           Your browser does not support the video tag.
                         </video>                   
-                   </div>`:''}
+                   </div>` : ''}
                </div>
            </section> 
            <section class="reports">
-               <h3>Report Details:</h3>
-               ${report.issues ? report.issues.map(issue => Templates['issue'](issue)).join('') : ''}
+                <div class="col-md-9 col-sm-9">
+                            <h3>Report Details:</h3>
+                </div>
+                <div class="col-md-3 col-sm-3">
+                     <h4 for="category">Category: ${report.category}</h4>
+                </div>  
+                ${report.issues ? report.issues.map(issue => Templates['issue'](issue)).join('') : ''}
            </section>
            <hr>
            <section class="center">
@@ -597,7 +619,8 @@ data-marker-drag="true">
        </form>
    </div>
 </div>
-</div>`),
+</div>`
+    },
     issue: (issue) => (`<div class="issue row">
     <div class="col-xs-7">
         <h3>${issue.title.charAt(0).toUpperCase() + issue.title.slice(1)}</h3>
@@ -620,3 +643,41 @@ data-marker-drag="true">
     </div>
 </div>`)
 };
+
+
+(function ($) {
+    $.fn.getForm2obj = function () {
+        var _ = {}, _t = this;
+        this.c = function (k, v) {
+            eval("c = typeof " + k + ";");
+            if (c == 'undefined') _t.b(k, v);
+        };
+        this.b = function (k, v, a = 0) {
+            console.log("v:",v);
+            if(v.charAt(0)==="'"){
+                v = v.charAt(0)+ v.slice(1,-1).replace("'","\\'")+v.charAt(v.length-1);
+            }
+            console.log("v:",v);
+            console.log("k:",k);
+            if (a) eval(k + ".push(" + v + ");"); else eval(k + "=" + v + ";");
+        };
+        $.map(this.serializeArray(), function (n) {
+            if (n.name.indexOf('[') > -1) {
+                var keys = n.name.match(/[a-zA-Z0-9_]+|(?=\[\])/g), le = Object.keys(keys).length, tmp = '_';
+                $.map(keys, function (key, i) {
+                    if (key == '') {
+                        eval("ale = Object.keys(" + tmp + ").length;");
+                        if (!ale) _t.b(tmp, '[]');
+                        if (le == (i + 1)) _t.b(tmp, "'" + n['value'] + "'", 1);
+                        else _t.b(tmp += "[" + ale + "]", '{}');
+                    } else {
+                        _t.c(tmp += "['" + key + "']", '{}');
+                        if (le == (i + 1)) _t.b(tmp, "'" + n['value'] + "'");
+                    }
+                });
+            } else _t.b("_['" + n['name'] + "']", "'" + n['value'] + "'");
+        });
+        return _;
+
+    }
+})(jQuery);

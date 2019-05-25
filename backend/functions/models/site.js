@@ -14,7 +14,7 @@ var siteSchema = new mongoose.Schema({
     contact:String,
     provider: {
         type: mongoose.Schema.Types.ObjectId,
-        ref: "Provider"
+        ref: "provider"
     },
     location:{
         lng:Number,

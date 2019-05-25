@@ -37,9 +37,11 @@ class App extends Component {
     scriptLoaded = () => {
         this.isScritsLoaded=true;
         document.dispatchEvent(this.scriptsLoaded);
+        let location = {   latitude: 32.1553593733,
+            longtitude: 34.825565815};
         var optimizedDatabaseLoading = 0;
-        var _latitude = 31.7825114444;
-        var _longitude = 35.1593399048;
+        var _latitude = location.latitude;
+        var _longitude = location.longtitude;
         var element = "map-homepage";
         var markerTarget = "modal"; // use "sidebar", "infobox" or "modal" - defines the action after click on marker
         var sidebarResultTarget = "sidebar"; // use "sidebar", "modal" or "new_page" - defines the action after click on marker

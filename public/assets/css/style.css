@@ -9275,3 +9275,7 @@ body::before {
     height: 55px;
     transform: translateY(-50%);
 }
+
+.small-font *{
+
+}

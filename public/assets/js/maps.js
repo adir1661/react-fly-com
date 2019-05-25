@@ -380,7 +380,7 @@ function a(x){
                                     openInfobox( $(this.content.firstChild).attr("data-id"), this, 0 );
                                 }
                                 else if( markerTarget == "modal" ){
-                                    openModal($(this.content.firstChild).attr("data-id"), "modal_item.php", false, isFullScreen);
+                                    openModal($(this.content.firstChild).attr("data-id"), "#modalItem", false, isFullScreen);
                                 }
 
                             }
