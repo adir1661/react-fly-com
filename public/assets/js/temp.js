@@ -50,6 +50,15 @@ function updateMainSubject() {
 }
 function refreshSelect(){
     $(".report-search-form select").selectpicker("refresh");
+    $(".date-picker").datetimepicker("refresh");
+    $(".date-picker").datetimepicker('update', "2015/09/39");
+    $('body').on('focus',".date-picker", function(){
+        $(this).datetimepicker({
+            format: 'DD/MM/YYYY',
+            ignoreReadonly: true,
+            showTodayButton: true
+        });
+    });
 }
 function updateTypeButtons() {
     if (mainSubject === "reports") {

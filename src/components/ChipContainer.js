@@ -3,13 +3,12 @@ var test=["dfdf"];
 class ChipContainer extends Component {
     constructor(props) {
         super(props);
-        this.state = {
-            chips: [],
-
-        }
         this.updateChips = this.updateChips.bind(this);
         this.removeChip = this.removeChip.bind(this);
 
+    }
+    static defaultProps = {
+        chips: [],
     }
     removeChip(chipName){
         this.props.update(chipName);
@@ -19,8 +18,8 @@ class ChipContainer extends Component {
     }
 
     render() {
-        if(this.state.chips.length!==0){
-            var chips = this.state.chips.map((item,i)=>{
+        if(this.props.chips.length!==0){
+            var chips = this.props.chips.map((item,i)=>{
                 var classN=item.replace(" ","-").replace("'","").toLowerCase();
                 return<div key={'chip_'+i}className={"chip chip-"+classN}>
                         <div className="chip-content">{item}</div>
