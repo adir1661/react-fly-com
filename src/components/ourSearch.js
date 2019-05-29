@@ -25,8 +25,8 @@ let reports=[];
 class Search extends Component {
     constructor(props) {
         super(props);
-        this.formSearchElement = React.createRef();
-        this.chipSearchElement = React.createRef();
+        //this.formSearchElement = React.createRef();
+        //this.chipSearchElement = React.createRef();
         this.submit = this.submit.bind(this);
         this.initSearchData = this.initSearchData.bind(this);
         this.state = {
@@ -45,6 +45,7 @@ class Search extends Component {
         this.removeSearchObjects = this.removeSearchObjects.bind(this);
         this.searchPressed = this.searchPressed.bind(this);
         this.fit = this.fit.bind(this);
+        this.checkIfAddresFit=this.checkIfAddresFit.bind(this);
 
     }
     componentDidUpdate(prevProps, prevState, snapshot) {
@@ -59,10 +60,15 @@ class Search extends Component {
 
     searchPressed() {
         var address = document.getElementsByClassName('address-filter')[0].value;
-        var title = document.getElementsByClassName('report-title-filter')[0].value;
-        var from = document.getElementsByClassName('from-filter')[0].value;
-        var to = document.getElementsByClassName('to-filter')[0].value;
+        var title="",from="",to="";
+         if(typeof document.getElementsByClassName('report-title-filter')[0] !=='undefined'){
+         title = document.getElementsByClassName('report-title-filter')[0].value;
+         from = document.getElementsByClassName('from-filter')[0].value;
+         to = document.getElementsByClassName('to-filter')[0].value;
+         console.log("in");
+         }
         var antennasResult=[];
+
         var searchObj={address:address,
         title:title,
         from:from,
@@ -70,11 +76,10 @@ class Search extends Component {
         categories: this.state.searchObjects}
         antennas.forEach((aItem)=>{
             if(this.fit(aItem,searchObj,"antenna")){
-                if(searchObj.address==="" || aItem.address.toLowerCase().includes(searchObj.address.toLowerCase())) {
                     let obj = JSON.parse(JSON.stringify(aItem));
                     antennasResult.push(obj);
                     console.log("here3",antennasResult);
-                }
+
             }
 
         });
@@ -83,10 +88,15 @@ class Search extends Component {
             antennasRes:antennasResult.slice(0)
         });
     }
+    checkIfAddresFit(currentObject,ourObject,type){
+        return (ourObject.address==="" || currentObject.address.toLowerCase().includes(ourObject.address.toLowerCase()));
+    }
     fit(currentObject,ourObject,type){
         if(type==="antenna"){
-
-            return true;
+            if(this.checkIfAddresFit(currentObject,ourObject)) {
+                return true
+            }
+            return false;
         }
         else if(type==="report"){
 
@@ -129,7 +139,7 @@ class Search extends Component {
         this.setState({
             chipsNames: chips
         });
-        this.chipSearchElement.current.updateChips(chips.slice(0));
+        //this.chipSearchElement.current.updateChips(chips.slice(0));
     }
 
     addFilter(name) {
@@ -139,7 +149,7 @@ class Search extends Component {
         }
         filter.push(name);
         this.setState({filterOptions: filter.slice(0)});
-        this.formSearchElement.current.searchUpdateFilter(filter.slice(0));
+        //this.formSearchElement.current.searchUpdateFilter(filter.slice(0));
     }
 
     takeCareDeleteChip(name) {
@@ -170,7 +180,7 @@ class Search extends Component {
         this.setState({
             filterOptions: filter.slice(0)
         });
-        this.formSearchElement.current.searchUpdateFilter(Array.from(filter.slice(0)));
+       // this.formSearchElement.current.searchUpdateFilter(Array.from(filter.slice(0)));
     }
 
     updateSearch(element) {
@@ -187,7 +197,7 @@ class Search extends Component {
             searchObjects: myObjects.slice(0),
             chipsNames: chips.slice(0)
         });
-        this.chipSearchElement.current.updateChips(chips.slice(0));
+        //this.chipSearchElement.current.updateChips(chips.slice(0));
 
     }
 
@@ -292,8 +302,7 @@ class Search extends Component {
                         <div className="row">
                             <div className="col-md-3 col-sm-3">
                                 <aside className="sidebar">
-                                    <FormSearch update={this.updateSearch} change={this.searchPressed} ref={this.formSearchElement}
-                                                removeFilter={this.removeFilter}/>
+                                    <FormSearch update={this.updateSearch} filterOptions={this.state.filterOptions} change={this.searchPressed} removeFilter={this.removeFilter}/>
 
                                     <section>
                                         <h2>Recent Items</h2>
@@ -377,6 +386,11 @@ class Search extends Component {
                             <div className="col-md-9 col-sm-9">
                                 <section className="page-title">
                                     <h1 className="head-search-title"></h1>
+                                    <div className="form-group">
+                                        <input type="text" className="form-control address-filter"
+                                               name="keyword"
+                                               placeholder="antenna address" onChange={this.props.change}/>
+                                    </div>
                                 </section>
                                 {/*end section-title*/}
 
@@ -407,8 +421,9 @@ class Search extends Component {
                                     {/*end search-results-controls*/}
                                 </section>
                                 <section>
-                                    <ChipContainer chips={this.state.chipsNames} update={this.takeCareDeleteChip}
-                                                   ref={this.chipSearchElement}/>
+
+                                    <ChipContainer chips={this.state.chipsNames} update={this.takeCareDeleteChip}/>
+
                                 </section>
                                 {searchElements}
                                 <section>
@@ -483,9 +498,7 @@ class Search extends Component {
                         </div>
                     </div>
                 </footer>
-                end page-footer
             </div>
-            end page-wrapper
             <a href="#" className="to-top scroll" data-show-after-scroll="600"><i className="arrow_up"></i></a>
         </div>);
     }
