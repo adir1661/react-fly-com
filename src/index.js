@@ -5,7 +5,22 @@ import App from './App';
 import Search from './components/ourSearch';
 import * as serviceWorker from './serviceWorker';
 import {BrowserRouter as Router, Route, browserHistory, Link, Switch} from 'react-router-dom';
-import './external/circular-css.css'
+import './external/circular-css.css';
+import './external/lightbox.min.css';
+// import 'bootstrap/dist/css/bootstrap.css';
+import './external/bootstrap.css'
+import './external/bootstrap-slider.min.css';
+import './external/zabuto_calendar.min.css';
+import './external/owl.carousel.css';
+import './external/bootstrap-select.min.css';
+import './external/fileinput.min.css';
+import './external/trackpad-scroll-emulator.css';
+import './external/jquery.nouislider.min.css';
+import './external/style.css';
+import $ from 'jquery';
+window.jQuery = $;
+window.$ = $;
+global.jQuery = $;
 ReactDOM.render(
     <App/>
     , document.getElementById('root'));

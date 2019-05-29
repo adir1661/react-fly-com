@@ -10,6 +10,7 @@ var reportSchema = new mongoose.Schema({
     description:String,
     title: String,
     category:String,
+    filledBy:String,
     issues:[{
         title:String,
         rating:Number,
@@ -18,9 +19,9 @@ var reportSchema = new mongoose.Schema({
         image:String,
         description: String,
     }],
-    Antenna: {
+    site: {
         type: mongoose.Schema.Types.ObjectId,
-        ref: "Antenna"
+        ref: "Site"
     },
 });
 module.exports = reportSchema;

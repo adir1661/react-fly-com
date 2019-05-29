@@ -52,6 +52,8 @@ exports.list = function (event, context, callback) {
                 type: site.type,
                 created:site.created,
                 contact:site.contact,
+                reports:site.reports,
+                gallery:site.gallery,
             }
         });
         callback(null, responses.responseOk(sites));

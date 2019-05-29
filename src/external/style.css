@@ -5112,6 +5112,7 @@ section:not(.block) h2 {
 
 .modal {
     text-align: center;
+    background-color: rgba(0, 0, 0, 0.5);
 }
 
 @media screen and (min-width: 768px) {
@@ -6927,7 +6928,7 @@ section:not(.block) h2 {
 }
 
 .text-element.event .date-icon:before {
-    background-image: url("..dar-spring.png");
+    /*background-image: url("..dar-spring.png");*/
     width: 37px;
     height: 6px;
     position: absolute;
@@ -8609,7 +8610,7 @@ select, select.form-control {
     padding: 13px 9px;
     width: 100%;
     position: relative;
-    background-image: url("..t-down.png");
+    /*//background-image: url("..t-down.png");*/
     background-repeat: no-repeat;
     background-position: 96% 50%;
 }
