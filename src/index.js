@@ -17,10 +17,9 @@ import './external/fileinput.min.css';
 import './external/trackpad-scroll-emulator.css';
 import './external/jquery.nouislider.min.css';
 import './external/style.css';
-import $ from 'jquery';
-window.jQuery = $;
-window.$ = $;
-global.jQuery = $;
+
+// import 'jquery/dist/jquery.min'
+// import 'bootstrap/dist/js/bootstrap.min'
 ReactDOM.render(
     <App/>
     , document.getElementById('root'));

@@ -19,6 +19,7 @@ var reportSchema = new mongoose.Schema({
         image:String,
         description: String,
     }],
+    providerLogo:String,
     site: {
         type: mongoose.Schema.Types.ObjectId,
         ref: "Site"

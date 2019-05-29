@@ -1,7 +1,7 @@
 const Libraries = [
-    // "assets/js/jquery-2.2.1.min.js",
+    "assets/js/jquery-2.2.1.min.js",
     "assets/js/jquery-migrate-1.2.1.min.js",
-    // "assets/bootstrap/js/bootstrap.min.js",
+    "assets/bootstrap/js/bootstrap.min.js",
     "assets/js/bootstrap-select.min.js",
     "http://maps.google.com/maps/api/js?key=AIzaSyCcw1r0WeZoTGxZDNR8ryrhHf37okOpp_U&libraries=places",
     "assets/js/bootstrap-slider.min.js",

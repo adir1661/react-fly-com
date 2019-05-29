@@ -64,7 +64,7 @@ var mapStyle = [
 
 // Hero Map on Home ----------------------------------------------------------------------------------------------------
 
-function heroMap1(_latitude, _longitude, element, markerTarget, sidebarResultTarget, showMarkerLabels, mapDefaultZoom) {
+function heroMap(_latitude, _longitude, element, markerTarget, sidebarResultTarget, showMarkerLabels, mapDefaultZoom) {
     if (document.getElementById(element) != null) {
 
         // Create google map first -------------------------------------------------------------------------------------

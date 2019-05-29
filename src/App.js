@@ -48,7 +48,7 @@ class App extends Component {
         var sidebarResultTarget = "sidebar"; // use "sidebar", "modal" or "new_page" - defines the action after click on marker
         var showMarkerLabels = true; // next to every marker will be a bubble with title
         var mapDefaultZoom = 10; // default zoom
-        // window.heroMap(_latitude, _longitude, element, markerTarget, sidebarResultTarget, showMarkerLabels, mapDefaultZoom);
+        window.heroMap(_latitude, _longitude, element, markerTarget, sidebarResultTarget, showMarkerLabels, mapDefaultZoom);
         insertScript(afterLoad,0,()=>{
             document.dispatchEvent(new window.Event('initializeAllScripts'));
         });

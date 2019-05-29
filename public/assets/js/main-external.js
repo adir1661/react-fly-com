@@ -100,6 +100,7 @@ let cachedReports = [
         category: 'winder',
         vid: 'https://s3-eu-west-1.amazonaws.com/sis-flycomm-images/pelephone-cut2.mp4',
         reportId: 1,
+        providerLogo:'assets/img/cellcom_logo.png',
         issues: [
             {
                 title: issues[0].name,
@@ -574,20 +575,23 @@ data-marker-drag="true">
        <section>
        <h3>Antenna:</h3>
                <div class="row small-font">
-                   <div class="col-md-3 col-sm-3">
+                   <div class="col-md-2 col-sm-2">
                            <h5 for="title">Site Name: <br>${antenna.address}</h5>
                    </div>
-                   <div class="col-md-3 col-sm-3">
+                   <div class="col-md-2 col-sm-2">
                          <h5 for="title">Site ID: <br>${antenna.title}</h5>
                    </div> 
                    ${antenna.created?`
-                   <div class="col-md-3 col-sm-3">
+                   <div class="col-md-2 col-sm-2">
                          <h5 for="title">Site Date: <br>${new Date(antenna.created).toLocaleDateString()}</h5>
-                   </div>  `:'<div class="col-md-3 col-sm-3"></div>'}
-                   <div class="col-md-3 col-sm-3">
+                   </div>  `:'<div class="col-md-2 col-sm-2"></div>'}
+                   <div class="col-md-2 col-sm-2">
                          <h5 for="title">Site Type: <br>${antenna.type}</h5>
                    </div>
-                   
+                    ${antenna.contact?`
+                   <div class="col-md-2 col-sm-2">
+                         <h5 for="title">Filled By: <br>${antenna.contact}</h5>
+                   </div>  `:'<div class="col-md-2 col-sm-2"></div>'}
                </div>
            </section>
            <hr>
