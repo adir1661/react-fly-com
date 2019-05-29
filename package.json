@@ -3,6 +3,8 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "bootstrap": "3.3.6",
+    "bootstrap-react": "^0.3.1",
     "i": "^0.3.6",
     "jquery": "^3.4.1",
     "react": "^16.8.6",

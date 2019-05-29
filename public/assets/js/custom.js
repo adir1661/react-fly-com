@@ -17,7 +17,6 @@ var navigationIsTouchingBrand;
 var responsiveNavigationTriggered = false;
 
 
-
 // Viewport ------------------------------------------------------------------------------------------------------------
 
 var viewport = (function () {
@@ -165,13 +164,13 @@ $(document).ready(function ($) {
         e.preventDefault();
         var modalTarget, modalFile;
         if ($(this).closest(".item").attr("data-id")) {
-           modalTarget = $(this).closest(".item").attr("data-id");
+            modalTarget = $(this).closest(".item").attr("data-id");
         }
         else {
             modalTarget = $(this).attr("data-target");
             modalFile = $(this).attr("data-modal-external-file");
         }
-        if ($(this).attr("data-close-modal") == "true") {
+        if ($(this).attr("data-close-modal") === "true") {
             lastModal.modal("hide");
             setTimeout(function () {
                 openModal(modalTarget, modalFile);
@@ -215,7 +214,6 @@ $(document).ready(function ($) {
         if (e.target.className == "controls-more") {
             $(".controls-more.show").removeClass("show");
             $(e.target).addClass("show");
-
         }
         else {
             $(".controls-more.show").each(function () {
@@ -238,7 +236,6 @@ $(document).ready(function ($) {
         var duplicateElement = $(this).attr("href");
         var parentElement = $(duplicateElement)[0].parentElement;
         $(parentElement).append($(duplicateElement)[0].outerHTML);
-
         //console.log( $(duplicateElement).find(".bootstrap-select") );
         //$(".selectpicker").selectpicker();
     });
@@ -378,9 +375,9 @@ $(document).ready(function ($) {
 // On Load
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-document.addEventListener('initializeScripts',function (ev) {
+document.addEventListener('initializeScripts', function (ev) {
     initializeOwl();
-    document.removeEventListener('initializeScripts',ev);
+    document.removeEventListener('initializeScripts', ev);
 });
 
 $(window).resize(function () {
@@ -401,7 +398,7 @@ $(document).click(function (e) {
 // Functions
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
- function heroSectionHeight() {
+function heroSectionHeight() {
 
     if ($(".hero-section").length > 0) {
         if (viewport.is('xs')) {
@@ -419,9 +416,9 @@ $(document).click(function (e) {
                 $(".hero-section.full-screen").height($(window).height() - $("#page-header").height());
                 $(".hero-section .map-wrapper").css("height", "100%");
                 if ($(".map-wrapper").length > 0) {
-                    document.addEventListener('initializeScripts',(ev)=>{
+                    document.addEventListener('initializeScripts', (ev) => {
                         reloadMap();
-                        document.removeEventListener('initializeScripts',ev);
+                        document.removeEventListener('initializeScripts', ev);
                     })
                 }
             }
@@ -432,11 +429,11 @@ $(document).click(function (e) {
     }
 
 }
+
 //  Render report details-----------------------------------------------------------------------------------------------
- function renderReportDetails() {
-    let template = function(issueName,id,i)
-    {
-        let template =  $(
+function renderReportDetails() {
+    let template = function (issueName, id, i) {
+        let template = $(
             `<div class="form-group detail">
                   <label for="integrity">${issueName}</label>
                   <select class="form-control selectpicker" name="issues[${i}][stability]" id="'+id+'" required>
@@ -445,7 +442,7 @@ $(document).click(function (e) {
                       <option value="Problematic">Problematic</option>
                       <option value="Not Relevant">Not Relevant</option>
                   </select>
-                  <input class="input" type="number" placeholder="Issue Num." name="issues[${i}][issueNum]">
+                  <input class="input" type="number" placeholder="Issue Num." name="issues[${i}][issueNum]" value="100">
                   <input type="hidden" name="issues[${i}][name]" value="${issueName}" />
                   <textarea class="form-control" id="'+id+'_desc" rows="4" name="issues[${i}][description]"
                                 placeholder="describle the issue" name="issues[${i}][description]"/>
@@ -454,40 +451,40 @@ $(document).click(function (e) {
                      <input type="text" class="form-control" name="issues[${i}][image]" id="url_${id}" placeholder="http://image.url">
                        <label>Rating</label>
                        <input id="${id}_slider" class="slider" data-slider-id="${id}_slider" type="number" data-slider-min="1" data-slider-max="100" 
-                               name="issues[${i}][rating]" data-slider-step="1" data-slider-value="20"/>
+                               name="issues[${i}][rating]" data-slider-step="1" data-slider-value="100"/>
                   </div>
             </div>`
         );
-        let slider = template.find("#"+id+"_slider");
+        let slider = template.find("#" + id + "_slider");
         slider.slider({
             // formatter: function(value) {
             //     return 'Rating: ' + value;
             // },
-            tooltip:'always',
+            tooltip: 'always',
         });
-        slider.on('slide');
+        slider.trigger('slide');
         return template;
     };
     let issues = [
-        {name:'Antenna\'s intergity and screw strengthening',id:'integrity'},
-        {name:'cabels integrity',id:'cabels'},
-        {name:'connectors tightness',id:'tightness'},
-        {name:'unwanted cabels',id:'uncabels'},
-        {name:'monitor lightness',id:'monitor_lightness'},
-        {name:'blocking',id:'blocking'},
-        {name:'antenna\'s stickers',id:'stickers'},
+        {name: 'Antenna\'s intergity and screw strengthening', id: 'integrity'},
+        {name: 'cabels integrity', id: 'cabels'},
+        {name: 'connectors tightness', id: 'tightness'},
+        {name: 'unwanted cabels', id: 'uncabels'},
+        {name: 'monitor lightness', id: 'monitor_lightness'},
+        {name: 'blocking', id: 'blocking'},
+        {name: 'antenna\'s stickers', id: 'stickers'},
         // {name:'',id:''},
     ];
     let $reports = $('.reports');
-    issues.forEach((issue,i)=>{
-        $reports.append(template(issue.name+":",issue.id,i));
+    issues.forEach((issue, i) => {
+        $reports.append(template(issue.name + ":", issue.id, i));
     })
 }
 
 //   Open modal from server
- function openModal(target, modalPath, clusterData, mapsFullScreen) {
-    if(modalPath.slice(0,1)==='#'){
-        openModalFromTemplates(modalPath,target,clusterData,mapsFullScreen);
+function openModal(target, modalPath, clusterData, mapsFullScreen) {
+    if (modalPath.slice(0, 1) === '#') {
+        openModalFromTemplates(modalPath, target, clusterData, mapsFullScreen);
         return;
     }
     if (mapsFullScreen === true) {
@@ -507,7 +504,7 @@ $(document).click(function (e) {
             data: {id: target, marker_in_cluster_id: clusterData},
             success: function (results) {
                 _this.append(results);
-                if($('link[href="assets/css/bootstrap-select.min.css"]').length === 0) {
+                if ($('link[href="assets/css/bootstrap-select.min.css"]').length === 0) {
                     $('head').append($('<link rel="stylesheet" type="text/css">').attr('href', 'assets/css/bootstrap-select.min.css'));
                 }
                 $(".selectpicker").selectpicker();
@@ -564,28 +561,30 @@ $(document).click(function (e) {
     });
 
     $("#" + target + ".modal").modal("show");
-     function timeOutActions(_this) {
-         setTimeout(function () {
-             if (_this.find(".map").length) {
-                 if (_this.find(".modal-dialog").attr("data-address")) {
-                     simpleMap(0, 0, "map-modal", _this.find(".modal-dialog").attr("data-marker-drag"), _this.find(".modal-dialog").attr("data-address"));
-                 }
-                 else {
-                     simpleMap(_this.find(".modal-dialog").attr("data-latitude"), _this.find(".modal-dialog").attr("data-longitude"), "map-modal", _this.find(".modal-dialog").attr("data-marker-drag"));
-                 }
-             }
-             initializeOwl();
-             initializeFitVids();
-             initializeReadMore();
-             $(".tse-scrollable").TrackpadScrollEmulator();
-             _this.addClass("show");
-         }, 200);
 
-     }
+    function timeOutActions(_this) {
+        setTimeout(function () {
+            if (_this.find(".map").length) {
+                if (_this.find(".modal-dialog").attr("data-address")) {
+                    simpleMap(0, 0, "map-modal", _this.find(".modal-dialog").attr("data-marker-drag"), _this.find(".modal-dialog").attr("data-address"));
+                }
+                else {
+                    simpleMap(_this.find(".modal-dialog").attr("data-latitude"), _this.find(".modal-dialog").attr("data-longitude"), "map-modal", _this.find(".modal-dialog").attr("data-marker-drag"));
+                }
+            }
+            initializeOwl();
+            initializeFitVids();
+            initializeReadMore();
+            $(".tse-scrollable").TrackpadScrollEmulator();
+            _this.addClass("show");
+        }, 200);
+
+    }
 }
+
 //  Transfer "img" into CSS background-image
 
- function bgTransfer() {
+function bgTransfer() {
     //disable-on-mobile
     if (viewport.is('xs')) {
 
@@ -595,7 +594,7 @@ $(document).click(function (e) {
     });
 }
 
- function ratingPassive(element) {
+function ratingPassive(element) {
     $(element).find(".rating-passive").each(function () {
         for (var i = 0; i < 5; i++) {
             if (i < $(this).attr("data-rating")) {
@@ -608,11 +607,12 @@ $(document).click(function (e) {
     });
 }
 
- function socialShare(url) {
+function socialShare(url) {
     var socialButtonsEnabled = 1;
-    if (socialButtonsEnabled == 1) {
-        $('head').append($('<link rel="stylesheet" type="text/css">').attr('href', 'assets/css/jssocials.css'));
-        $('head').append($('<link rel="stylesheet" type="text/css">').attr('href', 'assets/css/jssocials-theme-minima.css'));
+    if (socialButtonsEnabled === 1) {
+        let $head = $('head');
+        $head.append($('<link rel="stylesheet" type="text/css">').attr('href', 'assets/css/jssocials.css'));
+        $head.append($('<link rel="stylesheet" type="text/css">').attr('href', 'assets/css/jssocials-theme-minima.css'));
         $.getScript("assets/js/jssocials.min.js", function (data, textStatus, jqxhr) {
             $(".social-share").jsSocials({
                 shares: ["twitter", "facebook", "googleplus", "linkedin", "pinterest"],
@@ -622,13 +622,13 @@ $(document).click(function (e) {
     }
 }
 
- function initializeFitVids() {
+function initializeFitVids() {
     if ($(".video").length > 0) {
         $(".video").fitVids();
     }
 }
 
- function initializeOwl() {
+function initializeOwl() {
     if ($(".owl-carousel").length) {
         $(".owl-carousel").each(function () {
 
@@ -692,7 +692,7 @@ $(document).click(function (e) {
     }
 }
 
- function initializeDateTimePicker() {
+function initializeDateTimePicker() {
     $(".date-picker").each(function () {
         if ($(this).attr("data-date-format")) {
             $('.date-picker').datetimepicker({
@@ -729,7 +729,7 @@ function trackpadScroll(method) {
 
 function doneResizing() {
     var $equalHeight = $('.container');
-    for (var i = 0; i < $equalHeight.length; i++) {
+    for (let  i = 0; i < $equalHeight.length; i++) {
         equalHeight($equalHeight);
     }
     responsiveNavigation();
@@ -922,9 +922,9 @@ function fixedNavigation(state) {
 //  Show element after desired time ------------------------------------------------------------------------------------
 if (!viewport.is('xs')) {
     var messagesArray = [];
-    $("[data-toggle=popover]").popover({
-        template: '<div class="popover" role="tooltip"><div class="close"><i class="fa fa-close"></i></div><div class="arrow"></div><h3 class="popover-title"></h3><div class="popover-content"></div></div>'
-    });
+    // $("[data-toggle=popover]").popover({
+    //     template: '<div class="popover" role="tooltip"><div class="close"><i class="fa fa-close"></i></div><div class="arrow"></div><h3 class="popover-title"></h3><div class="popover-content"></div></div>'
+    // });
     $(".popover .close").live('click', function () {
         $(this).closest(".popover").popover("hide");
     });
@@ -932,7 +932,7 @@ if (!viewport.is('xs')) {
         var _this = $(this);
         setTimeout(function () {
             if (_this.attr("data-toggle") == "popover") {
-                _this.popover("show");
+                // _this.popover("show");
             }
             else {
                 for (var i = 0; i < messagesArray.length; i++) {

@@ -4,6 +4,9 @@
 // global.jQuery = $;
 // const bootstrap = require('bootstrap');
 // console.log(bootstrap)
+let assignValues= ()=>{
+    locations = window.locations;
+}
 let submitFormListener = (formElement, _this, url = 'sites') => {
     function checkInputs(formElement) {
         var required = formElement.find('input,textarea,select').filter('[required]:visible');
@@ -87,16 +90,15 @@ let issues = [
     {name: 'monitor lightness', id: 'monitor_lightness'},
     {name: 'blocking', id: 'blocking'},
     {name: 'antenna\'s stickers', id: 'stickers'},
-    // {name:'',id:''},
 ];
-let chachedReports = [
+let cachedReports = [
     {
         created: new Date('2019-03-25'),
         rating: 45,
         title: 'report 4351',
         description: 'this is report winter cached with some crashes inside the Antenna tubes.',
         category: 'winder',
-        vid: 'assets/vid/1.mp4',
+        vid: 'https://s3-eu-west-1.amazonaws.com/sis-flycomm-images/pelephone-cut2.mp4',
         reportId: 1,
         issues: [
             {
@@ -110,9 +112,9 @@ let chachedReports = [
             {
                 title: issues[1].name,
                 rating: 14,
+                image: 'assets/img/antennas/issue4.jpeg',
                 issueNum: 223,
                 stability: 'problematic',
-                image: 'assets/img/antennas/issue2.jpg',
                 description: 'problems on the vehiles, alot of cables merged together, cables unconnected',
             },
             {
@@ -120,7 +122,7 @@ let chachedReports = [
                 rating: 49,
                 issueNum: 324,
                 stability: 'problematic',
-                image: 'assets/img/antennas/issue3.jpg',
+                image: 'assets/img/antennas/issue2.jpg',
                 description: 'problems on the connectors, alot of cables merged together,connector unconnected on right top corner',
             },
         ]
@@ -203,10 +205,12 @@ let openModalFromTemplates = (key, target, clusterData,) => {
     let $targetModal = $("#" + target + ".modal");
     $targetModal.on("show.bs.modal", function () {
         var _this = $(this);
+        _this.css('display','block');
         lastModal = _this;
-        let site = locations.find((item => (item.id === target))) || {};
+        console.log(window);
+        let site = window.locations.find((item => (item.id === target))) || {};
         if (site && (!site.reports || site.reports.length < 1)) {
-            site.reports = chachedReports;
+            site.reports = cachedReports;
         }
         InsertTemplate(Templates[key](target, site), _this);
     });
@@ -422,7 +426,7 @@ let Templates = {
             <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
             <div class="section-title">
                 <h2>${site.title}                 
-                <span class="location" style="margin-left: 3px;font-size: 15px;">${site.address.split(',')[1] ? site.address.split(',')[1].trim() : site.address}</span>
+                <span class="location" style="margin-left: 3px;font-size: 15px;">${site.address.split(',').length > 1 ? site.address.split(',')[site.address.split(',').length -2].trim() : site.address}</span>
                 </h2>
                 <div class="label label-default">${site.type}</div>
                 <div class="rating-passive" data-rating="${site.rating}">
@@ -442,7 +446,7 @@ let Templates = {
         <div class="modal-body">
             <div class="left">
             <div class="gallery">
-            ${site.gallery ? site.gallery.map((image) => (`<img src="${image}">`)).join('\n') : site.marker_image ? `<img src="${site.marker_image}">` : ''}
+            ${site.gallery.length>0 ? site.gallery.map((image) => (`<img src="${image}">`)).join('\n') : site.marker_image ? `<img src="${site.marker_image}">` : ''}
             </div>
                 <div class="map height-200px shadow" id="map-modal"></div>
                 <section>
@@ -561,7 +565,9 @@ data-marker-drag="true">
                aria-hidden="true">&times;</span></button>
        <div class="section-title">
            <h2 class="pull-left">${report.title.charAt(0).toUpperCase() + report.title.slice(1)}</h2>
-           <div class="pull-right"><img  src="assets/img/items/company.png" alt=""></div>
+           <div class="pull-right">
+                    <img  src="assets/img/items/company.png" alt="">
+           </div>
        </div>
    </div>
    <div class="modal-body">
@@ -569,17 +575,17 @@ data-marker-drag="true">
        <h3>Antenna:</h3>
                <div class="row small-font">
                    <div class="col-md-3 col-sm-3">
-                           <h5 for="title">Site Name: ${antenna.address}</h5>
+                           <h5 for="title">Site Name: <br>${antenna.address}</h5>
                    </div>
                    <div class="col-md-3 col-sm-3">
-                         <h5 for="title">Site ID: ${antenna.title}</h5>
+                         <h5 for="title">Site ID: <br>${antenna.title}</h5>
                    </div> 
                    ${antenna.created?`
                    <div class="col-md-3 col-sm-3">
-                         <h5 for="title">Site Date: ${antenna.created}</h5>
+                         <h5 for="title">Site Date: <br>${new Date(antenna.created).toLocaleDateString()}</h5>
                    </div>  `:'<div class="col-md-3 col-sm-3"></div>'}
                    <div class="col-md-3 col-sm-3">
-                         <h5 for="title">Site Type: ${antenna.type}</h5>
+                         <h5 for="title">Site Type: <br>${antenna.type}</h5>
                    </div>
                    
                </div>
@@ -595,7 +601,7 @@ data-marker-drag="true">
                    
                    ${report.vid ? `<div class="col-xs-12 report-video">
                         <video width="320" height="240" controls>
-                          <source src="assets/vid/1.mp4" type="video/mp4">
+                          <source src="${report.vid}" type="video/mp4">
                           Your browser does not support the video tag.
                         </video>                   
                    </div>` : ''}
@@ -639,7 +645,9 @@ data-marker-drag="true">
         </div>
     </div>
     <div class="col-xs-3" style="height:100%;border-left: 1px solid var(--light-grey);text-align: right;overflow: hidden">
-        <img style="height: 100px"  src="${issue.image}" alt="report">
+        <a href="${issue.image}" data-lightbox="image-issues" data-title="${issue.title.charAt(0).toUpperCase() + issue.title.slice(1)}">
+            <img style="height: 100px"  src="${issue.image}" alt="report">
+        </a>
     </div>
 </div>`)
 };
