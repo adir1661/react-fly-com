@@ -16,7 +16,6 @@ var originalNavigationCode;
 var navigationIsTouchingBrand;
 var responsiveNavigationTriggered = false;
 
-
 // Viewport ------------------------------------------------------------------------------------------------------------
 
 var viewport = (function () {
@@ -430,56 +429,7 @@ function heroSectionHeight() {
 
 }
 
-//  Render report details-----------------------------------------------------------------------------------------------
-function renderReportDetails() {
-    let template = function (issueName, id, i) {
-        let template = $(
-            `<div class="form-group detail">
-                  <label for="integrity">${issueName}</label>
-                  <select class="form-control selectpicker" name="issues[${i}][stability]" id="'+id+'" required>
-                      <option value="">Status</option>
-                      <option value="Stable">Stable</option>
-                      <option value="Problematic">Problematic</option>
-                      <option value="Not Relevant">Not Relevant</option>
-                  </select>
-                  <input class="input" type="number" placeholder="Issue Num." name="issues[${i}][issueNum]" value="100">
-                  <input type="hidden" name="issues[${i}][name]" value="${issueName}" />
-                  <textarea class="form-control" id="'+id+'_desc" rows="4" name="issues[${i}][description]"
-                                placeholder="describle the issue" name="issues[${i}][description]"/>
-                  <div class="url-input">
-                     <label><i class="fa fa-picture-o" aria-hidden="true"/> Image Url</label>
-                     <input type="text" class="form-control" name="issues[${i}][image]" id="url_${id}" placeholder="http://image.url">
-                       <label>Rating</label>
-                       <input id="${id}_slider" class="slider" data-slider-id="${id}_slider" type="number" data-slider-min="1" data-slider-max="100" 
-                               name="issues[${i}][rating]" data-slider-step="1" data-slider-value="100"/>
-                  </div>
-            </div>`
-        );
-        let slider = template.find("#" + id + "_slider");
-        slider.slider({
-            // formatter: function(value) {
-            //     return 'Rating: ' + value;
-            // },
-            tooltip: 'always',
-        });
-        slider.trigger('slide');
-        return template;
-    };
-    let issues = [
-        {name: 'Antenna\'s intergity and screw strengthening', id: 'integrity'},
-        {name: 'cabels integrity', id: 'cabels'},
-        {name: 'connectors tightness', id: 'tightness'},
-        {name: 'unwanted cabels', id: 'uncabels'},
-        {name: 'monitor lightness', id: 'monitor_lightness'},
-        {name: 'blocking', id: 'blocking'},
-        {name: 'antenna\'s stickers', id: 'stickers'},
-        // {name:'',id:''},
-    ];
-    let $reports = $('.reports');
-    issues.forEach((issue, i) => {
-        $reports.append(template(issue.name + ":", issue.id, i));
-    })
-}
+
 
 //   Open modal from server
 function openModal(target, modalPath, clusterData, mapsFullScreen) {
@@ -977,4 +927,43 @@ $("[data-show-after-scroll]").each(function () {
         }
     });
 });
+
+
+//--------- jquery plugin to get form informantion s json
+(function ($) {
+    $.fn.getForm2obj = function () {
+        var _ = {}, _t = this;
+        this.c = function (k, v) {
+            eval("c = typeof " + k + ";");
+            if (c == 'undefined') _t.b(k, v);
+        };
+        this.b = function (k, v, a = 0) {
+            console.log("v:",v);
+            if(v.charAt(0)==="'"){
+                v = v.charAt(0)+ v.slice(1,-1).replace("'","\\'")+v.charAt(v.length-1);
+            }
+            console.log("v:",v);
+            console.log("k:",k);
+            if (a) eval(k + ".push(" + v + ");"); else eval(k + "=" + v + ";");
+        };
+        $.map(this.serializeArray(), function (n) {
+            if (n.name.indexOf('[') > -1) {
+                var keys = n.name.match(/[a-zA-Z0-9_]+|(?=\[\])/g), le = Object.keys(keys).length, tmp = '_';
+                $.map(keys, function (key, i) {
+                    if (key == '') {
+                        eval("ale = Object.keys(" + tmp + ").length;");
+                        if (!ale) _t.b(tmp, '[]');
+                        if (le == (i + 1)) _t.b(tmp, "'" + n['value'] + "'", 1);
+                        else _t.b(tmp += "[" + ale + "]", '{}');
+                    } else {
+                        _t.c(tmp += "['" + key + "']", '{}');
+                        if (le == (i + 1)) _t.b(tmp, "'" + n['value'] + "'");
+                    }
+                });
+            } else _t.b("_['" + n['name'] + "']", "'" + n['value'] + "'");
+        });
+        return _;
+
+    }
+})(jQuery);
 

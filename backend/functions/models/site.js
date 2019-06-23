@@ -27,7 +27,8 @@ var siteSchema = new mongoose.Schema({
         }
     ],
     marker_image: String,
-    gallery:[String]
+    gallery:[String],
+    height:Number,
 });
 
 // var Antenna = mongoose.model("Antenna",antennaSchema);

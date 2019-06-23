@@ -10,7 +10,7 @@ class Navbar extends Component{
         return(
             <nav>
                 <div className="left">
-                    <a href="index.html" className="brand">
+                    <a href="#" className="brand">
                         <img className="logo-icon" src="/assets/img/logo/logo-13.png" alt=""/>
                         <img className="logo-text" src="/assets/img/logo/logo-14.png" alt=""/>
                     </a>
@@ -19,14 +19,14 @@ class Navbar extends Component{
                 <div className="right">
                     <div className="primary-nav has-mega-menu">
                         <ul className="navigation">
-                            <li className="active has-child"><a href="#nav-homepages">Controls</a>
+                            <li className="active has-child"><a href="#">Controls</a>
                                 <div className="wrapper">
                                     <div id="nav-homepages" className="nav-wrapper">
                                         <ul>
                                             <li><a href="#" className="add-listing"
                                                    data-modal-external-file="#modalSubmit" data-target="modal-submit">
                                                 <i className="fa fa-plus"></i>
-                                                <span>Add Antenna</span>
+                                                <span>Add Site</span>
                                             </a></li>
                                         </ul>
                                     </div>

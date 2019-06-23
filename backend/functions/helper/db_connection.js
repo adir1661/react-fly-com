@@ -1,12 +1,10 @@
 const Mongoose = require('mongoose');
-const Promise = require('bluebird');
-Mongoose.Promise = Promise;
 let cachedDb = null;
 let MONGO_URI = process.env.MONGODB_URI;
 const  connectToDatabase = function(){
     console.log('=> connect to database');
     try{
-        if (cachedDb) {
+        if (cachedDb/*todo check this method later*//*&&cachedDb.isConnected()*/) {
             console.log('=> using cached database instance');
             return Promise.resolve(cachedDb);
         }

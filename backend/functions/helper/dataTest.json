@@ -2,6 +2,5 @@
   "resource": "/",
   "path": "sites/5cdd05f378f2675ea05fef86/reports",
   "httpMethod": "POST",
-  "body":"{\"issues\":[{\"rating\":45},{\"rating\":3},{\"rating\":41}]}",
-  "pathParameters":{"id":"5cdd05f378f2675ea05fef86"}
+  "body":"{\"siteId\":\"5ce50ed4f306cb83c7a73c93\",\"galleries\":[]}",
 }

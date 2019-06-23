@@ -31,16 +31,17 @@ function createReport(reportObj, dbConn, siteId) {
 }
 
 function getAverageRating(issues) {
-    return issues.length > 1 ? ((issues.reduce( function(a, b){return a + Number(b.rating)}, 0)) / (issues.length)) : issues[0].rating;
+    return issues.length > 1 ? ((issues.reduce( function(a, b){return a + Number(b.rating).toFixed(2)}, 0)) / (issues.length)) : issues[0].rating;
 }
 
 module.exports.create = (event, context, callback) => {
     context.callbackWaitsForEmptyEventLoop = false;
-    let {video, title, category, issues, description} = JSON.parse(event.body);
+    let {video, title, category, issues, description, vid : videoString } = JSON.parse(event.body);
     let siteId = event.pathParameters.id;
     let rating = getAverageRating(issues);
     console.log('rating: ', rating);
     console.log('issues: ', issues);
+    console.log('video String :', videoString);
     connectToDatabase()
         .then((dbConn) => {
             let Report = dbConn.model('Report', ReportSchema);
@@ -50,7 +51,8 @@ module.exports.create = (event, context, callback) => {
                 title,
                 category,
                 issues,
-                rating
+                rating,
+                vid:videoString
             });
             return createReport(report, dbConn, siteId)
         })

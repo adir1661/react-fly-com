@@ -1,8 +1,5 @@
-'use strict';
-//let mongoose = require('mongoose');
-//mongoose.connect(process.env.MONGODB_URI);
+//'use strict';
 let SiteSchema = require('../models/site');
-const mongoose = require('mongoose');
 const connectToDatabase = require("../helper/db_connection");
 const reportSchema = require('../models/report');
 
@@ -16,21 +13,18 @@ exports.list = function (event, context, callback) {
     // This means your Lambda function doesn't have to go through the
     // potentially expensive process of connecting to MongoDB every time.
     connectToDatabase()
-        .then(async (dbConn) => {
+        .then((dbConn) => {
             console.log('dbConn', dbConn);
             const Site = dbConn.model('Sites', SiteSchema);
             dbConn.model('Report',reportSchema);
-            Site.find({}).populate("reports").then((sitesResponse) => {
-                console.log(sitesResponse);
-                callback(null, {
-                    statusCode: 200,
-                    body: JSON.stringify(sitesResponse)
-                });
-            })
-                .catch(err=>{
-                    console.log(err);
-                    callback(err);
-                });
+            return Site.find({}).populate("reports").exec()
+        })
+        .then((sitesResponse) => {
+            console.log(sitesResponse);
+            callback(null, {
+                statusCode: 200,
+                body: JSON.stringify(sitesResponse)
+            });
         })
         .catch((err) => {
             console.log(err);

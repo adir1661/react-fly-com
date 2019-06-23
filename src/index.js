@@ -20,6 +20,8 @@ import './external/style.css';
 
 // import 'jquery/dist/jquery.min'
 // import 'bootstrap/dist/js/bootstrap.min'
+window.ReactDOM =ReactDOM;
+window.React = React;
 ReactDOM.render(
     <App/>
     , document.getElementById('root'));
