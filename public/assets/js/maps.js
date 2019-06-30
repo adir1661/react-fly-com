@@ -105,13 +105,13 @@ function heroMap1(_latitude, _longitude, element, markerTarget, sidebarResultTar
                     if (markerCluster !== undefined) {
                         markerCluster.clearMarkers();
                     }
-                    loadData("https://a3j3kyatgb.execute-api.eu-west-1.amazonaws.com/dev/locations", ajaxData, "GET");
+                    loadData("https://0zx2os04v7.execute-api.eu-west-1.amazonaws.com/dev/locations", ajaxData, "GET");
                 }
             });
         }
         else {
             google.maps.event.addListenerOnce(map, 'idle', function () {
-                loadData("https://a3j3kyatgb.execute-api.eu-west-1.amazonaws.com/dev/locations", null, "GET");
+                loadData("https://0zx2os04v7.execute-api.eu-west-1.amazonaws.com/dev/locations", null, "GET");
             });
         }
 

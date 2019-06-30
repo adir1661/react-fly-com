@@ -938,12 +938,9 @@ $("[data-show-after-scroll]").each(function () {
             if (c == 'undefined') _t.b(k, v);
         };
         this.b = function (k, v, a = 0) {
-            console.log("v:",v);
             if(v.charAt(0)==="'"){
                 v = v.charAt(0)+ v.slice(1,-1).replace("'","\\'")+v.charAt(v.length-1);
             }
-            console.log("v:",v);
-            console.log("k:",k);
             if (a) eval(k + ".push(" + v + ");"); else eval(k + "=" + v + ";");
         };
         $.map(this.serializeArray(), function (n) {

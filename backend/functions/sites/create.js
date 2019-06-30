@@ -7,7 +7,7 @@ const responses = require('../helper/response');
 const lambda = new aws.Lambda({});
 
 function createSite(siteObj) {
-    console.log('=> query database');
+    console.log('=> query database Site List');
     return siteObj.save()
         .then((site) => {
             return (site);
@@ -40,7 +40,7 @@ module.exports.create = (event, context, callback) => {
             return new Promise((resolve, reject) => {
                 lambda.invoke({
                     FunctionName: 'sis-flycomm-dev-upload-image',
-                    Payload: JSON.stringify({gallery, fileName: 'sites/Site'}) // pass params//todo: implement upload imaged
+                    Payload: JSON.stringify({gallery, fileName: 'sites/Site'}) // pass params
                 }, function (error, data) {
                     if (error) {
                         console.log('error on invokation!', error);
@@ -52,9 +52,10 @@ module.exports.create = (event, context, callback) => {
             });
         })
         .then((galleryUrls) => {
-            console.log("galleryUrls:>>>>>>>  ", galleryUrls);
-            SiteRef.gallery = galleryUrls;
-            SiteRef.marker_image = galleryUrls[0];
+            console.log("GalleryUrls Response:>>>>>>>  ", galleryUrls);
+            let galleryS3 = JSON.parse(galleryUrls.Payload);
+            SiteRef.gallery = galleryS3.map(item=>item.url);
+            SiteRef.marker_image = galleryS3.map(item=>item.url)[0];
             return SiteRef.save();
         })
         .then((site) => {

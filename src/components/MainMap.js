@@ -406,13 +406,13 @@ class MainMap extends Component {
                             if (markerCluster !== undefined) {
                                 markerCluster.clearMarkers();
                             }
-                            loadData("https://a3j3kyatgb.execute-api.eu-west-1.amazonaws.com/dev/locations", ajaxData, "GET");
+                            loadData("https://0zx2os04v7.execute-api.eu-west-1.amazonaws.com/dev/locations", ajaxData, "GET");
                         }
                     });
                 }
                 else {
                     window.google.maps.event.addListenerOnce(window.map, 'idle', function () {
-                        loadData("https://a3j3kyatgb.execute-api.eu-west-1.amazonaws.com/dev/locations", null, "GET");
+                        loadData("https://0zx2os04v7.execute-api.eu-west-1.amazonaws.com/dev/locations", null, "GET");
                     });
                 }
 
@@ -512,7 +512,7 @@ class MainMap extends Component {
                 if ($('link[href="assets/css/bootstrap-select.min.css"]').length === 0) {
                     $('head').append($('<link rel="stylesheet" type="text/css">').attr('href', 'assets/css/bootstrap-select.min.css'));
                 }
-                $(".selectpicker").selectpicker();//todo change to react select picker
+                $(".selectpicker").selectpicker();
                 if ($("input[type=file]").length || key === 'modalSubmit') {
                     $.getScript("assets/js/jQuery.MultiFile.min.js", function (data, textStatus, jqxhr) {
                         try {
@@ -523,7 +523,7 @@ class MainMap extends Component {
                             console.log("error: ", e);
                         }
                     });
-                }//todo change to react file collector
+                }
                 if ($(".date-picker").length) {
                     $.getScript("assets/js/bootstrap-datetimepicker.min.js", function () {
                         initializeDateTimePicker();
@@ -534,7 +534,6 @@ class MainMap extends Component {
                         e.preventDefault();
                     });
                 }
-                $.getScript("assets/js/jquery.trackpad-scroll-emulator.min.js");
                 _this.find(".gallery").addClass("owl-carousel");
                 window.ratingPassive(_this);
                 var img = _this.find(".gallery img:first")[0];
@@ -604,23 +603,10 @@ class MainMap extends Component {
 
         };
         window.submitFormListener = (formElement, _this, url = 'sites') => {
-
-            function checkInputs(formElement) {
-                let {$} = window;
-                var required = formElement.find('input,textarea,select').filter('[required]:visible');
-                var allRequired = true;
-                required.each(function () {
-                    if ($(this).val() === '') {
-                        allRequired = false;
-                    }
-                });
-                return allRequired;
-            }
-
             formElement.on('submit', (ev) => {
                 let ajaxCall = (formDetailsObject) => {
                     $.ajax({
-                        url: 'https://a3j3kyatgb.execute-api.eu-west-1.amazonaws.com/dev/' + url,
+                        url: 'https://0zx2os04v7.execute-api.eu-west-1.amazonaws.com/dev/' + url,
                         method: "POST",
                         data: JSON.stringify(formDetailsObject),
                         dataType: "json",
@@ -631,10 +617,9 @@ class MainMap extends Component {
                             console.log(errorThrown);
                         }
                     })
-                }
+                };
                 let {moment, $} = window;
                 ev.preventDefault();
-                let allRequired = checkInputs(formElement);
                 let formDetailsObject = formElement.getForm2obj();
                 if (formDetailsObject.issues && formDetailsObject.issues[0]) {
                     let array = [];
@@ -646,34 +631,28 @@ class MainMap extends Component {
                     formDetailsObject.issues = array;
                 }
                 formDetailsObject.created = moment().format();
-                console.log(formDetailsObject);
+                // console.log(formDetailsObject);
                 let fileInput = formElement.find('input[type="file"]');
                 if (fileInput.length > 0) {
                     filesToBase64(fileInput[0].files)
                         .then((files64Array) => {
                             formDetailsObject.gallery = files64Array;
                             ajaxCall(formDetailsObject);
-                            console.log("filesToBase64 success:" ,formDetailsObject);
-
+                            console.log("filesToBase64 success:", formDetailsObject);
                         })
                         .catch(e => {
                             console.log(e);
                         });
                 } else {
-                    if (allRequired) {
-                        //DO SOMETHING HERE... POPUP AN ERROR MESSAGE, ALERT , ETC.
-                        ajaxCall(formDetailsObject)
-                    } else {
-                        console.log('not all required');
-                    }
+                    ajaxCall(formDetailsObject);
                 }
-
                 return false;
             });
         };
 
         window.Templates = {
-            modalSubmit: () => (`<div class="modal-dialog width-800px" role="document" data-latitude="31.771959" data-longitude="35.217018" data-marker-drag="true" >
+            modalSubmit: () => {
+                return `<div class="modal-dialog width-800px" role="document" data-latitude="31.771959" data-longitude="35.217018" data-marker-drag="true" >
 <div class="modal-content" >
     <div class="modal-header">
         <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
@@ -778,8 +757,10 @@ class MainMap extends Component {
         </form>
     </div>
 </div>
-</div>`),
-            modalItem: (id, site) => (`<div class="modal-item-detail modal-dialog" role="document" data-latitude="${site.latitude}" data-longitude="${ site.longitude}" data-address data-id="${id}">
+</div>`
+            },
+            modalItem: (id, site) => {
+                return `<div class="modal-item-detail modal-dialog" role="document" data-latitude="${site.latitude}" data-longitude="${ site.longitude}" data-address data-id="${id}">
     <div class="modal-content">
         <div class="modal-header">
             <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
@@ -850,8 +831,10 @@ class MainMap extends Component {
                 </div>
         </div>
     </div>
-</div>`),
-            reportSubmit: () => (`<div class="modal-dialog modal-report width-800px" role="document" data-latitude="40.7344458"
+</div>`
+            },
+            reportSubmit: () => {
+                return `<div class="modal-dialog modal-report width-800px" role="document" data-latitude="40.7344458"
 data-longitude="-73.86704922"
 data-marker-drag="true">
 <div class="modal-content">
@@ -913,10 +896,11 @@ data-marker-drag="true">
        </form>
    </div>
 </div>
-</div>`),
+</div>`
+            },
             modalReportView: (report, antennaId,) => {
-                let antenna = window.locations.find((location) => location.id === antennaId)
-                return `<div class="modal-dialog modal-report width-800px" role="document" data-marker-drag="true" 
+                let antenna = window.locations.find((location) => location.id === antennaId);
+return `<div class="modal-dialog modal-report width-800px" role="document" data-marker-drag="true" 
     data-id="${antennaId}">
 <div class="modal-content">
    <div class="modal-header">
@@ -1006,7 +990,8 @@ data-marker-drag="true">
 </div>
 </div>`
             },
-            issue: (issue) => (`<div class="issue row">
+            issue: (issue) => {
+                return `<div class="issue row">
     <div class="col-xs-7">
         <h3>${issue.title.charAt(0).toUpperCase() + issue.title.slice(1)}</h3>
         <div class ='issue-subtitle' style="">
@@ -1029,9 +1014,9 @@ data-marker-drag="true">
             <img style="height: 100px"  src="${issue.image ? issue.image : 'https://via.placeholder.com/150x100/000000/FFFFFF/?text=No+Image+Placed+Here'}" alt="report">
         </a>
     </div>
-</div>`)
+</div>`
+            }
         };
-
 //  Render report details-----------------------------------------------------------------------------------------------
         function renderReportDetails() {
             let {$} = window;
@@ -1077,7 +1062,6 @@ data-marker-drag="true">
                 $reports.append(issueSubmit(issue.name + ":", issue.id, i));
             })
         }
-
     };
     componentDidMount = () => {
         console.log('assigned');

@@ -15,8 +15,10 @@ const Libraries = [
     "assets/js/icheck.min.js",
     "assets/js/owl.carousel.min.js",
     "assets/js/jquery.nouislider.all.min.js",
+    "assets/js/jquery.trackpad-scroll-emulator.min.js",
     "assets/js/custom.js",
     "assets/js/maps.js",
+
 ];
 const afterLoad = [
     "assets/js/main-external.js",
