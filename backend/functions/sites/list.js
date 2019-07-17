@@ -1,4 +1,6 @@
 //'use strict';
+let responses =require("../helper/response");
+
 let SiteSchema = require('../models/site');
 const connectToDatabase = require("../helper/db_connection");
 const reportSchema = require('../models/report');
@@ -20,14 +22,12 @@ exports.list = function (event, context, callback) {
             return Site.find({}).populate("reports").exec()
         })
         .then((sitesResponse) => {
-            console.log(sitesResponse);
-            callback(null, {
-                statusCode: 200,
-                body: JSON.stringify(sitesResponse)
-            });
+            console.log(JSON.stringify(sitesResponse));
+            console.log('json length ' ,JSON.stringify(sitesResponse).length)
+            callback(null,responses.responseOk(sitesResponse));
         })
         .catch((err) => {
             console.log(err);
-            callback(err);
+            callback(responses.responseError(err));
         });
 };

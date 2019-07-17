@@ -1,14 +1,150 @@
 import React, {Component} from 'react';
 import {Modal} from 'react-bootstrap';
 import {filesToBase64} from "../helper/image";
-
+const useCahcedReportsForView = true;
 class MainMap extends Component {
     constructor(props) {
         super(props);
     }
 
-
     componentWillMount = () => {
+        let self = this;
+        let applyMultiFileFields = (itemsLength) => {
+            let {$} = window;
+            $("input.file-upload-input:not(.item)").MultiFile({
+                list: ".file-upload-previews:not(.item)"
+            });
+            if (itemsLength) {
+                for (let i = 0; i < itemsLength; i++) {
+                    $("input#file-upload_" + i).MultiFile({
+                        list: "#image-preview_" + i
+                    });
+                }
+            }
+        };
+        let issues = [
+            {name: 'Antenna\'s intergity and screw strengthening', id: 'integrity'},
+            {name: 'cabels integrity', id: 'cabels'},
+            {name: 'connectors tightness', id: 'tightness'},
+            {name: 'unwanted cabels', id: 'uncabels'},
+            {name: 'monitor lightness', id: 'monitor_lightness'},
+            {name: 'blocking', id: 'blocking'},
+            {name: 'antenna\'s stickers', id: 'stickers'},
+        ];
+        let  chachedReports = [
+            {
+                _id:'1',
+                created: new Date('2019-01-05'),
+                rating: 70,
+                title: '4001',
+                description: 'this is report winter chached with some screws missing.',
+                category: 'winder',
+                reportId: 2,
+                providerLogo:'assets/img/cellcom_logo.png',
+                issues: [
+                    {
+                        title: issues[0].name,
+                        rating: 80,
+                        issueNum: 112,
+                        image: 'assets/img/antennas/cellcom1.jpg',
+                        stability: 'stable',
+                        description: 'Looks Good!',
+                    },
+                    {
+                        title: issues[1].name,
+                        rating: 14,
+                        issueNum: 223,
+                        stability: 'problematic',
+                        image: 'assets/img/antennas/cellcom8.jpg',
+                        description: 'problems on the vehiles, alot of cables merged together, cables unconnected',
+                    },
+                    {
+                        title: issues[2].name,
+                        rating: 49,
+                        issueNum: 324,
+                        stability: 'problematic',
+                        image: 'assets/img/antennas/cellcom7.jpg',
+                        description: 'problems on the connectors, alot of cables merged together,connector unconnected on right top corner',
+                    },
+
+                ]
+            },
+            {
+                _id:'2',
+                created: new Date('2019-03-25'),
+                rating: 45,
+                title: '4351',
+                description: 'this is report winter cached with some crashes inside the Antenna tubes.',
+                category: 'winder',
+                vid: 'https://s3-eu-west-1.amazonaws.com/sis-flycomm-images/pelephone-cut2.mp4',
+                reportId: 1,
+                providerLogo:'assets/img/items/company.png',
+                issues: [
+                    {
+                        title: issues[0].name,
+                        rating: 80,
+                        issueNum: 112,
+                        image: 'assets/img/antennas/issue1.jpg',
+                        stability: 'stable',
+                        description: 'Looks Good!',
+                    },
+                    {
+                        title: issues[1].name,
+                        rating: 14,
+                        image: 'assets/img/antennas/issue4.jpeg',
+                        issueNum: 223,
+                        stability: 'problematic',
+                        description: 'problems on the vehiles, alot of cables merged together, cables unconnected',
+                    },
+                    {
+                        title: issues[2].name,
+                        rating: 49,
+                        issueNum: 324,
+                        stability: 'problematic',
+                        image: 'assets/img/antennas/issue2.jpg',
+                        description: 'problems on the connectors, alot of cables merged together,connector unconnected on right top corner',
+                    },
+                ]
+            },
+            {
+                _id:'3',
+
+                created: new Date('2018-08-14'),
+                rating: 15,
+                title: '3451',
+                description: 'this is report winter chached with birds nests all over the place.',
+                category: 'winder',
+                reportId: 3,
+                issues: [
+                    {
+                        title: issues[0].name,
+                        rating: 80,
+                        issueNum: 112,
+                        image: 'assets/img/antennas/3.png',
+                        stability: 'stable',
+                        description: 'Looks Good!',
+                    },
+                    {
+                        title: issues[1].name,
+                        rating: 14,
+                        issueNum: 223,
+                        stability: 'problematic',
+                        image: 'assets/img/antennas/4.JPG',
+                        description: 'problems on the vehiles, alot of cables merged together, cables unconnected',
+                    },
+                    {
+                        title: issues[2].name,
+                        rating: 49,
+                        issueNum: 324,
+                        stability: 'problematic',
+                        image: 'assets/img/antennas/1.png',
+                        description: 'problems on the connectors, alot of cables merged together,connector unconnected on right top corner',
+                    },
+
+                ]
+            },
+        ];
+
         window.heroMap = function (_latitude, _longitude, element, markerTarget, sidebarResultTarget, showMarkerLabels, mapDefaultZoom) {
             let placeMarkers = function (markers) {
 
@@ -325,13 +461,8 @@ class MainMap extends Component {
             };
 
             function onBoundsChanged() {
-                if ($(window.map.getDiv()).children().eq(0).height() === window.innerHeight &&
-                    $(window.map.getDiv()).children().eq(0).width() === window.innerWidth) {
-                    window.isFullScreen = true;
-                }
-                else {
-                    window.isFullScreen = false;
-                }
+                window.isFullScreen = $(window.map.getDiv()).children().eq(0).height() === window.innerHeight &&
+                    $(window.map.getDiv()).children().eq(0).width() === window.innerWidth;
             }
 
             // Geo Location ------------------------------------------------------------------------------------------------
@@ -368,9 +499,7 @@ class MainMap extends Component {
                 autoComplete,
             } = window;
             if (document.getElementById(element) != null) {
-
                 // Create google map first -------------------------------------------------------------------------------------
-
                 if (!mapDefaultZoom) {
                     mapDefaultZoom = 14;
                 }
@@ -484,12 +613,14 @@ class MainMap extends Component {
             $child.removeClass("width-800px");
             $child.addClass("width-700px");
             $modal.html(window.Templates['reportSubmit']());
-            renderReportDetails();
+            let issuesLength = renderReportDetails().length;
+            applyMultiFileFields(issuesLength);
             submitFormListener($modal.find('form'), $modal, 'sites/' + item_Id + '/reports');
         };
         window.openModalFromTemplates = (key, target, clusterData,) => {
+
             let {
-                $, Templates, initializeDateTimePicker, mapsFullScreen, socialShare, lastClickedMarker, submitFormListener, google, simpleMap,
+                $, Templates, mapsFullScreen, socialShare, lastClickedMarker, submitFormListener, google, simpleMap,
                 initializeOwl, initializeFitVids, initializeReadMore,
             } = window;
             window.lastClickedMarker = lastClickedMarker;
@@ -497,12 +628,15 @@ class MainMap extends Component {
             key = key.slice(1);
             // if(true)return;
             if (key !== 'modalSubmit' && key !== 'modalItem') return;
-            $("body").append('<div class="modal modal-external fade" id="' + target + '" tabindex="-1" role="dialog" aria-labelledby="' + target + '"><i class="loading-icon fa fa-circle-o-notch fa-spin"/></div>');
+            $("body").append('<div class="modal modal-external fade" id="' + target + '" tabindex="-1" data-backdrop="static" role="dialog" aria-labelledby="' + target + '"><i class="loading-icon fa fa-circle-o-notch fa-spin"/></div>');
             let $targetModal = $("#" + target + ".modal");
             $targetModal.on("show.bs.modal", function () {
                 let _this = $(this);
                 window.lastModal = _this;
                 let site = window.locations.find((item => (item.id === target))) || {};
+                if(useCahcedReportsForView&&(!site.reports||site.reports.length<1)){
+                    site.reports = chachedReports;
+                }
                 InsertTemplate(Templates[key](target, site), _this);
             });
             let InsertTemplate = (results, _this) => {
@@ -514,15 +648,7 @@ class MainMap extends Component {
                 }
                 $(".selectpicker").selectpicker();
                 if ($("input[type=file]").length || key === 'modalSubmit') {
-                    $.getScript("assets/js/jQuery.MultiFile.min.js", function (data, textStatus, jqxhr) {
-                        try {
-                            $("input.file-upload-input").MultiFile({
-                                list: ".file-upload-previews"
-                            });
-                        } catch (e) {
-                            console.log("error: ", e);
-                        }
-                    });
+                    applyMultiFileFields();
                 }
                 if ($(".date-picker").length) {
                     $.getScript("assets/js/bootstrap-datetimepicker.min.js", function () {
@@ -604,6 +730,11 @@ class MainMap extends Component {
         };
         window.submitFormListener = (formElement, _this, url = 'sites') => {
             formElement.on('submit', (ev) => {
+                let assignToArray = (arr, items) => {
+                    arr = arr || [];
+                    arr = arr.concat(items);
+                    return arr;
+                };
                 let ajaxCall = (formDetailsObject) => {
                     $.ajax({
                         url: 'https://0zx2os04v7.execute-api.eu-west-1.amazonaws.com/dev/' + url,
@@ -611,7 +742,13 @@ class MainMap extends Component {
                         data: JSON.stringify(formDetailsObject),
                         dataType: "json",
                         success: (result) => {
+                            if(result.site){
+                                result.site = result.site._id;
+                            }
                             _this.modal('hide');
+                            console.log('successfuly updated site and added Report.\nreport:', result);
+                            let site = window.locations.find(site=>site.id === result.site);
+                            site.reports.push(result);
                         },
                         error: (jqXHR, textStatus, errorThrown) => {
                             console.log(errorThrown);
@@ -634,22 +771,31 @@ class MainMap extends Component {
                 // console.log(formDetailsObject);
                 let fileInput = formElement.find('input[type="file"]');
                 if (fileInput.length > 0) {
-                    filesToBase64(fileInput[0].files)
-                        .then((files64Array) => {
-                            formDetailsObject.gallery = files64Array;
-                            ajaxCall(formDetailsObject);
-                            console.log("filesToBase64 success:", formDetailsObject);
-                        })
-                        .catch(e => {
-                            console.log(e);
+                    let filePromises = [];
+                    for (let i = 0; i < fileInput.length; i++) {
+                        filePromises.push(filesToBase64(fileInput[i].files, fileInput[i]));
+                    }
+                    Promise.all(filePromises).then((result) => {
+                        result.forEach((item) => {
+                            let $item = $(item.input);
+                            if ($item.hasClass('item')) {
+                                formDetailsObject.issues[$item.attr('name')[7]].gallery = assignToArray(formDetailsObject.issues[$item.attr('name')[7]].gallery, item.files);
+                            } else {
+                                formDetailsObject.gallery = assignToArray(formDetailsObject.gallery, item.files);
+                            }
                         });
-                } else {
+                        ajaxCall(formDetailsObject);
+                        console.log("filesToBase64 success:", formDetailsObject);
+                    }).catch(e => {
+                        console.log(e);
+                    });
+                }
+                else {
                     ajaxCall(formDetailsObject);
                 }
                 return false;
             });
         };
-
         window.Templates = {
             modalSubmit: () => {
                 return `<div class="modal-dialog width-800px" role="document" data-latitude="31.771959" data-longitude="35.217018" data-marker-drag="true" >
@@ -666,7 +812,7 @@ class MainMap extends Component {
                 <div class="row">
                     <div class="col-md-7 col-sm-9">
                         <div class="form-group">
-                            <label for="title">Antenna's ID</label>
+                            <label for="title">Site ID</label>
                             <input type="text" class="form-control" required name="provAntennaId" id="provAntennaId" placeholder="Proveider Antenna's ID">
                         </div>
                         <!--end form-group-->
@@ -676,7 +822,7 @@ class MainMap extends Component {
                         <div class="form-group">
                             <label for="category">Type</label>
                             <select class="form-control selectpicker" name="type" id="type" required>
-                                <option value="">Antenna's Type</option>
+                                <option value="">Site Type</option>
                                 <option value="Rooftop-Site">Rooftop Site</option>
                                 <option value="Cell-Tower-Site">Cell Tower Site</option>
                                 <option value="Small-Cell">Small Cell</option>
@@ -803,7 +949,7 @@ class MainMap extends Component {
                 </section>
                 <section class="report-list">
                         <h3><strong>Latest Reports</strong></h3>
-                        ${site.reports ? site.reports.map((report) => (`<div class="review report-item" data-id="${report.reportId}">
+                        ${site.reports ? site.reports.map((report) => (`<div class="review report-item" data-id="${report._id}" title="${report.description}">
                                 <div class="image">
                                      <div class="bg-transfer" >
                                          <div class="c100 p${Math.round(Number(report.rating))} small ${Number(report.rating) > 50 ? 'green' : Number(report.rating) > 30 ? 'orange' : 'red'}">
@@ -823,7 +969,7 @@ class MainMap extends Component {
                                         <span class="date">${report.created ? new Date(report.created).toDateString() : ''}</span>
                                     </figure>
                                     <h5>${report.title}</h5>
-                                    <p>${report.description}</p>
+                                    <p>${report.description.length>70?report.description.slice(0,66) +'...':report.description}</p>
                                 </div>
                             </div>
                             `)).join('\n') : 'No Reports in this site...'}
@@ -849,12 +995,16 @@ data-marker-drag="true">
        <form class="form inputs-underline report-form">
            <section>
                <div class="row">
-                   <div class="col-md-9 col-sm-9">
-                       <div class="form-group">
-                           <label for="title">Title</label>
-                           <input type="text" class="form-control" name="title" id="title" placeholder="Title">
-                       </div>
-                   </div>
+                    <div class="col-xs-9">
+                        <div class="form-group">
+                            <label for="title"><i class="fa fa-picture-o" aria-hidden="true"></i> Image</label>
+                            <div class="file-upload">
+                                <input type="file" name="files[]" class="file-upload-input with-preview" multiple="multiple" title="Click to add files" maxlength="10" accept="jpg|png">
+                                <span>Click or drag images here</span>
+                            </div>
+                        <div class="file-upload-previews"></div>                        
+                        </div>
+                    </div>
                    <div class="col-md-3 col-sm-3">
                        <div class="form-group">
                            <label for="category">Category</label>
@@ -865,49 +1015,51 @@ data-marker-drag="true">
                            </select>
                        </div>
                    </div>
-                   <div class="col-xs-12">
-                        <div class="form-group">
-                            <label for="title"><i class="fa fa-picture-o" aria-hidden="true"></i> Image Url</label>
-                            <input type="text" class="form-control" name="title" id="url" placeholder="http://image.url">
-                        </div>
-                    </div>
+                   
                </div>
 
            </section>
 
-           <section>
-               <h3>Antenna</h3>
-               <div class="form-group">
-                   <label for="address-autocomplete">Address</label>
-                   <input type="text" class="form-control" name="address" id="address-autocomplete"
+            <section>
+                <h3>Antenna</h3>
+                <div class="form-group">
+                    <label for="address-autocomplete">Address</label>
+                    <input type="text" class="form-control" name="address" id="address-autocomplete"
                           placeholder="Address">
-               </div>
-           </section>
-           <section class="reports">
-               <h3>Report Details:</h3>
-           </section>
+                </div>
+            </section>
+            <section class="reports">
+                <h3>Report Details:</h3>
+            </section>
 
-           <hr>
-           <section class="center">
-               <div class="form-group">
-                   <button type="submit" class="btn btn-primary btn-rounded">Add Report</button>
-               </div>
-           </section>
-       </form>
+            <section class="center">
+                <div class="row left">
+                    <div class="col-md-9 col-sm-9">
+                       <div class="form-group">
+                           <label for="title">Filled By: </label>
+                           <input type="text" class="form-control" name="filledBy" id="title" placeholder="name">
+                       </div>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <button type="submit" class="btn btn-primary btn-rounded">Add Report</button>
+                </div>
+            </section>
+        </form>
    </div>
 </div>
 </div>`
             },
             modalReportView: (report, antennaId,) => {
                 let antenna = window.locations.find((location) => location.id === antennaId);
-return `<div class="modal-dialog modal-report width-800px" role="document" data-marker-drag="true" 
+                return `<div class="modal-dialog modal-report width-800px" role="document" data-marker-drag="true" 
     data-id="${antennaId}">
 <div class="modal-content">
    <div class="modal-header">
        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
                aria-hidden="true">&times;</span></button>
        <div class="section-title">
-           <h2 class="pull-left">${report.title.charAt(0).toUpperCase() + report.title.slice(1)}</h2>
+           <h2 class="pull-left">${report.category?report.category.charAt(0).toUpperCase() + report.category.slice(1) : ''} ${report.title?'Report ' + report.title.charAt(0).toUpperCase() + report.title.slice(1):' - no ID.'}</h2>
            <div class="pull-right">
                     <img  src="${report.providerLogo}" alt="">
            </div>
@@ -915,24 +1067,24 @@ return `<div class="modal-dialog modal-report width-800px" role="document" data-
    </div>
    <div class="modal-body">
        <section>
-       <h3>Antenna:</h3>
+       <h3>Site:</h3>
                <div class="row small-font">
                    <div class="col-md-2 col-sm-2">
-                           <h5 for="title">Site Name: <br>${antenna.address}</h5>
+                           <h5 for="title"><strong>Site Name</strong>: <br>${antenna.address}</h5>
                    </div>
                    <div class="col-md-2 col-sm-2">
-                         <h5 for="title">Site ID: <br>${antenna.title}</h5>
+                         <h5 for="title"><strong>Site ID</strong>: <br>${antenna.title}</h5>
                    </div> 
                    ${antenna.created ? `
                    <div class="col-md-2 col-sm-2">
-                         <h5 for="title">Site Date: <br>${new Date(antenna.created).toLocaleDateString()}</h5>
+                         <h5 for="title"><strong>Site Date</strong>: <br>${new Date(antenna.created).toLocaleDateString()}</h5>
                    </div>  ` : '<div class="col-md-2 col-sm-2"></div>'}
                    <div class="col-md-2 col-sm-2">
-                         <h5 for="title">Site Type: <br>${antenna.type}</h5>
+                         <h5 for="title"><strong>Site Type</strong>: <br>${antenna.type}</h5>
                    </div>
                     ${antenna.contact ? `
                    <div class="col-md-2 col-sm-2">
-                         <h5 for="title">Filled By: <br>${antenna.contact}</h5>
+                         <h5 for="title"><strong>Filled By</strong>: <br>${report.filledBy||'Not Assigned'}</h5>
                    </div>  ` : '<div class="col-md-2 col-sm-2"></div>'}
                </div>
            </section>
@@ -946,6 +1098,7 @@ return `<div class="modal-dialog modal-report width-800px" role="document" data-
                    </div>-->
                    
                    ${report.vid ? `<div class="col-xs-12 report-video">
+                        <h6>Site Video:</h6>
                         <video width="320" height="240" controls>
                           <source src="${report.vid}" type="video/mp4">
                           Your browser does not support the video tag.
@@ -958,7 +1111,7 @@ return `<div class="modal-dialog modal-report width-800px" role="document" data-
                             <h3>Report Details:</h3>
                 </div>
                 <div class="col-md-3 col-sm-3">
-                     <h4 for="category">Category: ${report.category}</h4>
+                     <h4 for="category"></h4>
                 </div>  
                 ${report.issues ? report.issues.map(issue => window.Templates['issue'](issue)).join('') : ''}
                 ${report.summary ? `<div class=col-xs-12>
@@ -1009,58 +1162,57 @@ return `<div class="modal-dialog modal-report width-800px" role="document" data-
         </div>
     </div>
     <div class="col-xs-3" style="height:100%;border-left: 1px solid var(--light-grey);text-align: right;overflow: hidden">
-        <a href="${issue.image ? issue.image : 'https://via.placeholder.com/150x100/000000/FFFFFF/?text=No+Image+Placed+Here'}" 
+        <a href="${issue.gallery ? issue.gallery[0] : issue.image ? issue.image : 'https://via.placeholder.com/150x100/000000/FFFFFF/?text=No+Image+Placed+Here'}" 
         data-lightbox="image-issues" data-title="${issue.title.charAt(0).toUpperCase() + issue.title.slice(1)}">
-            <img style="height: 100px"  src="${issue.image ? issue.image : 'https://via.placeholder.com/150x100/000000/FFFFFF/?text=No+Image+Placed+Here'}" alt="report">
+            <img style="height: 100px"  src="${issue.gallery && issue.gallery[0] ? issue.gallery[0] : issue.image ? issue.image : 'https://via.placeholder.com/150x100/000000/FFFFFF/?text=No+Image+Placed+Here'}" alt="report">
         </a>
     </div>
 </div>`
-            }
-        };
-//  Render report details-----------------------------------------------------------------------------------------------
-        function renderReportDetails() {
-            let {$} = window;
-            let issueSubmit = function (issueName, id, i) {
+            },
+            issueSubmit: (issueName, id, i) => {
+                let {$} = window;
                 let template = $(
                     `<div class="form-group detail">
                   <label for="integrity">${issueName}</label>
-                  <select class="form-control selectpicker" name="issues[${i}][stability]" id="'+id+'" required>
-                      <option value="">Status</option>
+                  <select class="form-control selectpicker" name="issues[${i}][stability]" id="${id}" required>
+                      <option value="Not Relevant">Not Relevant</option>
                       <option value="Stable">Stable</option>
                       <option value="Problematic">Problematic</option>
-                      <option value="Not Relevant">Not Relevant</option>
                   </select>
                   <input class="input" type="number" placeholder="Issue Num." name="issues[${i}][issueNum]" value="100">
                   <input type="hidden" name="issues[${i}][title]" value="${issueName}" />
                   <textarea class="form-control" id="'+id+'_desc" rows="4" name="issues[${i}][description]"
                                 placeholder="describle the issue" name="issues[${i}][description]"/>
-                  <div class="url-input">
-                     <label><i class="fa fa-picture-o" aria-hidden="true"/> Image Url</label>
-                     <input type="text" class="form-control" name="issues[${i}][image]" id="url_${id}" placeholder="http://image.url">
-                       <label>Rating</label>
-                       <input id="${id}_slider" class="slider" data-slider-id="${id}_slider" type="number" data-slider-min="1" data-slider-max="100" 
-                               name="issues[${i}][rating]" data-slider-step="1" data-slider-value="100"/>
-                  </div>
+                <div class="url-input">
+                    <label><i class="fa fa-picture-o" aria-hidden="true"/> Image</label>
+                    <div class="file-upload">
+                        <input id="file-upload_${i}" type="file" name="issues[${i}][image]" class="file-upload-input item with-preview" multiple="multiple" title="Click to add files" maxlength="10" accept="jpg|png">
+                        <span>Click or drag images here</span>
+                    </div>
+                    <div id="image-preview_${i}" class="file-upload-previews item"></div>
+                    <label>Rating</label>
+                    <input id="${id}_slider" class="slider" data-slider-id="${id}_slider" type="number" data-slider-min="1" data-slider-max="100" 
+                           name="issues[${i}][rating]" data-slider-step="1" data-slider-value="100"/>
+                </div>
             </div>`
                 );
                 let slider = template.find("#" + id + "_slider");
                 slider.slider({tooltip: 'always',});
                 slider.trigger('slide');
                 return template;
-            };
-            let issues = [
-                {name: 'Antenna\'s intergity and screw strengthening', id: 'integrity'},
-                {name: 'cabels integrity', id: 'cabels'},
-                {name: 'connectors tightness', id: 'tightness'},
-                {name: 'unwanted cabels', id: 'uncabels'},
-                {name: 'monitor lightness', id: 'monitor_lightness'},
-                {name: 'blocking', id: 'blocking'},
-                {name: 'antenna\'s stickers', id: 'stickers'},
-            ];
+            }
+        };
+
+//  Render report details-----------------------------------------------------------------------------------------------
+        function renderReportDetails() {
+            let {$} = window;
+            let {issueSubmit} = window.Templates;
+
             let $reports = $('.reports');
             issues.forEach((issue, i) => {
                 $reports.append(issueSubmit(issue.name + ":", issue.id, i));
-            })
+            });
+            return issues;
         }
     };
     componentDidMount = () => {
@@ -1088,13 +1240,14 @@ return `<div class="modal-dialog modal-report width-800px" role="document" data-
             $(document).on('click', '.report-list .report-item', function (ev) {
                 let $this = $(this),
                     report_id = $this.attr('data-id'),
-                    antenna_Id = $this.closest('.modal-item-detail').attr('data-id');
+                    antenna_Id = $(this).closest('.modal-item-detail').attr('data-id');
                 let $modal = $(`#${antenna_Id}.modal`);
                 let $child = $modal.find(".modal-report");
                 $child.removeClass("width-800px");
                 $child.addClass("width-700px");
                 let site = window.locations.find((item => (item.id === antenna_Id)));
-                let report = site.reports.find((item) => item.reportId + '' === report_id);
+                let report = site.reports.find((item) => item._id + '' === report_id);
+                console.log("site:",site,"\nreport: ", report_id);
                 $modal.html(Templates['modalReportView'](report, antenna_Id));
                 //renderReportDetails() todo: implement come back to
             });

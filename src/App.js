@@ -4,16 +4,12 @@ import Libraries ,{afterLoad} from './external/external';
 
 import './App.css';
 import Navbar from "./components/Navbar";
-import Home from "./components/Home";
 import Search from "./components/ourSearch";
-import HomeWithMap from "./components/HomeWithMap";
+import Home from "./components/Home";
 let insertScript = function (srcs, i, cb) {
     let script;
     script = document.createElement("script");
     script.src = srcs[i];
-    // if(srcs[i] ===    "assets/js/main-external.js"){
-    //     script.type = "text/babel";
-    // }
     document.body.appendChild(script);
     script.onload = () => {
         if (i < srcs.length - 1) {
@@ -64,8 +60,7 @@ class App extends Component {
                         <Navbar/>
                     </header>
                         <Switch>
-                            <Route path="/testMap" exact component={(props)=>(<Home {...props}/>)}/>
-                            <Route path="/" exact component={(props)=>(<HomeWithMap {...props}/>)}/>
+                            <Route path="/" exact component={(props)=>(<Home {...props}/>)}/>
                             <Route path="/search" render={(props) => (<Search {...props} isMainScritsLoaded={this.isScriptsLoaded}/>)}/>
                         </Switch>
                 </div>

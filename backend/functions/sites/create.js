@@ -51,9 +51,9 @@ module.exports.create = (event, context, callback) => {
                 })
             });
         })
-        .then((galleryUrls) => {
+        .then((invokationResopnse) => {
             console.log("GalleryUrls Response:>>>>>>>  ", galleryUrls);
-            let galleryS3 = JSON.parse(galleryUrls.Payload);
+            let galleryS3 = JSON.parse(invokationResopnse.Payload);
             SiteRef.gallery = galleryS3.map(item=>item.url);
             SiteRef.marker_image = galleryS3.map(item=>item.url)[0];
             return SiteRef.save();

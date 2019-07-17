@@ -1,4 +1,4 @@
-const filesToBase64 = (files) => {
+const filesToBase64 = (files,inputElement) => {
     return new Promise((resolve, reject) => {
         let fileResults = [];
         for (let i = 0; i < files.length; i++) {
@@ -10,7 +10,7 @@ const filesToBase64 = (files) => {
         let intervalId = setInterval(() => {
             counter++;
             if (fileResults.length === files.length) {
-                resolve(fileResults);
+                resolve({files:fileResults,input:inputElement});
                 clearInterval(intervalId);
             } else {
                 if (counter === 100) {

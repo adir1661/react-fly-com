@@ -4,48 +4,33 @@
     <option name="SCOPE_TYPE" value="3" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="9b05bc55-b0ca-4a6b-b1cc-ca8ef0d9c0fb" name="Default Changelist" comment="">
+    <list default="true" id="9b05bc55-b0ca-4a6b-b1cc-ca8ef0d9c0fb" name="Default Changelist" comment="managing another serverless service for emails.&#10;upload images working after access key changed">
+      <change afterPath="$PROJECT_DIR$/backend/emailServices/email.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/backend/emailServices/emailNode.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/backend/emailServices/response.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/backend/functions/models/counter.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/backend/functions/reports/maxNumber.test.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/backend/functions/reports/test-response.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/node scripts/jsonFormatter.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/functions/helper/dataTest.json" beforeDir="false" afterPath="$PROJECT_DIR$/backend/functions/helper/dataTest.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/functions/images/image.js" beforeDir="false" afterPath="$PROJECT_DIR$/backend/functions/images/image.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/functions/scraping/map gov.js" beforeDir="false" afterPath="$PROJECT_DIR$/backend/functions/scraping/map_gov.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/functions/serverless.yml" beforeDir="false" afterPath="$PROJECT_DIR$/backend/functions/serverless.yml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/emailServices/handler.js" beforeDir="false" afterPath="$PROJECT_DIR$/backend/emailServices/handler.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/emailServices/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/backend/emailServices/package-lock.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/emailServices/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/backend/emailServices/package.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/emailServices/serverless.yml" beforeDir="false" afterPath="$PROJECT_DIR$/backend/emailServices/serverless.yml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/functions/helper/async.js" beforeDir="false" afterPath="$PROJECT_DIR$/backend/functions/helper/async.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/functions/helper/db_connection.js" beforeDir="false" afterPath="$PROJECT_DIR$/backend/functions/helper/db_connection.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/functions/models/report.js" beforeDir="false" afterPath="$PROJECT_DIR$/backend/functions/models/report.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/functions/reports/create.js" beforeDir="false" afterPath="$PROJECT_DIR$/backend/functions/reports/create.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/backend/functions/sites/create.js" beforeDir="false" afterPath="$PROJECT_DIR$/backend/functions/sites/create.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/functions/sites/test.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/functions/yarn.lock" beforeDir="false" afterPath="$PROJECT_DIR$/backend/functions/yarn.lock" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/assets/js/custom.js" beforeDir="false" afterPath="$PROJECT_DIR$/public/assets/js/custom.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/assets/js/main-external.js" beforeDir="false" afterPath="$PROJECT_DIR$/public/assets/js/main-external.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/assets/js/maps.js" beforeDir="false" afterPath="$PROJECT_DIR$/public/assets/js/maps.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/doc examples/Branding package/Rollup/ai/rollup.ai" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/doc examples/Branding package/Rollup/pdf/rollup.pdf" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/doc examples/Branding package/Rollup/pdf/‏‏rollup - עותק.pdf" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/doc examples/Branding package/__MACOSX/business cards/__BS.pdf" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/doc examples/Branding package/__MACOSX/deck/keynote/__deck.key" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/doc examples/Branding package/__MACOSX/deck/ppt/__deck.pptx" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/doc examples/Branding package/__MACOSX/guidelines/__guidelines - Flycomm.pdf" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/doc examples/Branding package/__MACOSX/logo/AI/__LOGO.ai" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/doc examples/Branding package/__MACOSX/logo/PDF/__LOGO.pdf" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/doc examples/Branding package/__MACOSX/onepager/ai/__flycomm onepager.ai" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/doc examples/Branding package/__MACOSX/onepager/pdf/__flycomm onepager.pdf" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/doc examples/Branding package/__MACOSX/rollup/ai/__rollup.ai" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/doc examples/Branding package/__MACOSX/rollup/pdf/__rollup.pdf" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/doc examples/Branding package/business cards/BS.pdf" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/doc examples/Branding package/deck/ppt/deck.pptx" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/doc examples/Branding package/guidelines/guidelines - Flycomm.pdf" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/doc examples/Branding package/logo/AI/LOGO.ai" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/doc examples/Branding package/logo/PDF/LOGO.pdf" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/doc examples/Branding package/logo/PDF/‏‏מצגת של Microsoft PowerPoint חדש.pptx" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/doc examples/Branding package/mail sig/LOGO-28.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/doc examples/Branding package/mail sig/LOGO-29.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/doc examples/Branding package/mail sig/LOGO-30.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/doc examples/Branding package/mail sig/LOGO-31.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/doc examples/Branding package/mail sig/LOGO-32.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/doc examples/Branding package/onepager/ai/flycomm onepager.ai" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/doc examples/Branding package/onepager/pdf/flycomm onepager.pdf" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/doc examples/טופס בדיקת חורף 2018.doc" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/functions/sites/list.js" beforeDir="false" afterPath="$PROJECT_DIR$/backend/functions/sites/list.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/assets/js/main-external.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/App.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/App.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/Home.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Home.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/HomeWithMap.js" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/src/components/MainMap.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/MainMap.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/external/external.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/external/external.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/helper/image.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/helper/image.js" afterDir="false" />
     </list>
     <list id="c6a113eb-eecb-4704-a43b-3593d6724d34" name="dont commit" comment="">
       <change afterPath="$PROJECT_DIR$/.idea/webResources.xml" afterDir="false" />
@@ -67,39 +52,40 @@
         <counts>
           <entry key="JavaScript Console" value="10" />
           <entry key="css" value="236" />
-          <entry key="gitignore" value="2" />
+          <entry key="gitignore" value="16" />
           <entry key="html" value="50" />
-          <entry key="js" value="14178" />
-          <entry key="json" value="247" />
-          <entry key="txt" value="219" />
-          <entry key="yml" value="418" />
+          <entry key="js" value="20765" />
+          <entry key="json" value="832" />
+          <entry key="txt" value="337" />
+          <entry key="yml" value="544" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.types.edit">
         <counts>
           <entry key="CSS" value="236" />
-          <entry key="HTML" value="184" />
-          <entry key="JSON" value="247" />
-          <entry key="JavaScript" value="14054" />
-          <entry key="PLAIN_TEXT" value="221" />
-          <entry key="YAML" value="418" />
+          <entry key="HTML" value="248" />
+          <entry key="JSON" value="832" />
+          <entry key="JavaScript" value="20577" />
+          <entry key="PLAIN_TEXT" value="353" />
+          <entry key="YAML" value="544" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.lifecycle.project">
         <counts>
-          <entry key="project.closed" value="24" />
+          <entry key="project.closed" value="39" />
           <entry key="project.open.time.0" value="1" />
-          <entry key="project.open.time.1" value="6" />
-          <entry key="project.open.time.10" value="8" />
-          <entry key="project.open.time.11" value="2" />
+          <entry key="project.open.time.1" value="8" />
+          <entry key="project.open.time.10" value="9" />
+          <entry key="project.open.time.11" value="3" />
           <entry key="project.open.time.15" value="1" />
           <entry key="project.open.time.16" value="1" />
-          <entry key="project.open.time.2" value="2" />
-          <entry key="project.open.time.6" value="2" />
-          <entry key="project.open.time.7" value="3" />
-          <entry key="project.open.time.8" value="3" />
-          <entry key="project.open.time.9" value="2" />
-          <entry key="project.opened" value="31" />
+          <entry key="project.open.time.2" value="4" />
+          <entry key="project.open.time.5" value="2" />
+          <entry key="project.open.time.6" value="5" />
+          <entry key="project.open.time.7" value="4" />
+          <entry key="project.open.time.8" value="4" />
+          <entry key="project.open.time.9" value="3" />
+          <entry key="project.opened" value="45" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.extensions.open">
@@ -108,14 +94,14 @@
           <entry key="PNG" value="5" />
           <entry key="bootstrap" value="2" />
           <entry key="css" value="18" />
-          <entry key="gitignore" value="1" />
+          <entry key="gitignore" value="3" />
           <entry key="html" value="5" />
           <entry key="jpg" value="8" />
-          <entry key="js" value="112" />
-          <entry key="json" value="12" />
+          <entry key="js" value="146" />
+          <entry key="json" value="26" />
           <entry key="php" value="2" />
           <entry key="png" value="2" />
-          <entry key="yml" value="6" />
+          <entry key="yml" value="9" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.types.open">
@@ -123,10 +109,10 @@
           <entry key="CSS" value="18" />
           <entry key="HTML" value="5" />
           <entry key="Image" value="16" />
-          <entry key="JSON" value="12" />
-          <entry key="JavaScript" value="114" />
-          <entry key="PLAIN_TEXT" value="3" />
-          <entry key="YAML" value="6" />
+          <entry key="JSON" value="26" />
+          <entry key="JavaScript" value="148" />
+          <entry key="PLAIN_TEXT" value="5" />
+          <entry key="YAML" value="9" />
         </counts>
       </usages-collector>
     </session>
@@ -134,55 +120,37 @@
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
       <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/backend/functions/reports/create.js">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="1734">
+              <caret line="102" column="49" selection-start-line="102" selection-start-column="49" selection-end-line="102" selection-end-column="49" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/backend/functions/helper/db_connection.js">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="238">
+              <caret line="14" column="11" selection-start-line="14" selection-start-column="11" selection-end-line="14" selection-end-column="11" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/backend/functions/models/counter.js">
+          <provider selected="true" editor-type-id="text-editor">
+            <state>
+              <caret column="17" selection-start-column="4" selection-end-column="17" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/components/MainMap.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="173">
-              <caret line="512" column="123" selection-start-line="512" selection-start-column="107" selection-end-line="512" selection-end-column="123" />
-              <folding>
-                <element signature="e#385#21637#0" />
-                <element signature="e#437#15131#0" />
-                <element signature="e#15173#15532#0" />
-                <element signature="e#21693#22251#0" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/backend/emailServices/serverless.yml">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="362">
-              <caret line="34" column="4" selection-start-line="34" selection-start-column="4" selection-end-line="34" selection-end-column="4" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/backend/functions/serverless.yml">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="244">
-              <caret line="42" column="84" selection-start-line="42" selection-start-column="80" selection-end-line="42" selection-end-column="84" />
-              <folding>
-                <element signature="e#335#662#0" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/backend/functions/images/image.js">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="289">
-              <caret line="17" column="28" lean-forward="true" selection-start-line="17" selection-start-column="28" selection-end-line="17" selection-end-column="28" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/public/assets/js/custom.js">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="15674">
-              <caret line="942" column="13" selection-start-line="942" selection-start-column="13" selection-end-line="942" selection-end-column="13" />
+            <state relative-caret-position="10778">
+              <caret line="636" column="84" selection-start-line="636" selection-start-column="84" selection-end-line="636" selection-end-column="84" />
             </state>
           </provider>
         </entry>
@@ -190,26 +158,44 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/backend/emailServices/handler.js">
           <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="238">
+              <caret line="14" selection-start-line="14" selection-end-line="14" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/backend/emailServices/package.json">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="255">
+              <caret line="15" selection-start-line="15" selection-end-line="15" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/backend/emailServices/emailNode.js">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="714">
+              <caret line="42" column="35" selection-start-line="42" selection-start-column="35" selection-end-line="42" selection-end-column="35" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/backend/emailServices/email-test.json">
+          <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="17">
-              <caret line="1" column="28" selection-start-line="1" selection-start-column="28" selection-end-line="1" selection-end-column="28" />
+              <caret line="1" column="47" selection-start-line="1" selection-start-column="47" selection-end-line="1" selection-end-column="47" />
             </state>
           </provider>
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/external/external.js">
+        <entry file="file://$PROJECT_DIR$/backend/emailServices/serverless.yml">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="204">
-              <caret line="12" column="26" selection-start-line="12" selection-start-column="26" selection-end-line="12" selection-end-column="26" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/public/assets/js/main-external.js">
-          <provider selected="true" editor-type-id="text-editor">
-            <state>
-              <caret column="22" selection-start-column="22" selection-end-column="22" />
+            <state relative-caret-position="867">
+              <caret line="51" column="24" selection-start-line="51" selection-start-column="24" selection-end-line="51" selection-end-column="24" />
             </state>
           </provider>
         </entry>
@@ -221,32 +207,19 @@
       <list>
         <option value="CSS File" />
         <option value="React Component" />
-        <option value="JavaScript File" />
         <option value="package.json" />
+        <option value="JavaScript File" />
       </list>
     </option>
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>reloadMap</find>
-      <find>window</find>
-      <find>ocations</find>
-      <find>hero</find>
-      <find>infoboxo</find>
-      <find>=</find>
-      <find>google</find>
-      <find>map</find>
-      <find>searchClicked</find>
-      <find>$</find>
-      <find>isFullScreen</find>
-      <find>img</find>
       <find>owl.video</find>
       <find>../</find>
       <find>url</find>
       <find>.modal</find>
       <find>pop</find>
       <find>popover</find>
-      <find>locations</find>
       <find>providerLogo</find>
       <find>http:</find>
       <find>lastClickedMarker</find>
@@ -258,6 +231,19 @@
       <find>submitFormListener</find>
       <find>filesToBase64</find>
       <find>a3j3kyatgb.</find>
+      <find>applyMultiFileFields</find>
+      <find>input[0]</find>
+      <find>modalReportView</find>
+      <find>$.ajax</find>
+      <find>'click.dismiss.bs.modal'</find>
+      <find>filled</find>
+      <find>aja</find>
+      <find>locations</find>
+      <find>locations.find</find>
+      <find>report</find>
+      <find>Antenna\'s intergity and screw strengthening</find>
+      <find>integrity</find>
+      <find>report.vid</find>
     </findStrings>
     <replaceStrings>
       <replace>//</replace>
@@ -270,57 +256,57 @@
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
-        <option value="$PROJECT_DIR$/yarn.lock" />
-        <option value="$PROJECT_DIR$/public/our-components/ourSearch.js" />
-        <option value="$PROJECT_DIR$/src/our-components/ourSearch.js" />
-        <option value="$PROJECT_DIR$/src/external/circular css.css" />
-        <option value="$PROJECT_DIR$/src/external/circular-css.css" />
-        <option value="$PROJECT_DIR$/src/App.css" />
-        <option value="$PROJECT_DIR$/backend/functions/tests.js" />
-        <option value="$PROJECT_DIR$/backend/functions/reports/list.js" />
-        <option value="$PROJECT_DIR$/public/assets/css/style.css" />
-        <option value="$PROJECT_DIR$/backend/functions/transformation/locations.js" />
-        <option value="$PROJECT_DIR$/src/external/lightbox.min.css" />
-        <option value="$PROJECT_DIR$/src/components/Home.js" />
-        <option value="$PROJECT_DIR$/src/components/Mao.js" />
         <option value="$PROJECT_DIR$/public/index.html" />
         <option value="$PROJECT_DIR$/public/assets/css/fileinput.min.css" />
         <option value="$PROJECT_DIR$/src/external/fileinput.min.css" />
         <option value="$PROJECT_DIR$/src/external/owl.carousel.css" />
         <option value="$PROJECT_DIR$/src/external/bootstrap.css" />
         <option value="$PROJECT_DIR$/src/external/style.css" />
-        <option value="$PROJECT_DIR$/backend/functions/models/report.js" />
         <option value="$PROJECT_DIR$/backend/functions/models/site.js" />
-        <option value="$PROJECT_DIR$/backend/functions/reports/create.js" />
         <option value="$PROJECT_DIR$/src/index.js" />
         <option value="$PROJECT_DIR$/backend/functions/scraping/map gov.js" />
         <option value="$PROJECT_DIR$/node scripts/db_connection.js" />
         <option value="$PROJECT_DIR$/node scripts/model..js" />
         <option value="$PROJECT_DIR$/node scripts/model.js" />
         <option value="$PROJECT_DIR$/node scripts/govMap.js" />
-        <option value="$PROJECT_DIR$/src/App.js" />
-        <option value="$PROJECT_DIR$/src/components/HomeWithMap.js" />
         <option value="$PROJECT_DIR$/package.json" />
         <option value="$PROJECT_DIR$/src/components/Navbar.js" />
-        <option value="$PROJECT_DIR$/src/helper/image.js" />
-        <option value="$PROJECT_DIR$/backend/functions/helper/async.js" />
         <option value="$PROJECT_DIR$/backend/functions/helper/package.json" />
-        <option value="$PROJECT_DIR$/backend/functions/sites/list.js" />
-        <option value="$PROJECT_DIR$/backend/functions/helper/db_connection.js" />
         <option value="$PROJECT_DIR$/backend/functions/helper/image.js" />
         <option value="$PROJECT_DIR$/backend/functions/helper/dataTest.json" />
         <option value="$PROJECT_DIR$/backend/functions/helper/galleryTest.json" />
-        <option value="$PROJECT_DIR$/.gitignore" />
         <option value="$PROJECT_DIR$/public/assets/js/maps.js" />
-        <option value="$PROJECT_DIR$/backend/functions/sites/create.js" />
         <option value="$PROJECT_DIR$/public/assets/js/main-external.js" />
-        <option value="$PROJECT_DIR$/src/components/MainMap.js" />
-        <option value="$PROJECT_DIR$/src/external/external.js" />
         <option value="$PROJECT_DIR$/backend/functions/serverless.yml" />
         <option value="$PROJECT_DIR$/backend/functions/images/image.js" />
         <option value="$PROJECT_DIR$/public/assets/js/custom.js" />
+        <option value="$PROJECT_DIR$/.gitignore" />
+        <option value="$PROJECT_DIR$/backend/emailServices/email.json" />
+        <option value="$PROJECT_DIR$/backend/emailServices/response.js" />
         <option value="$PROJECT_DIR$/backend/emailServices/handler.js" />
+        <option value="$PROJECT_DIR$/src/components/HomeWithMap.js" />
+        <option value="$PROJECT_DIR$/src/helper/image.js" />
+        <option value="$PROJECT_DIR$/backend/functions/reports/test.json" />
+        <option value="$PROJECT_DIR$/backend/functions/sites/create.js" />
+        <option value="$PROJECT_DIR$/node scripts/jsonFormatter.js" />
+        <option value="$PROJECT_DIR$/node scripts/test-response.json" />
+        <option value="$PROJECT_DIR$/public/assets/bootstrap/js/bootstrap.js" />
+        <option value="$PROJECT_DIR$/backend/functions/helper/async.js" />
+        <option value="$PROJECT_DIR$/backend/functions/sites/list.js" />
+        <option value="$PROJECT_DIR$/backend/functions/reports/test-response.json" />
+        <option value="$PROJECT_DIR$/backend/functions/models/counter.js" />
+        <option value="$PROJECT_DIR$/src/external/external.js" />
+        <option value="$PROJECT_DIR$/src/App.js" />
+        <option value="$PROJECT_DIR$/backend/functions/reports/maxNumberTest.js" />
+        <option value="$PROJECT_DIR$/backend/functions/reports/maxNumber.test.js" />
+        <option value="$PROJECT_DIR$/backend/functions/helper/db_connection.js" />
+        <option value="$PROJECT_DIR$/backend/functions/models/report.js" />
+        <option value="$PROJECT_DIR$/backend/functions/reports/create.js" />
+        <option value="$PROJECT_DIR$/src/components/MainMap.js" />
         <option value="$PROJECT_DIR$/backend/emailServices/serverless.yml" />
+        <option value="$PROJECT_DIR$/backend/emailServices/secret.json" />
+        <option value="$PROJECT_DIR$/backend/emailServices/emailNode.js" />
+        <option value="$PROJECT_DIR$/backend/emailServices/email-test.json" />
       </list>
     </option>
   </component>
@@ -331,19 +317,22 @@
     <sorting>DEFINITION_ORDER</sorting>
   </component>
   <component name="NodeModulesDirectoryManager">
+    <handled-path value="$PROJECT_DIR$/backend/emailServices/node_modules" />
     <handled-path value="$PROJECT_DIR$/backend/functions/node_modules" />
     <handled-path value="$PROJECT_DIR$/node scripts/node_modules" />
     <handled-path value="$PROJECT_DIR$/node_modules" />
   </component>
   <component name="NodePackageJsonFileManager">
     <packageJsonPaths>
+      <path value="$PROJECT_DIR$/backend/emailServices/package.json" />
       <path value="$PROJECT_DIR$/backend/functions/package.json" />
       <path value="$PROJECT_DIR$/node scripts/package.json" />
       <path value="$PROJECT_DIR$/package.json" />
     </packageJsonPaths>
   </component>
   <component name="ProjectFrameBounds" extendedState="6">
-    <option name="x" value="-205" />
+    <option name="x" value="85" />
+    <option name="y" value="25" />
     <option name="width" value="1750" />
     <option name="height" value="970" />
   </component>
@@ -373,69 +362,6 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
-      <pane id="Scope">
-        <subPane subId="Scope 'Project Files'; set:Project Files; class com.intellij.psi.search.scope.ProjectFilesScope">
-          <expand>
-            <path>
-              <item name="react-fly-com" type="3d21c010:ScopeViewTreeModel$ProjectNode" />
-              <item name="" type="442cc68d:ScopeViewTreeModel$RootNode" />
-            </path>
-            <path>
-              <item name="react-fly-com" type="3d21c010:ScopeViewTreeModel$ProjectNode" />
-              <item name="" type="442cc68d:ScopeViewTreeModel$RootNode" />
-              <item name="backend" type="9f88c78c:ScopeViewTreeModel$FileNode" />
-            </path>
-            <path>
-              <item name="react-fly-com" type="3d21c010:ScopeViewTreeModel$ProjectNode" />
-              <item name="" type="442cc68d:ScopeViewTreeModel$RootNode" />
-              <item name="backend" type="9f88c78c:ScopeViewTreeModel$FileNode" />
-              <item name="emailServices" type="9f88c78c:ScopeViewTreeModel$FileNode" />
-            </path>
-            <path>
-              <item name="react-fly-com" type="3d21c010:ScopeViewTreeModel$ProjectNode" />
-              <item name="" type="442cc68d:ScopeViewTreeModel$RootNode" />
-              <item name="backend" type="9f88c78c:ScopeViewTreeModel$FileNode" />
-              <item name="functions" type="9f88c78c:ScopeViewTreeModel$FileNode" />
-            </path>
-            <path>
-              <item name="react-fly-com" type="3d21c010:ScopeViewTreeModel$ProjectNode" />
-              <item name="" type="442cc68d:ScopeViewTreeModel$RootNode" />
-              <item name="backend" type="9f88c78c:ScopeViewTreeModel$FileNode" />
-              <item name="functions" type="9f88c78c:ScopeViewTreeModel$FileNode" />
-              <item name="images" type="9f88c78c:ScopeViewTreeModel$FileNode" />
-            </path>
-            <path>
-              <item name="react-fly-com" type="3d21c010:ScopeViewTreeModel$ProjectNode" />
-              <item name="" type="442cc68d:ScopeViewTreeModel$RootNode" />
-              <item name="public" type="9f88c78c:ScopeViewTreeModel$FileNode" />
-            </path>
-            <path>
-              <item name="react-fly-com" type="3d21c010:ScopeViewTreeModel$ProjectNode" />
-              <item name="" type="442cc68d:ScopeViewTreeModel$RootNode" />
-              <item name="public" type="9f88c78c:ScopeViewTreeModel$FileNode" />
-              <item name="assets" type="9f88c78c:ScopeViewTreeModel$FileNode" />
-            </path>
-            <path>
-              <item name="react-fly-com" type="3d21c010:ScopeViewTreeModel$ProjectNode" />
-              <item name="" type="442cc68d:ScopeViewTreeModel$RootNode" />
-              <item name="src" type="9f88c78c:ScopeViewTreeModel$FileNode" />
-            </path>
-            <path>
-              <item name="react-fly-com" type="3d21c010:ScopeViewTreeModel$ProjectNode" />
-              <item name="" type="442cc68d:ScopeViewTreeModel$RootNode" />
-              <item name="src" type="9f88c78c:ScopeViewTreeModel$FileNode" />
-              <item name="components" type="9f88c78c:ScopeViewTreeModel$FileNode" />
-            </path>
-            <path>
-              <item name="react-fly-com" type="3d21c010:ScopeViewTreeModel$ProjectNode" />
-              <item name="" type="442cc68d:ScopeViewTreeModel$RootNode" />
-              <item name="src" type="9f88c78c:ScopeViewTreeModel$FileNode" />
-              <item name="external" type="9f88c78c:ScopeViewTreeModel$FileNode" />
-            </path>
-          </expand>
-          <select />
-        </subPane>
-      </pane>
       <pane id="ProjectPane">
         <subPane>
           <expand>
@@ -487,6 +413,33 @@
           <select />
         </subPane>
       </pane>
+      <pane id="Scope">
+        <subPane subId="Scope 'Project Files'; set:Project Files; class com.intellij.psi.search.scope.ProjectFilesScope">
+          <expand>
+            <path>
+              <item name="react-fly-com" type="3d21c010:ScopeViewTreeModel$ProjectNode" />
+              <item name="" type="442cc68d:ScopeViewTreeModel$RootNode" />
+            </path>
+            <path>
+              <item name="react-fly-com" type="3d21c010:ScopeViewTreeModel$ProjectNode" />
+              <item name="" type="442cc68d:ScopeViewTreeModel$RootNode" />
+              <item name="backend" type="9f88c78c:ScopeViewTreeModel$FileNode" />
+            </path>
+            <path>
+              <item name="react-fly-com" type="3d21c010:ScopeViewTreeModel$ProjectNode" />
+              <item name="" type="442cc68d:ScopeViewTreeModel$RootNode" />
+              <item name="backend" type="9f88c78c:ScopeViewTreeModel$FileNode" />
+              <item name="emailServices" type="9f88c78c:ScopeViewTreeModel$FileNode" />
+            </path>
+            <path>
+              <item name="react-fly-com" type="3d21c010:ScopeViewTreeModel$ProjectNode" />
+              <item name="" type="442cc68d:ScopeViewTreeModel$RootNode" />
+              <item name="node scripts" type="9f88c78c:ScopeViewTreeModel$FileNode" />
+            </path>
+          </expand>
+          <select />
+        </subPane>
+      </pane>
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -504,18 +457,18 @@
   </component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="C:\adir c\Projects\react-fly-com\backend\functions\reports" />
+      <recent name="C:\adir c\Projects\react-fly-com\node scripts" />
+      <recent name="C:\adir c\Projects\react-fly-com\backend\emailServices" />
       <recent name="C:\adir c\Projects\react-fly-com\node scripts\node_modules" />
       <recent name="C:\adir c\Projects\react-fly-com\build" />
-      <recent name="C:\adir c\Projects\react-fly-com\src\external" />
-      <recent name="C:\adir c\Projects\react-fly-com\src" />
-      <recent name="C:\adir c\Projects\react-fly-com\public\assets\img\antennas" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
+      <recent name="C:\adir c\Projects\react-fly-com\backend\emailServices" />
+      <recent name="C:\adir c\Projects\react-fly-com\backend" />
       <recent name="C:\adir c\Projects\react-fly-com\backend\functions" />
       <recent name="C:\adir c\Projects\react-fly-com\node scripts" />
       <recent name="C:\adir c\Projects\react-fly-com\public\assets\img\signatures" />
-      <recent name="C:\adir c\Projects\react-fly-com\public\assets\img\antennas" />
-      <recent name="C:\Dan\studies programs\work\untitled\src" />
     </key>
   </component>
   <component name="RunDashboard">
@@ -602,7 +555,21 @@
       <workItem from="1561533416362" duration="1804000" />
       <workItem from="1561624474962" duration="4790000" />
       <workItem from="1561712529789" duration="203000" />
-      <workItem from="1561883678943" duration="7273000" />
+      <workItem from="1561883678943" duration="12849000" />
+      <workItem from="1561922176549" duration="17000" />
+      <workItem from="1561969544013" duration="6488000" />
+      <workItem from="1561978446178" duration="8000" />
+      <workItem from="1561978819432" duration="328000" />
+      <workItem from="1562055278774" duration="3600000" />
+      <workItem from="1562065476662" duration="8233000" />
+      <workItem from="1562135082521" duration="18550000" />
+      <workItem from="1562226969043" duration="2833000" />
+      <workItem from="1562245128203" duration="170000" />
+      <workItem from="1562246101885" duration="599000" />
+      <workItem from="1562318718999" duration="75000" />
+      <workItem from="1563265910018" duration="20923000" />
+      <workItem from="1563290359114" duration="493000" />
+      <workItem from="1563345501844" duration="1138000" />
     </task>
     <task id="LOCAL-00001" summary="test">
       <created>1557768448719</created>
@@ -709,11 +676,25 @@
       <option name="project" value="LOCAL" />
       <updated>1561280751014</updated>
     </task>
-    <option name="localTasksCounter" value="16" />
+    <task id="LOCAL-00016" summary="managing another serverless service for emails.&#10;upload images working after access key changed">
+      <created>1561895981368</created>
+      <option name="number" value="00016" />
+      <option name="presentableId" value="LOCAL-00016" />
+      <option name="project" value="LOCAL" />
+      <updated>1561895981368</updated>
+    </task>
+    <task id="LOCAL-00017" summary="managing another serverless service for emails.&#10;upload images working after access key changed">
+      <created>1561896349109</created>
+      <option name="number" value="00017" />
+      <option name="presentableId" value="LOCAL-00017" />
+      <option name="project" value="LOCAL" />
+      <updated>1561896349109</updated>
+    </task>
+    <option name="localTasksCounter" value="18" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="229519000" />
+    <option name="totallyTimeSpent" value="298550000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -726,7 +707,6 @@
   </component>
   <component name="ToolWindowManager">
     <frame x="-7" y="-7" width="1550" height="838" extended-state="6" />
-    <editor active="true" />
     <layout>
       <window_info content_ui="combo" id="Project" order="0" sideWeight="0.49774775" visible="true" weight="0.23288591" />
       <window_info id="Structure" order="1" sideWeight="0.5022523" weight="0.14899328" />
@@ -766,7 +746,8 @@
     <MESSAGE value="adding bootstap to react and google maps page too" />
     <MESSAGE value="reverting a bit" />
     <MESSAGE value="uploading images on process" />
-    <option name="LAST_COMMIT_MESSAGE" value="uploading images on process" />
+    <MESSAGE value="managing another serverless service for emails.&#10;upload images working after access key changed" />
+    <option name="LAST_COMMIT_MESSAGE" value="managing another serverless service for emails.&#10;upload images working after access key changed" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -780,174 +761,10 @@
     </breakpoint-manager>
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/public/assets/css/fileinput.min.css">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="170">
-          <caret line="10" column="1260" selection-start-line="10" selection-start-column="1260" selection-end-line="10" selection-end-column="1260" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/external/fileinput.min.css">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="170">
-          <caret line="10" column="1289" selection-start-line="10" selection-start-column="1289" selection-end-line="10" selection-end-column="1289" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/external/owl.carousel.css">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-8">
-          <caret line="177" column="18" selection-start-line="177" selection-start-column="18" selection-end-line="177" selection-end-column="18" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/external/style.css">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="162">
-          <caret line="5114" column="41" selection-start-line="5114" selection-start-column="41" selection-end-line="5114" selection-end-column="41" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/external/bootstrap.css">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="128">
-          <caret line="6106" column="4" selection-start-line="6106" selection-start-column="1" selection-end-line="6106" selection-end-column="4" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/public/index.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="629">
-          <caret line="37" column="48" selection-start-line="37" selection-start-column="48" selection-end-line="37" selection-end-column="77" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/backend/functions/reports/list.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-51">
-          <caret line="6" selection-start-line="6" selection-end-line="6" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/backend/functions/reports/create.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="138">
-          <caret line="29" column="11" selection-start-line="29" selection-start-column="11" selection-end-line="29" selection-end-column="11" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/index.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="255">
-          <caret line="24" column="16" selection-start-line="24" selection-start-column="16" selection-end-line="24" selection-end-column="16" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/backend/functions/scraping/map_gov.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state>
-          <caret column="8" selection-start-column="8" selection-end-column="8" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/node scripts/node_modules/bluebird/js/release/promise.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="2797">
-          <caret line="618" column="9" selection-start-line="618" selection-start-column="9" selection-end-line="618" selection-end-column="9" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/node scripts/model.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="85">
-          <caret line="5" column="4" selection-start-line="5" selection-start-column="4" selection-end-line="5" selection-end-column="4" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/node scripts/node_modules/arcgis-js-api/geometry/coordinateFormatter.js" />
-    <entry file="file://$PROJECT_DIR$/node scripts/node_modules/arcgis-js-api/geometry/support/webMercatorUtils.js" />
-    <entry file="file://$PROJECT_DIR$/node scripts/node_modules/amd-loader/amd-loader.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="443">
-          <caret line="70" column="51" selection-start-line="70" selection-start-column="51" selection-end-line="70" selection-end-column="51" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/node scripts/db_connection.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="289">
-          <caret line="17" column="10" selection-start-line="17" selection-start-column="10" selection-end-line="17" selection-end-column="10" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/node scripts/govMap.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="85">
-          <caret line="5" selection-start-line="5" selection-end-line="5" />
-          <folding>
-            <element signature="n#!!block;n#Main#0" />
-            <element signature="n#!!block;n#postOnPlace#0" />
-            <element signature="n#!!block;n#postData#0" />
-            <element signature="n#!!block;n#createDataBase#0" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="http://localhost:3000/static/js/bundle.js">
-      <provider selected="true" editor-type-id="httpFileEditor" />
-    </entry>
-    <entry file="file://$PROJECT_DIR$/backend/functions/client/dist/error.html" />
-    <entry file="file://$PROJECT_DIR$/package.json">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="374">
-          <caret line="22" column="4" selection-start-line="22" selection-start-column="4" selection-end-line="22" selection-end-column="4" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/backend/functions/models/report.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="238">
-          <caret line="14" column="21" selection-start-line="14" selection-start-column="21" selection-end-line="14" selection-end-column="21" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/App.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="136">
-          <caret line="8" column="10" selection-start-line="8" selection-start-column="10" selection-end-line="8" selection-end-column="10" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/components/HomeWithMap.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="102">
-          <caret line="8" column="13" selection-start-line="8" selection-start-column="13" selection-end-line="8" selection-end-column="13" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/public/assets/js/jquery.fitvids.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-510" />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/components/Navbar.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="272">
-          <caret line="28" column="62" selection-start-line="28" selection-start-column="62" selection-end-line="28" selection-end-column="62" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/public/client/edit-listing.html">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="151">
           <caret line="340" column="61" selection-start-line="340" selection-start-column="61" selection-end-line="340" selection-end-column="61" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/helper/image.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="228">
-          <caret line="20" column="15" lean-forward="true" selection-start-line="20" selection-start-column="15" selection-end-line="20" selection-end-column="15" />
         </state>
       </provider>
     </entry>
@@ -965,31 +782,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/backend/functions/sites/list.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="262">
-          <caret line="22" column="37" selection-start-line="22" selection-start-column="24" selection-end-line="22" selection-end-column="37" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/backend/functions/helper/db_connection.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="153">
-          <caret line="9" column="9" selection-start-line="9" selection-start-column="9" selection-end-line="9" selection-end-column="9" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$USER_HOME$/AppData/Roaming/npm/node_modules/serverless/node_modules/bluebird/js/release/debuggability.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="5304">
           <caret line="312" column="8" selection-start-line="312" selection-start-column="8" selection-end-line="312" selection-end-column="8" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/backend/functions/helper/image.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="194">
-          <caret line="28" column="28" selection-start-line="28" selection-start-column="28" selection-end-line="28" selection-end-column="28" />
         </state>
       </provider>
     </entry>
@@ -1007,20 +803,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/backend/functions/transformation/locations.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="153">
-          <caret line="9" column="23" selection-start-line="9" selection-start-column="16" selection-end-line="9" selection-end-column="23" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/backend/functions/models/site.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="255">
-          <caret line="15" column="37" selection-start-line="15" selection-start-column="37" selection-end-line="15" selection-end-column="37" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/backend/functions/todos/create.js">
       <provider selected="true" editor-type-id="text-editor" />
     </entry>
@@ -1031,92 +813,278 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/backend/functions/sites/create.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="918">
-          <caret line="54" column="69" selection-start-line="54" selection-start-column="58" selection-end-line="54" selection-end-column="69" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/backend/functions/helper/async.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="394">
-          <caret line="25" selection-start-line="25" selection-end-line="25" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/backend/functions/package-lock.json">
       <provider selected="true" editor-type-id="text-editor" />
     </entry>
     <entry file="file://$PROJECT_DIR$/.gitignore">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="417">
-          <caret line="26" column="31" selection-start-line="26" selection-start-column="31" selection-end-line="26" selection-end-column="31" />
+        <state relative-caret-position="300">
+          <caret line="23" column="5" selection-start-line="23" selection-start-column="5" selection-end-line="23" selection-end-column="5" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/components/MainMap.js">
+    <entry file="file://$PROJECT_DIR$/backend/emailServices/.gitignore">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/package.json">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="173">
-          <caret line="512" column="123" selection-start-line="512" selection-start-column="107" selection-end-line="512" selection-end-column="123" />
-          <folding>
-            <element signature="e#385#21637#0" />
-            <element signature="e#437#15131#0" />
-            <element signature="e#15173#15532#0" />
-            <element signature="e#21693#22251#0" />
-          </folding>
+        <state relative-caret-position="374">
+          <caret line="22" column="4" selection-start-line="22" selection-start-column="4" selection-end-line="22" selection-end-column="4" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/external/external.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="204">
-          <caret line="12" column="26" selection-start-line="12" selection-start-column="26" selection-end-line="12" selection-end-column="26" />
-        </state>
-      </provider>
+    <entry file="file://$PROJECT_DIR$/backend/emailServices/response.js">
+      <provider selected="true" editor-type-id="text-editor" />
     </entry>
-    <entry file="file://$PROJECT_DIR$/public/assets/js/main-external.js">
+    <entry file="file://$PROJECT_DIR$/backend/emailServices/email.json">
       <provider selected="true" editor-type-id="text-editor">
         <state>
-          <caret column="22" selection-start-column="22" selection-end-column="22" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/backend/functions/serverless.yml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="244">
-          <caret line="42" column="84" selection-start-line="42" selection-start-column="80" selection-end-line="42" selection-end-column="84" />
-          <folding>
-            <element signature="e#335#662#0" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/backend/functions/images/image.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="289">
-          <caret line="17" column="28" lean-forward="true" selection-start-line="17" selection-start-column="28" selection-end-line="17" selection-end-column="28" />
+          <caret column="54" selection-start-column="54" selection-end-column="54" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/public/assets/js/custom.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="15674">
-          <caret line="942" column="13" selection-start-line="942" selection-start-column="13" selection-end-line="942" selection-end-column="13" />
+        <state relative-caret-position="12104">
+          <caret line="720" selection-start-line="720" selection-end-line="720" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/components/Home.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="85">
+          <caret line="7" column="5" selection-start-line="7" selection-start-column="5" selection-end-line="7" selection-end-column="5" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/backend/functions/images/image.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-131">
+          <caret line="2" column="55" selection-start-line="2" selection-start-column="55" selection-end-line="2" selection-end-column="55" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/backend/functions/reports/test.json">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="8330">
+          <caret line="13" column="6" selection-start-line="13" selection-start-column="6" selection-end-line="13" selection-end-column="6" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/node scripts/jsonFormatter.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="68">
+          <caret line="4" column="51" selection-start-line="4" selection-start-column="51" selection-end-line="4" selection-end-column="51" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/node scripts/test-response.json">
+      <provider selected="true" editor-type-id="text-editor">
+        <state>
+          <caret column="49" selection-start-column="49" selection-end-column="49" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/node scripts/test.json">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/backend/functions/sites/create.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="952">
+          <caret line="56" column="59" selection-start-line="56" selection-start-column="39" selection-end-line="56" selection-end-column="59" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/backend/functions/helper/image.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="323">
+          <caret line="19" column="87" selection-start-line="19" selection-start-column="36" selection-end-line="19" selection-end-column="87" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/helper/image.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="204">
+          <caret line="12" column="48" selection-start-line="12" selection-start-column="48" selection-end-line="12" selection-end-column="48" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/backend/functions/helper/response.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="170">
+          <caret line="10" column="48" selection-start-line="10" selection-start-column="43" selection-end-line="10" selection-end-column="48" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/public/assets/bootstrap/js/bootstrap.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="99">
+          <caret line="1197" column="28" lean-forward="true" selection-start-line="1197" selection-start-column="28" selection-end-line="1197" selection-end-column="28" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/backend/functions/helper/async.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="34">
+          <caret line="2" column="35" selection-start-line="2" selection-start-column="35" selection-end-line="2" selection-end-column="35" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/backend/functions/models/site.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="544">
+          <caret line="32" selection-start-line="32" selection-end-line="32" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/backend/functions/reports/list.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="340">
+          <caret line="20" column="32" selection-start-line="20" selection-start-column="17" selection-end-line="20" selection-end-column="32" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/backend/functions/sites/list.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="408">
+          <caret line="24" column="53" selection-start-line="24" selection-start-column="53" selection-end-line="24" selection-end-column="53" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/backend/functions/reports/test-response.json">
+      <provider selected="true" editor-type-id="text-editor">
+        <state>
+          <caret column="269" selection-start-column="269" selection-end-column="269" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/backend/functions/transformation/locations.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="187">
+          <caret line="11" column="33" selection-start-line="11" selection-start-column="29" selection-end-line="11" selection-end-column="33" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/public/assets/bootstrap/js/bootstrap.min.js">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/external/external.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="289">
+          <caret line="24" column="32" selection-start-line="24" selection-start-column="32" selection-end-line="24" selection-end-column="32" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/public/assets/js/main-external.js" />
+    <entry file="file://$PROJECT_DIR$/backend/functions/client/dist/static/js/main.c6cff8d5.chunk.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state>
+          <caret column="536" selection-start-column="536" selection-end-column="536" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/App.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-510">
+          <caret column="7" selection-start-column="7" selection-end-column="7" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/backend/functions/reports/maxNumber.test.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="204">
+          <caret line="12" column="23" selection-start-line="12" selection-start-column="23" selection-end-line="12" selection-end-column="23" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/backend/functions/models/report.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="311">
+          <caret line="62" column="21" selection-start-line="62" selection-start-column="21" selection-end-line="62" selection-end-column="21" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/backend/functions/serverless.yml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="340">
+          <caret line="26" column="17" selection-start-line="26" selection-start-column="17" selection-end-line="26" selection-end-column="114" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/backend/emailServices/node_modules/nodemailer/lib/smtp-connection/index.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-1175">
+          <caret line="780" column="18" selection-start-line="780" selection-start-column="18" selection-end-line="780" selection-end-column="18" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/backend/emailServices/secret.json">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="51">
+          <caret line="3" column="1" lean-forward="true" selection-start-line="3" selection-start-column="1" selection-end-line="3" selection-end-column="1" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/backend/functions/reports/create.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1734">
+          <caret line="102" column="49" selection-start-line="102" selection-start-column="49" selection-end-line="102" selection-end-column="49" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/backend/functions/helper/db_connection.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="238">
+          <caret line="14" column="11" selection-start-line="14" selection-start-column="11" selection-end-line="14" selection-end-column="11" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/backend/functions/models/counter.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state>
+          <caret column="17" selection-start-column="4" selection-end-column="17" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/components/MainMap.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="10778">
+          <caret line="636" column="84" selection-start-line="636" selection-start-column="84" selection-end-line="636" selection-end-column="84" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/backend/emailServices/handler.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="17">
-          <caret line="1" column="28" selection-start-line="1" selection-start-column="28" selection-end-line="1" selection-end-column="28" />
+        <state relative-caret-position="238">
+          <caret line="14" selection-start-line="14" selection-end-line="14" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/backend/emailServices/package.json">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="255">
+          <caret line="15" selection-start-line="15" selection-end-line="15" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/backend/emailServices/emailNode.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="714">
+          <caret line="42" column="35" selection-start-line="42" selection-start-column="35" selection-end-line="42" selection-end-column="35" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/backend/emailServices/serverless.yml">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="362">
-          <caret line="34" column="4" selection-start-line="34" selection-start-column="4" selection-end-line="34" selection-end-column="4" />
+        <state relative-caret-position="867">
+          <caret line="51" column="24" selection-start-line="51" selection-start-column="24" selection-end-line="51" selection-end-column="24" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/backend/emailServices/email-test.json">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="17">
+          <caret line="1" column="47" selection-start-line="1" selection-start-column="47" selection-end-line="1" selection-end-column="47" />
         </state>
       </provider>
     </entry>

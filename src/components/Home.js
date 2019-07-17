@@ -1,5 +1,6 @@
 import React ,{Component} from 'react';
 import Footer from "./Footer";
+import MainMap from "./MainMap";
 
 class Home extends Component{
     constructor(props){
@@ -13,7 +14,7 @@ class Home extends Component{
                         <div className="geo-location" style={{top:'60px'}}>
                             <i className="fa fa-map-marker"></i>
                         </div>
-                        <div className="map" id="map-homepage"></div>
+                        <MainMap/>
                     </div>
                     <div className="form search-form horizontal position-bottom inputs-dark"
                          data-component="SearchForm">
@@ -140,8 +141,6 @@ class Home extends Component{
                         </div>
                     </div>
                 </div>
-
-
                 <Footer/>
             </div>
         )

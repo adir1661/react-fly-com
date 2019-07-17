@@ -16,13 +16,13 @@ const Libraries = [
     "assets/js/owl.carousel.min.js",
     "assets/js/jquery.nouislider.all.min.js",
     "assets/js/jquery.trackpad-scroll-emulator.min.js",
+    "assets/js/jQuery.MultiFile.min.js",
     "assets/js/custom.js",
     "assets/js/maps.js",
 
 ];
 const afterLoad = [
-    "assets/js/main-external.js",
-    'assets/js/lightbox.min.js'
+    'assets/js/lightbox.min.js',
 ];
 export {afterLoad};
 export default Libraries;
