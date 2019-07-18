@@ -6107,6 +6107,7 @@ section:not(.block) h2 {
     margin-bottom: 10px;
     display: table;
     height: 100%;
+    width: 100%;
     border-radius: 10px;
     background-color:var(--transparent-light-grey) ;
     transition: background-color 200ms ease-in;

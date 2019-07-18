@@ -15,13 +15,13 @@ function generateEmailParams (body) {
 
     return {
         Source: myEmail,
-        Destination: { ToAddresses: [myEmail] },
+        Destination: { ToAddresses: [email] },
         ReplyToAddresses: [myEmail],
         Message: {
             Body: {
                 Text: {
                     Charset: 'UTF-8',
-                    Data: `${content}`
+                    Data: `${name? 'Dear ' + name.charAt(0).toUpperCase()+name.slice(1).toLowerCase()+'. \n':''}${content}`
                 }
             },
             Subject: {
@@ -39,13 +39,20 @@ module.exports.email = (event,context,callback) => {
         console.log('data recieved on upload image, body: ', event.body, '\n event', event);
         body = event;
     }
-    const emailParams = generateEmailParams(body);
-    const sesPromise = ses.sendEmail(emailParams).promise();
-    sesPromise.then(data=>{
-        console.log('data:' , data);
-        callback(null,Res.responseOk(data));
-    }).catch(e=>{
-        console.log('Erorr',e);
-        callback(Res.responseError(e));
-    });
+    try {
+
+
+        const emailParams = generateEmailParams(body);
+        const sesPromise = ses.sendEmail(emailParams).promise();
+        sesPromise.then(data => {
+            console.log('data:', data);
+            callback(null, Res.responseOk(data));
+        }).catch(e => {
+            console.log('Erorr', e);
+            callback(null,Res.responseError(null,e));
+        });
+    }catch (e) {
+        console.log(e);
+        callback(null,Res.responseError(null,e))
+    }
 };

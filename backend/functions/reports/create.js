@@ -79,9 +79,11 @@ module.exports.create = (event, context, callback) => {
     console.log('siteId:', siteId);
     let reportReference;
     let Report;
+    let dbConnection;
     connectToDatabase()
         .then((dbConn) => {
-            Report = dbConn.model('Report', ReportSchema);
+            dbConnection =dbConn;
+            Report = dbConnection.model('Report', ReportSchema);
             return Report.nextTitle();
         }).then((title)=>{
             let report = new Report({
@@ -91,7 +93,7 @@ module.exports.create = (event, context, callback) => {
                 issues: issuesList,
                 rating,
             });
-            return createReport(report, dbConn, siteId, gallery)
+            return createReport(report, dbConnection, siteId, gallery)
         })
         .then(reportRef => {
             reportReference = reportRef;

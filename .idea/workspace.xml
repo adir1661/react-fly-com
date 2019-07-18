@@ -4,33 +4,20 @@
     <option name="SCOPE_TYPE" value="3" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="9b05bc55-b0ca-4a6b-b1cc-ca8ef0d9c0fb" name="Default Changelist" comment="managing another serverless service for emails.&#10;upload images working after access key changed">
-      <change afterPath="$PROJECT_DIR$/backend/emailServices/email.json" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/backend/emailServices/emailNode.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/backend/emailServices/response.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/backend/functions/models/counter.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/backend/functions/reports/maxNumber.test.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/backend/functions/reports/test-response.json" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/node scripts/jsonFormatter.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
+    <list default="true" id="9b05bc55-b0ca-4a6b-b1cc-ca8ef0d9c0fb" name="Default Changelist" comment="working on cellcom meeting,&#10;on progress...">
+      <change afterPath="$PROJECT_DIR$/backend/functions/secret.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/backend/translation-services/.gitignore" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/backend/translation-services/handler.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/backend/translation-services/secret.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/backend/translation-services/serverless.yml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/emailServices/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/backend/emailServices/.gitignore" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/backend/emailServices/handler.js" beforeDir="false" afterPath="$PROJECT_DIR$/backend/emailServices/handler.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/emailServices/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/backend/emailServices/package-lock.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/emailServices/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/backend/emailServices/package.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/emailServices/serverless.yml" beforeDir="false" afterPath="$PROJECT_DIR$/backend/emailServices/serverless.yml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/functions/helper/async.js" beforeDir="false" afterPath="$PROJECT_DIR$/backend/functions/helper/async.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/functions/helper/db_connection.js" beforeDir="false" afterPath="$PROJECT_DIR$/backend/functions/helper/db_connection.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/functions/models/report.js" beforeDir="false" afterPath="$PROJECT_DIR$/backend/functions/models/report.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/backend/functions/reports/create.js" beforeDir="false" afterPath="$PROJECT_DIR$/backend/functions/reports/create.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/functions/sites/create.js" beforeDir="false" afterPath="$PROJECT_DIR$/backend/functions/sites/create.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/functions/sites/list.js" beforeDir="false" afterPath="$PROJECT_DIR$/backend/functions/sites/list.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/assets/js/main-external.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/App.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/App.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/Home.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Home.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/HomeWithMap.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/functions/serverless.yml" beforeDir="false" afterPath="$PROJECT_DIR$/backend/functions/serverless.yml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/public/index.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/components/MainMap.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/MainMap.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/external/external.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/external/external.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/helper/image.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/helper/image.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/external/style.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/external/style.css" afterDir="false" />
     </list>
     <list id="c6a113eb-eecb-4704-a43b-3593d6724d34" name="dont commit" comment="">
       <change afterPath="$PROJECT_DIR$/.idea/webResources.xml" afterDir="false" />
@@ -51,28 +38,28 @@
       <usages-collector id="statistics.file.extensions.edit">
         <counts>
           <entry key="JavaScript Console" value="10" />
-          <entry key="css" value="236" />
-          <entry key="gitignore" value="16" />
-          <entry key="html" value="50" />
-          <entry key="js" value="20765" />
-          <entry key="json" value="832" />
-          <entry key="txt" value="337" />
-          <entry key="yml" value="544" />
+          <entry key="css" value="237" />
+          <entry key="gitignore" value="49" />
+          <entry key="html" value="244" />
+          <entry key="js" value="22171" />
+          <entry key="json" value="915" />
+          <entry key="txt" value="385" />
+          <entry key="yml" value="730" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.types.edit">
         <counts>
-          <entry key="CSS" value="236" />
-          <entry key="HTML" value="248" />
-          <entry key="JSON" value="832" />
-          <entry key="JavaScript" value="20577" />
-          <entry key="PLAIN_TEXT" value="353" />
-          <entry key="YAML" value="544" />
+          <entry key="CSS" value="237" />
+          <entry key="HTML" value="453" />
+          <entry key="JSON" value="915" />
+          <entry key="JavaScript" value="21972" />
+          <entry key="PLAIN_TEXT" value="434" />
+          <entry key="YAML" value="730" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.lifecycle.project">
         <counts>
-          <entry key="project.closed" value="39" />
+          <entry key="project.closed" value="40" />
           <entry key="project.open.time.0" value="1" />
           <entry key="project.open.time.1" value="8" />
           <entry key="project.open.time.10" value="9" />
@@ -83,9 +70,9 @@
           <entry key="project.open.time.5" value="2" />
           <entry key="project.open.time.6" value="5" />
           <entry key="project.open.time.7" value="4" />
-          <entry key="project.open.time.8" value="4" />
-          <entry key="project.open.time.9" value="3" />
-          <entry key="project.opened" value="45" />
+          <entry key="project.open.time.8" value="5" />
+          <entry key="project.open.time.9" value="4" />
+          <entry key="project.opened" value="47" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.extensions.open">
@@ -93,26 +80,26 @@
           <entry key="JPG" value="1" />
           <entry key="PNG" value="5" />
           <entry key="bootstrap" value="2" />
-          <entry key="css" value="18" />
-          <entry key="gitignore" value="3" />
-          <entry key="html" value="5" />
+          <entry key="css" value="19" />
+          <entry key="gitignore" value="5" />
+          <entry key="html" value="6" />
           <entry key="jpg" value="8" />
-          <entry key="js" value="146" />
-          <entry key="json" value="26" />
+          <entry key="js" value="154" />
+          <entry key="json" value="29" />
           <entry key="php" value="2" />
-          <entry key="png" value="2" />
-          <entry key="yml" value="9" />
+          <entry key="png" value="3" />
+          <entry key="yml" value="17" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.types.open">
         <counts>
-          <entry key="CSS" value="18" />
-          <entry key="HTML" value="5" />
-          <entry key="Image" value="16" />
-          <entry key="JSON" value="26" />
-          <entry key="JavaScript" value="148" />
-          <entry key="PLAIN_TEXT" value="5" />
-          <entry key="YAML" value="9" />
+          <entry key="CSS" value="19" />
+          <entry key="HTML" value="6" />
+          <entry key="Image" value="17" />
+          <entry key="JSON" value="29" />
+          <entry key="JavaScript" value="156" />
+          <entry key="PLAIN_TEXT" value="7" />
+          <entry key="YAML" value="17" />
         </counts>
       </usages-collector>
     </session>
@@ -122,71 +109,44 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/backend/functions/reports/create.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="1734">
-              <caret line="102" column="49" selection-start-line="102" selection-start-column="49" selection-end-line="102" selection-end-column="49" />
+            <state relative-caret-position="323">
+              <caret line="27" column="29" selection-start-line="27" selection-start-column="15" selection-end-line="27" selection-end-column="29" />
             </state>
           </provider>
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/backend/functions/helper/db_connection.js">
+        <entry file="file://$PROJECT_DIR$/backend/translation-services/serverless.yml">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="238">
-              <caret line="14" column="11" selection-start-line="14" selection-start-column="11" selection-end-line="14" selection-end-column="11" />
+            <state relative-caret-position="272">
+              <caret line="16" column="13" selection-start-line="16" selection-start-column="4" selection-end-line="16" selection-end-column="13" />
             </state>
           </provider>
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/backend/functions/models/counter.js">
+        <entry file="file://$PROJECT_DIR$/backend/translation-services/handler.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state>
-              <caret column="17" selection-start-column="4" selection-end-column="17" />
+            <state relative-caret-position="51">
+              <caret line="3" column="37" selection-start-line="3" selection-start-column="37" selection-end-line="3" selection-end-column="37" />
             </state>
           </provider>
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/components/MainMap.js">
+        <entry file="file://$PROJECT_DIR$/backend/translation-services/.gitignore">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="10778">
-              <caret line="636" column="84" selection-start-line="636" selection-start-column="84" selection-end-line="636" selection-end-column="84" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/backend/emailServices/handler.js">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="238">
-              <caret line="14" selection-start-line="14" selection-end-line="14" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/backend/emailServices/package.json">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="255">
-              <caret line="15" selection-start-line="15" selection-end-line="15" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/backend/emailServices/emailNode.js">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="714">
-              <caret line="42" column="35" selection-start-line="42" selection-start-column="35" selection-end-line="42" selection-end-column="35" />
+            <state relative-caret-position="102">
+              <caret line="6" column="11" selection-start-line="6" selection-start-column="11" selection-end-line="6" selection-end-column="11" />
             </state>
           </provider>
         </entry>
       </file>
       <file pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/backend/emailServices/email-test.json">
+        <entry file="file://$PROJECT_DIR$/backend/translation-services/secret.json">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="17">
-              <caret line="1" column="47" selection-start-line="1" selection-start-column="47" selection-end-line="1" selection-end-column="47" />
+              <caret line="1" column="41" selection-start-line="1" selection-start-column="41" selection-end-line="1" selection-end-column="41" />
             </state>
           </provider>
         </entry>
@@ -194,10 +154,42 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/backend/emailServices/serverless.yml">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="867">
-              <caret line="51" column="24" selection-start-line="51" selection-start-column="24" selection-end-line="51" selection-end-column="24" />
+            <state relative-caret-position="255">
+              <caret line="30" column="39" selection-start-line="30" selection-start-column="10" selection-end-line="30" selection-end-column="39" />
             </state>
           </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/backend/functions/serverless.yml">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="186">
+              <caret line="49" column="35" selection-start-line="49" selection-end-line="50" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/backend/functions/secret.json">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="17">
+              <caret line="1" column="32" selection-start-line="1" selection-start-column="23" selection-end-line="1" selection-end-column="32" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/backend/emailServices/handler.js">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="689">
+              <caret line="55" column="22" selection-start-line="55" selection-start-column="22" selection-end-line="55" selection-end-column="22" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/backend/emailServices/response.js">
+          <provider selected="true" editor-type-id="text-editor" />
         </entry>
       </file>
     </leaf>
@@ -214,12 +206,6 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>owl.video</find>
-      <find>../</find>
-      <find>url</find>
-      <find>.modal</find>
-      <find>pop</find>
-      <find>popover</find>
       <find>providerLogo</find>
       <find>http:</find>
       <find>lastClickedMarker</find>
@@ -228,7 +214,6 @@
       <find>files[]</find>
       <find>TEmpl</find>
       <find>multif</find>
-      <find>submitFormListener</find>
       <find>filesToBase64</find>
       <find>a3j3kyatgb.</find>
       <find>applyMultiFileFields</find>
@@ -244,6 +229,13 @@
       <find>Antenna\'s intergity and screw strengthening</find>
       <find>integrity</find>
       <find>report.vid</find>
+      <find>search</find>
+      <find>preload</find>
+      <find>reports</find>
+      <find>.review</find>
+      <find>reportSubmit</find>
+      <find>submitFormListener</find>
+      <find>openModalFromTemplates</find>
     </findStrings>
     <replaceStrings>
       <replace>//</replace>
@@ -256,14 +248,6 @@
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
-        <option value="$PROJECT_DIR$/public/index.html" />
-        <option value="$PROJECT_DIR$/public/assets/css/fileinput.min.css" />
-        <option value="$PROJECT_DIR$/src/external/fileinput.min.css" />
-        <option value="$PROJECT_DIR$/src/external/owl.carousel.css" />
-        <option value="$PROJECT_DIR$/src/external/bootstrap.css" />
-        <option value="$PROJECT_DIR$/src/external/style.css" />
-        <option value="$PROJECT_DIR$/backend/functions/models/site.js" />
-        <option value="$PROJECT_DIR$/src/index.js" />
         <option value="$PROJECT_DIR$/backend/functions/scraping/map gov.js" />
         <option value="$PROJECT_DIR$/node scripts/db_connection.js" />
         <option value="$PROJECT_DIR$/node scripts/model..js" />
@@ -277,13 +261,11 @@
         <option value="$PROJECT_DIR$/backend/functions/helper/galleryTest.json" />
         <option value="$PROJECT_DIR$/public/assets/js/maps.js" />
         <option value="$PROJECT_DIR$/public/assets/js/main-external.js" />
-        <option value="$PROJECT_DIR$/backend/functions/serverless.yml" />
         <option value="$PROJECT_DIR$/backend/functions/images/image.js" />
         <option value="$PROJECT_DIR$/public/assets/js/custom.js" />
         <option value="$PROJECT_DIR$/.gitignore" />
         <option value="$PROJECT_DIR$/backend/emailServices/email.json" />
         <option value="$PROJECT_DIR$/backend/emailServices/response.js" />
-        <option value="$PROJECT_DIR$/backend/emailServices/handler.js" />
         <option value="$PROJECT_DIR$/src/components/HomeWithMap.js" />
         <option value="$PROJECT_DIR$/src/helper/image.js" />
         <option value="$PROJECT_DIR$/backend/functions/reports/test.json" />
@@ -301,12 +283,22 @@
         <option value="$PROJECT_DIR$/backend/functions/reports/maxNumber.test.js" />
         <option value="$PROJECT_DIR$/backend/functions/helper/db_connection.js" />
         <option value="$PROJECT_DIR$/backend/functions/models/report.js" />
-        <option value="$PROJECT_DIR$/backend/functions/reports/create.js" />
-        <option value="$PROJECT_DIR$/src/components/MainMap.js" />
-        <option value="$PROJECT_DIR$/backend/emailServices/serverless.yml" />
         <option value="$PROJECT_DIR$/backend/emailServices/secret.json" />
         <option value="$PROJECT_DIR$/backend/emailServices/emailNode.js" />
         <option value="$PROJECT_DIR$/backend/emailServices/email-test.json" />
+        <option value="$PROJECT_DIR$/backend/emailServices/serverless.yml" />
+        <option value="$PROJECT_DIR$/backend/functions/reports/create.js" />
+        <option value="$PROJECT_DIR$/src/external/style.css" />
+        <option value="$PROJECT_DIR$/public/index.html" />
+        <option value="$PROJECT_DIR$/backend/emailServices/handler.js" />
+        <option value="$PROJECT_DIR$/src/components/MainMap.js" />
+        <option value="$PROJECT_DIR$/backend/functions/serverless.yml" />
+        <option value="$PROJECT_DIR$/backend/emailServices/.gitignore" />
+        <option value="$PROJECT_DIR$/backend/functions/secret.json" />
+        <option value="$PROJECT_DIR$/backend/translation-services/serverless.yml" />
+        <option value="$PROJECT_DIR$/backend/translation-services/.gitignore" />
+        <option value="$PROJECT_DIR$/backend/translation-services/handler.js" />
+        <option value="$PROJECT_DIR$/backend/translation-services/secret.json" />
       </list>
     </option>
   </component>
@@ -331,8 +323,8 @@
     </packageJsonPaths>
   </component>
   <component name="ProjectFrameBounds" extendedState="6">
-    <option name="x" value="85" />
-    <option name="y" value="25" />
+    <option name="x" value="197" />
+    <option name="y" value="-32" />
     <option name="width" value="1750" />
     <option name="height" value="970" />
   </component>
@@ -434,7 +426,14 @@
             <path>
               <item name="react-fly-com" type="3d21c010:ScopeViewTreeModel$ProjectNode" />
               <item name="" type="442cc68d:ScopeViewTreeModel$RootNode" />
-              <item name="node scripts" type="9f88c78c:ScopeViewTreeModel$FileNode" />
+              <item name="backend" type="9f88c78c:ScopeViewTreeModel$FileNode" />
+              <item name="functions" type="9f88c78c:ScopeViewTreeModel$FileNode" />
+            </path>
+            <path>
+              <item name="react-fly-com" type="3d21c010:ScopeViewTreeModel$ProjectNode" />
+              <item name="" type="442cc68d:ScopeViewTreeModel$RootNode" />
+              <item name="backend" type="9f88c78c:ScopeViewTreeModel$FileNode" />
+              <item name="translation-services" type="9f88c78c:ScopeViewTreeModel$FileNode" />
             </path>
           </expand>
           <select />
@@ -456,19 +455,19 @@
     <property name="nodejs_package_manager_path" value="yarn" />
   </component>
   <component name="RecentsManager">
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="C:\adir c\Projects\react-fly-com\backend\translation-services" />
+      <recent name="C:\adir c\Projects\react-fly-com\backend\emailServices" />
+      <recent name="C:\adir c\Projects\react-fly-com\backend" />
+      <recent name="C:\adir c\Projects\react-fly-com\backend\functions" />
+      <recent name="C:\adir c\Projects\react-fly-com\node scripts" />
+    </key>
     <key name="CopyFile.RECENT_KEYS">
       <recent name="C:\adir c\Projects\react-fly-com\backend\functions\reports" />
       <recent name="C:\adir c\Projects\react-fly-com\node scripts" />
       <recent name="C:\adir c\Projects\react-fly-com\backend\emailServices" />
       <recent name="C:\adir c\Projects\react-fly-com\node scripts\node_modules" />
       <recent name="C:\adir c\Projects\react-fly-com\build" />
-    </key>
-    <key name="MoveFile.RECENT_KEYS">
-      <recent name="C:\adir c\Projects\react-fly-com\backend\emailServices" />
-      <recent name="C:\adir c\Projects\react-fly-com\backend" />
-      <recent name="C:\adir c\Projects\react-fly-com\backend\functions" />
-      <recent name="C:\adir c\Projects\react-fly-com\node scripts" />
-      <recent name="C:\adir c\Projects\react-fly-com\public\assets\img\signatures" />
     </key>
   </component>
   <component name="RunDashboard">
@@ -570,6 +569,8 @@
       <workItem from="1563265910018" duration="20923000" />
       <workItem from="1563290359114" duration="493000" />
       <workItem from="1563345501844" duration="1138000" />
+      <workItem from="1563351047375" duration="16199000" />
+      <workItem from="1563438155128" duration="7638000" />
     </task>
     <task id="LOCAL-00001" summary="test">
       <created>1557768448719</created>
@@ -690,11 +691,18 @@
       <option name="project" value="LOCAL" />
       <updated>1561896349109</updated>
     </task>
-    <option name="localTasksCounter" value="18" />
+    <task id="LOCAL-00018" summary="working on cellcom meeting,&#10;on progress...">
+      <created>1563351243332</created>
+      <option name="number" value="00018" />
+      <option name="presentableId" value="LOCAL-00018" />
+      <option name="project" value="LOCAL" />
+      <updated>1563351243333</updated>
+    </task>
+    <option name="localTasksCounter" value="19" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="298550000" />
+    <option name="totallyTimeSpent" value="322387000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -707,8 +715,9 @@
   </component>
   <component name="ToolWindowManager">
     <frame x="-7" y="-7" width="1550" height="838" extended-state="6" />
+    <editor active="true" />
     <layout>
-      <window_info content_ui="combo" id="Project" order="0" sideWeight="0.49774775" visible="true" weight="0.23288591" />
+      <window_info active="true" content_ui="combo" id="Project" order="0" sideWeight="0.49774775" visible="true" weight="0.23288591" />
       <window_info id="Structure" order="1" sideWeight="0.5022523" weight="0.14899328" />
       <window_info id="npm" order="2" side_tool="true" />
       <window_info id="Favorites" order="3" side_tool="true" />
@@ -722,12 +731,33 @@
       <window_info anchor="bottom" id="Docker" order="7" show_stripe_button="false" />
       <window_info anchor="bottom" id="Version Control" order="8" sideWeight="0.49932885" weight="0.32796487" />
       <window_info anchor="bottom" id="Event Log" order="9" sideWeight="0.5013423" side_tool="true" weight="0.3235725" />
-      <window_info active="true" anchor="bottom" id="Terminal" order="10" sideWeight="0.4986577" visible="true" weight="0.29575402" />
+      <window_info anchor="bottom" id="Terminal" order="10" sideWeight="0.4986577" visible="true" weight="0.33821377" />
       <window_info anchor="right" id="Commander" internal_type="SLIDING" order="0" type="SLIDING" weight="0.4" />
       <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
       <window_info anchor="right" content_ui="combo" id="Hierarchy" order="2" weight="0.25" />
       <window_info anchor="right" id="Mongo Explorer" order="3" weight="0.3295302" />
     </layout>
+    <layout-to-restore>
+      <window_info active="true" content_ui="combo" id="Project" order="0" sideWeight="0.49774775" visible="true" weight="0.23288591" />
+      <window_info id="Structure" order="1" sideWeight="0.5022523" weight="0.14899328" />
+      <window_info id="npm" order="2" side_tool="true" />
+      <window_info id="Favorites" order="3" side_tool="true" />
+      <window_info anchor="bottom" id="Message" order="0" />
+      <window_info anchor="bottom" id="Find" order="1" weight="0.329429" />
+      <window_info anchor="bottom" id="Run" order="2" weight="0.3499268" />
+      <window_info anchor="bottom" id="Debug" order="3" weight="0.38945827" />
+      <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
+      <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
+      <window_info anchor="bottom" id="TODO" order="6" weight="0.329429" />
+      <window_info anchor="bottom" id="Docker" order="7" show_stripe_button="false" />
+      <window_info anchor="bottom" id="Version Control" order="8" sideWeight="0.49932885" weight="0.32796487" />
+      <window_info anchor="bottom" id="Event Log" order="9" sideWeight="0.5013423" side_tool="true" weight="0.3235725" />
+      <window_info anchor="bottom" id="Terminal" order="10" sideWeight="0.4986577" visible="true" weight="0.33821377" />
+      <window_info anchor="right" id="Commander" internal_type="SLIDING" order="0" type="SLIDING" weight="0.4" />
+      <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
+      <window_info anchor="right" content_ui="combo" id="Hierarchy" order="2" weight="0.25" />
+      <window_info anchor="right" id="Mongo Explorer" order="3" weight="0.3295302" />
+    </layout-to-restore>
   </component>
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="1" />
@@ -747,7 +777,8 @@
     <MESSAGE value="reverting a bit" />
     <MESSAGE value="uploading images on process" />
     <MESSAGE value="managing another serverless service for emails.&#10;upload images working after access key changed" />
-    <option name="LAST_COMMIT_MESSAGE" value="managing another serverless service for emails.&#10;upload images working after access key changed" />
+    <MESSAGE value="working on cellcom meeting,&#10;on progress..." />
+    <option name="LAST_COMMIT_MESSAGE" value="working on cellcom meeting,&#10;on progress..." />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -761,71 +792,6 @@
     </breakpoint-manager>
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/public/client/edit-listing.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="151">
-          <caret line="340" column="61" selection-start-line="340" selection-start-column="61" selection-end-line="340" selection-end-column="61" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$USER_HOME$/AppData/Roaming/npm/node_modules/serverless/lib/plugins/aws/invokeLocal/index.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="151">
-          <caret line="546" column="11" selection-start-line="546" selection-start-column="11" selection-end-line="546" selection-end-column="11" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/backend/functions/package.json">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="255">
-          <caret line="15" column="3" selection-start-line="15" selection-start-column="3" selection-end-line="15" selection-end-column="3" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$USER_HOME$/AppData/Roaming/npm/node_modules/serverless/node_modules/bluebird/js/release/debuggability.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="5304">
-          <caret line="312" column="8" selection-start-line="312" selection-start-column="8" selection-end-line="312" selection-end-column="8" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/backend/functions/helper/dataTest.json">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="34">
-          <caret line="2" column="16" selection-start-line="2" selection-start-column="16" selection-end-line="2" selection-end-column="16" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/public/assets/js/maps.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1785">
-          <caret line="113" column="34" selection-start-line="113" selection-start-column="34" selection-end-line="113" selection-end-column="45" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/backend/functions/todos/create.js">
-      <provider selected="true" editor-type-id="text-editor" />
-    </entry>
-    <entry file="file://$PROJECT_DIR$/backend/functions/helper/galleryTest.json">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="24259">
-          <caret column="1427972" selection-start-column="1427972" selection-end-column="1427972" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/backend/functions/package-lock.json">
-      <provider selected="true" editor-type-id="text-editor" />
-    </entry>
-    <entry file="file://$PROJECT_DIR$/.gitignore">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="300">
-          <caret line="23" column="5" selection-start-line="23" selection-start-column="5" selection-end-line="23" selection-end-column="5" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/backend/emailServices/.gitignore">
-      <provider selected="true" editor-type-id="text-editor" />
-    </entry>
     <entry file="file://$PROJECT_DIR$/package.json">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="374">
@@ -833,20 +799,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/backend/emailServices/response.js">
-      <provider selected="true" editor-type-id="text-editor" />
-    </entry>
     <entry file="file://$PROJECT_DIR$/backend/emailServices/email.json">
       <provider selected="true" editor-type-id="text-editor">
         <state>
           <caret column="54" selection-start-column="54" selection-end-column="54" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/public/assets/js/custom.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="12104">
-          <caret line="720" selection-start-line="720" selection-end-line="720" />
         </state>
       </provider>
     </entry>
@@ -968,21 +924,8 @@
     <entry file="file://$PROJECT_DIR$/public/assets/bootstrap/js/bootstrap.min.js">
       <provider selected="true" editor-type-id="text-editor" />
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/external/external.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="289">
-          <caret line="24" column="32" selection-start-line="24" selection-start-column="32" selection-end-line="24" selection-end-column="32" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/public/assets/js/main-external.js" />
-    <entry file="file://$PROJECT_DIR$/backend/functions/client/dist/static/js/main.c6cff8d5.chunk.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state>
-          <caret column="536" selection-start-column="536" selection-end-column="536" />
-        </state>
-      </provider>
-    </entry>
+    <entry file="file://$PROJECT_DIR$/backend/functions/client/dist/static/js/main.c6cff8d5.chunk.js" />
     <entry file="file://$PROJECT_DIR$/src/App.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="-510">
@@ -1004,13 +947,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/backend/functions/serverless.yml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="340">
-          <caret line="26" column="17" selection-start-line="26" selection-start-column="17" selection-end-line="26" selection-end-column="114" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/backend/emailServices/node_modules/nodemailer/lib/smtp-connection/index.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="-1175">
@@ -1025,45 +961,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/backend/functions/reports/create.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1734">
-          <caret line="102" column="49" selection-start-line="102" selection-start-column="49" selection-end-line="102" selection-end-column="49" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/backend/functions/helper/db_connection.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="238">
           <caret line="14" column="11" selection-start-line="14" selection-start-column="11" selection-end-line="14" selection-end-column="11" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/backend/functions/models/counter.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state>
-          <caret column="17" selection-start-column="4" selection-end-column="17" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/components/MainMap.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="10778">
-          <caret line="636" column="84" selection-start-line="636" selection-start-column="84" selection-end-line="636" selection-end-column="84" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/backend/emailServices/handler.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="238">
-          <caret line="14" selection-start-line="14" selection-end-line="14" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/backend/emailServices/package.json">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="255">
-          <caret line="15" selection-start-line="15" selection-end-line="15" />
         </state>
       </provider>
     </entry>
@@ -1074,10 +975,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/backend/emailServices/serverless.yml">
+    <entry file="file://$PROJECT_DIR$/backend/emailServices/package.json">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="867">
-          <caret line="51" column="24" selection-start-line="51" selection-start-column="24" selection-end-line="51" selection-end-column="24" />
+        <state relative-caret-position="255">
+          <caret line="15" selection-start-line="15" selection-end-line="15" />
         </state>
       </provider>
     </entry>
@@ -1085,6 +986,145 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="17">
           <caret line="1" column="47" selection-start-line="1" selection-start-column="47" selection-end-line="1" selection-end-column="47" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/public/assets/js/maps.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="321">
+          <caret line="499" column="47" lean-forward="true" selection-start-line="499" selection-start-column="47" selection-end-line="499" selection-end-column="47" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/backend/functions/package.json">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="187">
+          <caret line="11" column="9" selection-start-line="11" selection-start-column="5" selection-end-line="11" selection-end-column="9" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/external/external.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="408">
+          <caret line="24" column="32" selection-start-line="24" selection-start-column="32" selection-end-line="24" selection-end-column="32" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/public/assets/img/logo/logo-13-resized.png">
+      <provider selected="true" editor-type-id="images" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/external/style.css">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="103853">
+          <caret line="6109" column="16" selection-start-line="6109" selection-start-column="16" selection-end-line="6109" selection-end-column="16" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/public/assets/js/custom.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="11917">
+          <caret line="709" column="15" selection-start-line="709" selection-start-column="15" selection-end-line="709" selection-end-column="15" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/backend/functions/models/counter.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state>
+          <caret column="17" selection-start-column="4" selection-end-column="17" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/public/index.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-204">
+          <caret line="6" column="48" selection-start-line="6" selection-start-column="48" selection-end-line="6" selection-end-column="48" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/backend/emailServices/response.js">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/backend/emailServices/handler.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="689">
+          <caret line="55" column="22" selection-start-line="55" selection-start-column="22" selection-end-line="55" selection-end-column="22" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/components/MainMap.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-1581">
+          <caret line="26" column="21" selection-start-line="26" selection-start-column="21" selection-end-line="26" selection-end-column="21" />
+          <folding>
+            <element signature="e#820#1259#0" />
+            <element signature="e#1290#6074#0" />
+            <element signature="e#1304#2868#0" />
+            <element signature="e#2882#4555#0" />
+            <element signature="e#4569#6063#0" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/backend/emailServices/serverless.yml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="255">
+          <caret line="30" column="39" selection-start-line="30" selection-start-column="10" selection-end-line="30" selection-end-column="39" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/backend/functions/reports/create.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="323">
+          <caret line="27" column="29" selection-start-line="27" selection-start-column="15" selection-end-line="27" selection-end-column="29" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/backend/emailServices/.gitignore">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="102">
+          <caret line="6" column="13" selection-start-line="6" selection-start-column="13" selection-end-line="6" selection-end-column="13" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/backend/functions/serverless.yml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="186">
+          <caret line="49" column="35" selection-start-line="49" selection-end-line="50" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/backend/translation-services/.gitignore">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="102">
+          <caret line="6" column="11" selection-start-line="6" selection-start-column="11" selection-end-line="6" selection-end-column="11" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/backend/translation-services/serverless.yml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="272">
+          <caret line="16" column="13" selection-start-line="16" selection-start-column="4" selection-end-line="16" selection-end-column="13" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/backend/translation-services/handler.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="51">
+          <caret line="3" column="37" selection-start-line="3" selection-start-column="37" selection-end-line="3" selection-end-column="37" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/backend/functions/secret.json">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="17">
+          <caret line="1" column="32" selection-start-line="1" selection-start-column="23" selection-end-line="1" selection-end-column="32" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/backend/translation-services/secret.json">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="17">
+          <caret line="1" column="41" selection-start-line="1" selection-start-column="41" selection-end-line="1" selection-end-column="41" />
         </state>
       </provider>
     </entry>

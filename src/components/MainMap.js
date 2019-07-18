@@ -1,7 +1,9 @@
 import React, {Component} from 'react';
 import {Modal} from 'react-bootstrap';
 import {filesToBase64} from "../helper/image";
+
 const useCahcedReportsForView = true;
+
 class MainMap extends Component {
     constructor(props) {
         super(props);
@@ -31,16 +33,16 @@ class MainMap extends Component {
             {name: 'blocking', id: 'blocking'},
             {name: 'antenna\'s stickers', id: 'stickers'},
         ];
-        let  chachedReports = [
+        let chachedReports = [
             {
-                _id:'1',
+                _id: '1',
                 created: new Date('2019-01-05'),
                 rating: 70,
                 title: '4001',
                 description: 'this is report winter chached with some screws missing.',
                 category: 'winder',
                 reportId: 2,
-                providerLogo:'assets/img/cellcom_logo.png',
+                providerLogo: 'assets/img/cellcom_logo.png',
                 issues: [
                     {
                         title: issues[0].name,
@@ -70,7 +72,7 @@ class MainMap extends Component {
                 ]
             },
             {
-                _id:'2',
+                _id: '2',
                 created: new Date('2019-03-25'),
                 rating: 45,
                 title: '4351',
@@ -78,7 +80,7 @@ class MainMap extends Component {
                 category: 'winder',
                 vid: 'https://s3-eu-west-1.amazonaws.com/sis-flycomm-images/pelephone-cut2.mp4',
                 reportId: 1,
-                providerLogo:'assets/img/items/company.png',
+                providerLogo: 'assets/img/items/company.png',
                 issues: [
                     {
                         title: issues[0].name,
@@ -107,7 +109,7 @@ class MainMap extends Component {
                 ]
             },
             {
-                _id:'3',
+                _id: '3',
 
                 created: new Date('2018-08-14'),
                 rating: 15,
@@ -144,7 +146,18 @@ class MainMap extends Component {
                 ]
             },
         ];
-
+        window.handleReportSaved = function(_this,result){
+            _this.modal('hide');
+            if (result.site) {
+                result.site = result.site._id;
+            }
+            console.log('successfuly updated site and added Report.\nreport:', result);
+            let site = window.locations.find(site => site.id === result.site);
+            site.reports.push(result);
+            setTimeout(()=> {
+                window.openModalFromTemplates("#modalItem", result.site, false, window.isFullScreen);//todo make function to handle specific modal open / reopen
+            },300);
+        };
         window.heroMap = function (_latitude, _longitude, element, markerTarget, sidebarResultTarget, showMarkerLabels, mapDefaultZoom) {
             let placeMarkers = function (markers) {
 
@@ -565,18 +578,43 @@ class MainMap extends Component {
 
                 window.google.maps.event.addListener(window.map, 'bounds_changed', onBoundsChanged);
 
-
+                let nextIndexSite = 0;
                 $("[data-ajax-response='map']").on("click", function (e) {//search form on map click listener....
                     e.preventDefault();
-                    var dataFile = $(this).attr("data-ajax-data-file");
+                    function moveToLocation(lat, lng) {
+                        let lngNum = Number(lng);
+                        let latNum = Number(lat);
+                        if (isNaN(latNum) || isNaN(lngNum)) {
+                            return console.log('error with lat lng values, values : \nlat:', lat, '\nlng:', lng);
+                        }
+                        var center = new window.google.maps.LatLng(latNum, lngNum);
+                        console.log(center.lat(), center.lng());
+                        window.map.panTo(center);
+                        setTimeout(() => {
+                            window.map.setZoom(12);
+                            let bounds = new window.google.maps.LatLngBounds();
+                            bounds.extend(center);
+                        }, 400)
+                    }
+                    // var dataFile = $(this).attr("data-ajax-data-file");
                     window.searchClicked = 1;
                     if ($(this).attr("data-ajax-auto-zoom") == 1) {
                         window.mapAutoZoom = 1;
                     }
                     var form = $(this).closest("form");
-                    var ajaxData = form.serialize();
-                    markerCluster.clearMarkers();
-                    loadData(dataFile, ajaxData);
+                    var ajaxData = form.getForm2obj();
+                    console.log(ajaxData);
+                    let siteId = ajaxData['keyword'];
+                    let sitesResult = window.locations.filter(site => (site.title.toLowerCase().includes((""+siteId).toLowerCase())));
+                    console.log(sitesResult);
+                    if (sitesResult.length > 0) {
+                        if(!sitesResult[nextIndexSite]){
+                            nextIndexSite = 0;
+                        }
+                        let {latitude, longitude} = sitesResult[nextIndexSite];
+                        moveToLocation(latitude, longitude);
+                        nextIndexSite++;
+                    }
                 });
 
                 // Geo Location on button click --------------------------------------------------------------------------------
@@ -612,7 +650,8 @@ class MainMap extends Component {
             let $child = $modal.find(".modal-report");
             $child.removeClass("width-800px");
             $child.addClass("width-700px");
-            $modal.html(window.Templates['reportSubmit']());
+            let site = window.locations.find(site =>(site.id ===item_Id));
+            $modal.html(window.Templates['reportSubmit'](site));
             let issuesLength = renderReportDetails().length;
             applyMultiFileFields(issuesLength);
             submitFormListener($modal.find('form'), $modal, 'sites/' + item_Id + '/reports');
@@ -634,7 +673,7 @@ class MainMap extends Component {
                 let _this = $(this);
                 window.lastModal = _this;
                 let site = window.locations.find((item => (item.id === target))) || {};
-                if(useCahcedReportsForView&&(!site.reports||site.reports.length<1)){
+                if (useCahcedReportsForView && (!site.reports || site.reports.length < 1)) {
                     site.reports = chachedReports;
                 }
                 InsertTemplate(Templates[key](target, site), _this);
@@ -742,13 +781,10 @@ class MainMap extends Component {
                         data: JSON.stringify(formDetailsObject),
                         dataType: "json",
                         success: (result) => {
-                            if(result.site){
-                                result.site = result.site._id;
+                            let urlArray = url.split('/');
+                            if(urlArray.length === 3 &&urlArray[2] ==='reports'){
+                                window.handleReportSaved(_this,result);
                             }
-                            _this.modal('hide');
-                            console.log('successfuly updated site and added Report.\nreport:', result);
-                            let site = window.locations.find(site=>site.id === result.site);
-                            site.reports.push(result);
                         },
                         error: (jqXHR, textStatus, errorThrown) => {
                             console.log(errorThrown);
@@ -906,6 +942,11 @@ class MainMap extends Component {
 </div>`
             },
             modalItem: (id, site) => {
+                function compareDates(a, b) {
+                    a = new Date(a.created);
+                    b = new Date(b.created);
+                    return a>b ? -1 : a<b ? 1 : 0;
+                }
                 return `<div class="modal-item-detail modal-dialog" role="document" data-latitude="${site.latitude}" data-longitude="${ site.longitude}" data-address data-id="${id}">
     <div class="modal-content">
         <div class="modal-header">
@@ -917,7 +958,7 @@ class MainMap extends Component {
                 <div class="label label-default">${site.type}</div>
                 <div class="rating-passive" data-rating="${site.rating}">
                         <span class="stars"></span>
-                        <span class="reviews">${site.reports ? site.reports.length : 4}</span>
+                        <span class="reviews">${site.reports && false ? site.reports.length : 4}</span>
                        
 
                     </div>
@@ -949,11 +990,11 @@ class MainMap extends Component {
                 </section>
                 <section class="report-list">
                         <h3><strong>Latest Reports</strong></h3>
-                        ${site.reports ? site.reports.map((report) => (`<div class="review report-item" data-id="${report._id}" title="${report.description}">
+                        ${site.reports ? site.reports.sort(compareDates).map((report) => (`<div class="review report-item" data-id="${report._id}" title="${report.description}">
                                 <div class="image">
                                      <div class="bg-transfer" >
                                          <div class="c100 p${Math.round(Number(report.rating))} small ${Number(report.rating) > 50 ? 'green' : Number(report.rating) > 30 ? 'orange' : 'red'}">
-                                              <span>${Number(report.rating)}%</span>
+                                              <span>${Number(report.rating).toFixed(0)}%</span>
                                               <div class="slice">
                                                    <div class="bar"></div>
                                                    <div class="fill"></div>
@@ -969,7 +1010,7 @@ class MainMap extends Component {
                                         <span class="date">${report.created ? new Date(report.created).toDateString() : ''}</span>
                                     </figure>
                                     <h5>${report.title}</h5>
-                                    <p>${report.description.length>70?report.description.slice(0,66) +'...':report.description}</p>
+                                    <p>${report.description ? (report.description.length > 70 ? report.description.slice(0, 66) + '...' : report.description) : 'no description to this report'}</p>
                                 </div>
                             </div>
                             `)).join('\n') : 'No Reports in this site...'}
@@ -979,16 +1020,35 @@ class MainMap extends Component {
     </div>
 </div>`
             },
-            reportSubmit: () => {
+            reportSubmit: (site) => {
                 return `<div class="modal-dialog modal-report width-800px" role="document" data-latitude="40.7344458"
 data-longitude="-73.86704922"
 data-marker-drag="true">
 <div class="modal-content">
+   <section>
+       <h3 style="margin-bottom: 10px">Site:</h3>
+       <div class="row small-font">
+           <div class="col-md-2 col-sm-2">
+                   <h5 for="title"><strong>Site Name</strong>: <br>${site.address}</h5>
+           </div>
+           <div class="col-md-2 col-sm-2">
+                 <h5 for="title"><strong>Site ID</strong>: <br>${site.title}</h5>
+           </div> 
+           ${site.created ?`
+           <div class="col-md-2 col-sm-2">
+                 <h5 for="title"><strong>Site Date</strong>: <br>${new Date(site.created).toLocaleDateString()}</h5>
+           </div>  ` : '<div class="col-md-2 col-sm-2"></div>'}
+           <div class="col-md-2 col-sm-2">
+               <h5 for="title"><strong>Site Type</strong>: <br>${site.type}</h5>
+           </div>
+       </div>
+   </section>
+   <hr>
    <div class="modal-header">
        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
                aria-hidden="true">&times;</span></button>
        <div class="section-title">
-           <h2>Report</h2>
+           <h2>New Report</h2>
        </div>
    </div>
    <div class="modal-body">
@@ -1019,21 +1079,11 @@ data-marker-drag="true">
                </div>
 
            </section>
-
-            <section>
-                <h3>Antenna</h3>
-                <div class="form-group">
-                    <label for="address-autocomplete">Address</label>
-                    <input type="text" class="form-control" name="address" id="address-autocomplete"
-                          placeholder="Address">
-                </div>
-            </section>
             <section class="reports">
                 <h3>Report Details:</h3>
             </section>
-
-            <section class="center">
-                <div class="row left">
+            <section>
+            <div class="row left">
                     <div class="col-md-9 col-sm-9">
                        <div class="form-group">
                            <label for="title">Filled By: </label>
@@ -1041,6 +1091,9 @@ data-marker-drag="true">
                        </div>
                     </div>
                 </div>
+            </section>
+            <section class="center">
+                
                 <div class="form-group">
                     <button type="submit" class="btn btn-primary btn-rounded">Add Report</button>
                 </div>
@@ -1059,7 +1112,7 @@ data-marker-drag="true">
        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
                aria-hidden="true">&times;</span></button>
        <div class="section-title">
-           <h2 class="pull-left">${report.category?report.category.charAt(0).toUpperCase() + report.category.slice(1) : ''} ${report.title?'Report ' + report.title.charAt(0).toUpperCase() + report.title.slice(1):' - no ID.'}</h2>
+           <h2 class="pull-left">${report.category ? report.category.charAt(0).toUpperCase() + report.category.slice(1) : ''} ${report.title ? 'Report ' + report.title.charAt(0).toUpperCase() + report.title.slice(1) : ' - no ID.'}</h2>
            <div class="pull-right">
                     <img  src="${report.providerLogo}" alt="">
            </div>
@@ -1067,7 +1120,7 @@ data-marker-drag="true">
    </div>
    <div class="modal-body">
        <section>
-       <h3>Site:</h3>
+       <h3 style="margin-bottom: 10px">Site:</h3>
                <div class="row small-font">
                    <div class="col-md-2 col-sm-2">
                            <h5 for="title"><strong>Site Name</strong>: <br>${antenna.address}</h5>
@@ -1084,7 +1137,7 @@ data-marker-drag="true">
                    </div>
                     ${antenna.contact ? `
                    <div class="col-md-2 col-sm-2">
-                         <h5 for="title"><strong>Filled By</strong>: <br>${report.filledBy||'Not Assigned'}</h5>
+                         <h5 for="title"><strong>Filled By</strong>: <br>${report.filledBy || 'Not Assigned'}</h5>
                    </div>  ` : '<div class="col-md-2 col-sm-2"></div>'}
                </div>
            </section>
@@ -1162,7 +1215,7 @@ data-marker-drag="true">
         </div>
     </div>
     <div class="col-xs-3" style="height:100%;border-left: 1px solid var(--light-grey);text-align: right;overflow: hidden">
-        <a href="${issue.gallery ? issue.gallery[0] : issue.image ? issue.image : 'https://via.placeholder.com/150x100/000000/FFFFFF/?text=No+Image+Placed+Here'}" 
+        <a href="${issue.gallery && issue.gallery[0] ? issue.gallery[0] : issue.image ? issue.image : 'https://via.placeholder.com/150x100/000000/FFFFFF/?text=No+Image+Placed+Here'}" 
         data-lightbox="image-issues" data-title="${issue.title.charAt(0).toUpperCase() + issue.title.slice(1)}">
             <img style="height: 100px"  src="${issue.gallery && issue.gallery[0] ? issue.gallery[0] : issue.image ? issue.image : 'https://via.placeholder.com/150x100/000000/FFFFFF/?text=No+Image+Placed+Here'}" alt="report">
         </a>
@@ -1247,7 +1300,7 @@ data-marker-drag="true">
                 $child.addClass("width-700px");
                 let site = window.locations.find((item => (item.id === antenna_Id)));
                 let report = site.reports.find((item) => item._id + '' === report_id);
-                console.log("site:",site,"\nreport: ", report_id);
+                // console.log("site:",site,"\nreport: ", report_id);
                 $modal.html(Templates['modalReportView'](report, antenna_Id));
                 //renderReportDetails() todo: implement come back to
             });
