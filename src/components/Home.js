@@ -1,12 +1,17 @@
 import React ,{Component} from 'react';
 import Footer from "./Footer";
+
 import MainMap from "./MainMap";
+import {SplitButton ,Dropdown} from "react-bootstrap";
+import Select from "../react-wrappers/Select";
 
 class Home extends Component{
     constructor(props){
         super(props);
     }
     render(){
+        let {t} = this.props;
+        console.log('t: ',t);
         return(
             <div id="page-content">
                 <div className="hero-section full-screen has-map" data-component="MapWrapperContainer">
@@ -24,38 +29,38 @@ class Home extends Component{
                                     <div className="col-md-3 col-sm-2">
                                         <div className="form-group">
                                             <input type="text" className="form-control" name="keyword"
-                                                   placeholder="Enter keyword"/>
+                                                   placeholder={t('enter_keyword')}/>
                                         </div>
                                     </div>
                                     <div className="col-md-3 col-sm-4">
                                         <div className="form-group">
-                                            <select className="form-control selectpicker" name="city">
+                                            <Select className="form-control selectpicker" name="location">
                                                 <option value="">Location</option>
-                                                <option value="1">New York</option>
-                                                <option value="2">Washington</option>
-                                                <option value="3">London</option>
-                                                <option value="4">Paris</option>
-                                            </select>
+                                                <option value="jerusalem">Jerusalem</option>
+                                                <option value="tel-aviv">Tel-Aviv</option>
+                                                <option value="beer-sheva">Be'er Sheva</option>
+                                                <option value="haifa">Haifa</option>
+                                            </Select>
                                         </div>
                                     </div>
                                     <div className="col-md-3 col-sm-4">
                                         <div className="form-group">
-                                            <select className="form-control selectpicker" name="category">
-                                                <option value="">Category</option>
-                                                <option value="restaurant">Restaurant</option>
-                                                <option value="car rental">Car Rental</option>
-                                                <option value="relax">Relax</option>
-                                                <option value="sport">Sport</option>
-                                                <option value="wellness">Wellness</option>
-                                            </select>
+                                            <Select className="form-control selectpicker" name="category">
+                                                <option value="">Site Type</option>
+                                                <option value="Rooftop-Site">Rooftop Site</option>
+                                                <option value="Cell-Tower-Site">Cell Tower Site</option>
+                                                <option value="Small-Cell">Small Cell</option>
+                                                <option value="Outdoor-DAS">Outdoor DAS</option>
+                                                <option value="Indoor-DAS">Indoor DAS</option>
+                                            </Select>
                                         </div>
                                     </div>
                                     <div className="col-md-2 col-sm-4">
-                                        <div className="form-group">
-                                            <input type="text" className="form-control date-picker"
-                                                   name="min-price"
-                                                   placeholder="Event Date"/>
-                                        </div>
+                                        {/*<div className="form-group">*/}
+                                            {/*<input type="text" className="form-control date-picker"*/}
+                                                   {/*name="min-price"*/}
+                                                   {/*placeholder="Event Date"/>*/}
+                                        {/*</div>*/}
 
                                     </div>
                                     <div className="col-md-1 col-sm-4">
@@ -63,8 +68,8 @@ class Home extends Component{
                                             <button type="submit" data-ajax-response="map"
                                                     data-ajax-data-file="assets/external/data_2.php"
                                                     data-ajax-auto-zoom="1"
-                                                    className="btn btn-primary pull-right darker"><i
-                                                className="fa fa-search"></i>
+                                                    className="btn btn-primary pull-right darker">
+                                                <i className="fa fa-search"></i>
                                             </button>
                                         </div>
 

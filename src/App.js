@@ -1,11 +1,12 @@
-import React, {Component} from 'react';
+import React, {Component, Suspense} from 'react';
 import {BrowserRouter as Router, Route, Switch} from 'react-router-dom';
 import Libraries ,{afterLoad} from './external/external';
 
 import './App.css';
 import Navbar from "./components/Navbar";
-import Search from "./components/ourSearch";
+import Search from "./components/Search";
 import Home from "./components/Home";
+import {withTranslation} from "react-i18next";
 let insertScript = function (srcs, i, cb) {
     let script;
     script = document.createElement("script");
@@ -35,24 +36,15 @@ class App extends Component {
     scriptLoaded = () => {
         this.isScriptsLoaded=true;
         document.dispatchEvent(this.scriptsLoaded);
-        // let location = {   latitude: 32.1553593733,
-        //     longtitude: 34.825565815};
-        // var optimizedDatabaseLoading = 0;
-        // var _latitude = location.latitude;
-        // var _longitude = location.longtitude;
-        // var element = "map-homepage";
-        // var markerTarget = "modal"; // use "sidebar", "infobox" or "modal" - defines the action after click on marker
-        // var sidebarResultTarget = "sidebar"; // use "sidebar", "modal" or "new_page" - defines the action after click on marker
-        // var showMarkerLabels = true; // next to every marker will be a bubble with title
-        // var mapDefaultZoom = 10; // default zoom
-        // window.heroMap(_latitude, _longitude, element, markerTarget, sidebarResultTarget, showMarkerLabels, mapDefaultZoom);
         insertScript(afterLoad,0,()=>{
             document.dispatchEvent(new window.Event('initializeAllScripts'));
         });
     };
 
     render() {
+        console.log('APP RENDER');
         return (
+
             <Router>
             <div className="App">
                 <div className="page-wrapper">
@@ -60,7 +52,7 @@ class App extends Component {
                         <Navbar/>
                     </header>
                         <Switch>
-                            <Route path="/" exact component={(props)=>(<Home {...props}/>)}/>
+                            <Route path="/" exact component={(props)=>(<Home {...props} t ={this.props.t}/>)}/>
                             <Route path="/search" render={(props) => (<Search {...props} isMainScritsLoaded={this.isScriptsLoaded}/>)}/>
                         </Switch>
                 </div>
@@ -71,4 +63,6 @@ class App extends Component {
         );
     }
 }
-export default App;
+let AppTranslated = withTranslation()(App);
+
+export default AppTranslated;

@@ -48,6 +48,8 @@ provider:
     REGION: ${self:provider.region}
     DYNAMODB_TABLE: ${self:service}-${opt:stage, self:provider.stage}
     MONGODB_URI: mongodb+srv://database-admin:${file(./secret.json):mongo.password}@flycomm-sis-aske2.mongodb.net/flycomm-sis?retryWrites=true
+    MONGODB_TRANSLATIONS: translation
+    MONGODB_SITES: flycomm-sis
   region: ${opt:region, 'eu-west-1'}
   iamRoleStatements:
     - Effect: Allow
@@ -148,6 +150,14 @@ functions:
     events:
     - http:
         path: locations
+        method: get
+        cors: true
+    timeout: 60
+  translations-list:
+    handler: transformation/translations.list
+    events:
+    - http:
+        path: translations
         method: get
         cors: true
     timeout: 60

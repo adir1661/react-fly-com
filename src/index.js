@@ -1,8 +1,9 @@
-import React from 'react';
+import React, {Suspense} from 'react';
 import ReactDOM from 'react-dom';
 import './index.css';
 import App from './App';
-import Search from './components/ourSearch';
+import './i18n'
+import Search from './components/Search';
 import * as serviceWorker from './serviceWorker';
 import {BrowserRouter as Router, Route, browserHistory, Link, Switch} from 'react-router-dom';
 import './external/circular-css.css';
@@ -20,10 +21,12 @@ import './external/style.css';
 
 // import 'jquery/dist/jquery.min'
 // import 'bootstrap/dist/js/bootstrap.min'
-window.ReactDOM =ReactDOM;
-window.React = React;
+// window.ReactDOM =ReactDOM;
+// window.React = React;
 ReactDOM.render(
-    <App/>
+    <Suspense fallback={'loading'}>
+        <App/>
+    </Suspense>
     , document.getElementById('root'));
 
 // If you want your app to work offline and load faster, you can change

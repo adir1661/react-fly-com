@@ -9191,16 +9191,22 @@ body::before {
     .logo-text {
         height: 56px;
         margin-left: -59px;
-        position: absolute;
-        transform: translateY(-50%);
-        top: 12px;
-        left: 114px;
+        position: relative;
+        /* transform: translateY(-50%); */
+        top: -11px;
+        /* left: 114px; */
     }
 
     .logo-icon {
-        position: absolute;
+        position: relative;
         height: 55px;
-        transform: translateY(-50%);
+        top: -8px;
+    }
+    a.brand{
+        display: block;
+        position: absolute;
+        top: 0;
+        left: 0;
     }
 }
 .detail{

@@ -37,16 +37,6 @@ $(document).ready(function () {
 });
 function updateView() {
     updateTypeButtons();
-    updateMainSubject();
-}
-function updateMainSubject() {
-    if (mainSubject === "reports") {
-        $(".head-search-title").text("Search reports");
-    } else if (mainSubject == "antennas") {
-        $(".head-search-title").text("Search antennas");
-    } else {
-        throw "error";//todo take care of error
-    }
 }
 function refreshSelect(){
     $(".report-search-form select").selectpicker("refresh");
@@ -306,8 +296,7 @@ function anntenaView(anntena) {
                                 </div>
                                 <!--end description-->
                                 <div class="additional-info">
-                                    <div class="rating-passive" data-rating="${anntena.rating}">
-                                        <span class="stars"></span>
+                                    <div class="rating-passive">
                                         <span class="reviews">${anntena.reports.length}</span>
                                     </div>
                                 </div>
@@ -381,40 +370,15 @@ function search(event) {
 
 }
 function updateFilterAntennas() {
-    searchAdress;
-    searchTitle;
-    searchDate;
-    searchCategory;
-    searchImg;
-    searchAnnIntergity;
-    searchCabelIntegrity;
-    searchConnectorsTightness;
-    searchUnwantedCabels;
-    searchMonitorLightness;
-    searchBlocking;
-    searchStickers;
 }
 
 function updateFilterReports() {
-    searchAdress;
-    searchTitle;
-    searchDate;
-    searchCategory;
-    searchImg;
-    searchAnnIntergity;
-    searchCabelIntegrity;
-    searchConnectorsTightness;
-    searchUnwantedCabels;
-    searchMonitorLightness;
-    searchBlocking;
-    searchStickers;
 }
 
 function updateFilterVar() {
     updateFilterAntennas();
     updateFilterReports();
 }
-
 
 function addPress(event) {
     let chipName = getCategory($(event.target).attr('class'));
@@ -436,9 +400,11 @@ function addPress(event) {
     }
 
 }
+
 function refreshSelect(){
     $(".report-search-form select").selectpicker("refresh");
 }
+
 function removeCategoryView() {
     $(`.temp-select`).remove();
 }

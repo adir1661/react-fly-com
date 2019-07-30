@@ -5,7 +5,7 @@ const Res = require('./response');
 
 function generateEmailParams (body) {
     let myEmail = 'adir@flytechil.com';
-     let myDomain = 'Flycomm.co';
+     let myDomain = 'SIS.Flycomm.co';
     const { email, name, content } = (body);
     let subject = body.subject || 'No Subject';
     console.log(email, name, content);
@@ -21,7 +21,9 @@ function generateEmailParams (body) {
             Body: {
                 Text: {
                     Charset: 'UTF-8',
-                    Data: `${name? 'Dear ' + name.charAt(0).toUpperCase()+name.slice(1).toLowerCase()+'. \n':''}${content}`
+                    Data: `${name? 'Hello ' + name.charAt(0).toUpperCase()+name.slice(1).toLowerCase()+'. \n':''}
+                    ${content}\n
+                    To view more details click here: https://${myDomain}`
                 }
             },
             Subject: {
@@ -40,8 +42,6 @@ module.exports.email = (event,context,callback) => {
         body = event;
     }
     try {
-
-
         const emailParams = generateEmailParams(body);
         const sesPromise = ses.sendEmail(emailParams).promise();
         sesPromise.then(data => {

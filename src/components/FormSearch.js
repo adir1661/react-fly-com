@@ -226,8 +226,6 @@ class FormSearch extends Component {
                         </ul>
                     </div>
                 </div>
-
-
                 <div className={"form-group " + this.state.currentName}>
                     <br/><p>Rating:</p>
                     <div className={"ui-slider slider" + this.state.currentName} id="price-slider" data-value-min="0"
@@ -276,13 +274,11 @@ class FormSearch extends Component {
                            name="keyword"
                            placeholder="report title"/>
                 </div>
-
                 <div className="form-group">
                     <input type="text" className="form-control date-picker from-filter"
                            name="min-price"
                            placeholder="from"/>
                 </div>
-
                 <div className="form-group">
                     <input type="text" className="form-control date-picker to-filter"
                            name="min-price"
@@ -311,16 +307,11 @@ class FormSearch extends Component {
                                {/*placeholder="antenna address" onChange={this.props.change}/>*/}
                     {/*</div>*/}
                     {advanced}
-                    {/*end form-group*/}
-                    {/*end form-group*/}
                     <div className="div-button">
-                        <button type="submit"
-                                className="btn btn-primary pull-right search-button">
+                        <button type="submit" className="btn btn-primary pull-right search-button">
                             Search<i className="fa fa-search"></i>
                         </button>
                     </div>
-
-                    {/*end form-group*/}
                 </form>
             </section>
         );

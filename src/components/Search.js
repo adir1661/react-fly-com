@@ -6,20 +6,6 @@ import "./ourSearch.css";
 import ReactDOM from "react-dom";
 
 let optionsSelect = ["Antenna's Intergity", "Cabels Integrity", "Connectors Tightness", "Unwanted Cabels", "Monitor Lightness", "Blocking", "Antenna's Stickers"];
-let anntena = {
-    id: null,
-    title: null,
-    address: null,
-    latitude: null,
-    longitude: null,
-    marker_img: null,
-    rating: null,
-    description: null,
-    reports: [],
-    type: null,
-    contact: null,
-    created: null
-}
 let antennas=[];
 let reports=[];
 class Search extends Component {
@@ -30,13 +16,15 @@ class Search extends Component {
         this.submit = this.submit.bind(this);
         this.initSearchData = this.initSearchData.bind(this);
         this.state = {
+            antennas :[],
             filterOptions: optionsSelect.slice(0),
             searchObjects: [],
             chipsNames: [],
-            antennasRes:[],
+            antennasRes:'',
             reportsSearchRes:[],
-            reports:[]
-        }
+            reports:[],
+            inputValue:'',
+        };
         this.updateSearch = this.updateSearch.bind(this);
         this.takeCareDeleteChip = this.takeCareDeleteChip.bind(this);
         this.removeFilter = this.removeFilter.bind(this);
@@ -78,8 +66,6 @@ class Search extends Component {
             if(this.fit(aItem,searchObj,"antenna")){
                     let obj = JSON.parse(JSON.stringify(aItem));
                     antennasResult.push(obj);
-                    console.log("here3",antennasResult);
-
             }
 
         });
@@ -122,9 +108,9 @@ class Search extends Component {
     }
 
     initSearchData() {
-        fetch("https://a3j3kyatgb.execute-api.eu-west-1.amazonaws.com/dev/locations").then(response => (response.json())).then(sites => {
-            antennas = sites.slice(0);
-            console.log("sites", antennas);
+        fetch("https://0zx2os04v7.execute-api.eu-west-1.amazonaws.com/dev/locations").then(response => (response.json())).then(sites => {
+            this.setState({antennas:sites});
+            console.log("sites", sites);
         });
         // fetch("https://a3j3kyatgb.execute-api.eu-west-1.amazonaws.com/dev/reports").then(response=>(response.json())).then(reps=>{
         // reports=reps.slice(0);
@@ -231,63 +217,56 @@ class Search extends Component {
             };
         }
     }
-
+    mainSearch(ev){
+        let text = ev.target.value;
+        console.log(text);
+        this.setState({inputValue: text});
+    }
+    filterByInput(site){
+        let input = this.state.inputValue.toLowerCase();
+        return site.address.toLowerCase().includes(input)||site.title.toLowerCase().includes(input);
+    }
     render() {
         let searchElements;
-        if (true)//if searching items not empty
-        {
-            if(true)//if we in the anntenas is choose
-            {
-                if(this.state.antennasRes.length!==0) {
-                    searchElements = <section className="search-elements">
-                        {this.state.antennasRes.map((item,i) => {
-                      return   <div key={"anntena_"+i} id={item.title.replace(" ","").toLowerCase()} className={"item item-row " }data-id={i}
-                                 data-latitude={item.latitude}
-                                 data-longitude={item.longitude}>
-                                <a href="detail.html">
-                                    <div className="image bg-transfer">
-                                        <figure>Average Price: $8 - $30</figure>
-                                        <img src={item.marker_image} alt=""/>
-                                    </div>
-                                   {/*end image*/}
-                                    <div className="map"></div>
-                                    <div className="description">
-                                        <h3 className="address">{item.address}</h3>
-                                        <h4 className="description-anntena">{item.description}</h4>
-                                        <div className="label label-default">Restaurant</div>
-                                    </div>
-                                   {/*end description*/}
-                                    <div className="additional-info">
-                                        <div className="rating-passive" data-rating={item.rating}>
-                                            <span className="stars"></span>
-                                            <span className="reviews">{item.reports.length}</span>
-                                        </div>
-                                    </div>
-                                    {/*end additional-info*/}
-                                </a>
-                                <div className="controls-more">
-                                    <ul>
-                                        <li><a href="#">Add to favorites</a></li>
-                                        <li><a href="#">Add to watchlist</a></li>
-                                        <li><a href="#" className="quick-detail">Quick detail</a></li>
-                                    </ul>
-                                </div>
-                                {/*end controls-more*/}
+        if (this.state.antennas.length > 0) {
+
+            searchElements = <section className="search-elements">
+                {this.state.antennas.filter(this.filterByInput.bind(this)).map((item, i) => {
+                    return <div key={"anntena_" + item.id} id={item.title.replace(" ", "").toLowerCase()}
+                                className={"item item-row "} data-id={item.id}
+                                data-latitude={item.latitude}
+                                data-longitude={item.longitude}>
+                        <a href={'/#'+item.id}>
+                            <div className="image bg-transfer">
+                                <figure>{item.address}</figure>
+                                <img src={item.marker_image} alt=""/>
                             </div>
-
-
-                        })}
-
-                    </section>
-
-                }
-            }else//if we in the reports is choose
-            {
-                if(this.state.reportsSearchRes.length!==0) {
-                    searchElements = <section className="search-elements">
-                    </section>
-                }
-            }
+                            {/*end image*/}
+                            <div className="map"></div>
+                            <div className="description">
+                                <h3 className="address">{item.title}</h3>
+                                <h4 className="description-anntena">{item.description?item.description.length>120?item.description.slice(0,120)+'...':item.description:"No desctiprtion for this Site.."}</h4>
+                                <div className="label label-default">{item.type.replace("-"," ")}</div>
+                            </div>
+                            {/*end description*/}
+                            <div className="additional-info">
+                                <div className="rating-passive">
+                                    <span className="reviews">{item.reports.length}</span>
+                                </div>
+                            </div>
+                            {/*end additional-info*/}
+                        </a>
+                        {/*<div className="controls-more">*/}
+                            {/*<ul>*/}
+                                {/*<li><a href="#">Add to favorites</a></li>*/}
+                                {/*<li><a href="#">Add to watchlist</a></li>*/}
+                                {/*<li><a href="#" className="quick-detail">Quick detail</a></li>*/}
+                            {/*</ul>*/}
+                        {/*</div>*/}
+                        {/*end controls-more*/}
+                    </div>
+                })}
+            </section>
         }
         return (<div>
             <div className="page-wrapper">
@@ -304,80 +283,80 @@ class Search extends Component {
                                 <aside className="sidebar">
                                     <FormSearch update={this.updateSearch} filterOptions={this.state.filterOptions} change={this.searchPressed} removeFilter={this.removeFilter}/>
 
-                                    <section>
-                                        <h2>Recent Items</h2>
-                                        <div className="item" data-id="1">
-                                            <a href="client/detail.html">
-                                                <div className="description">
-                                                    <figure>Average Price: $8 - $30</figure>
-                                                    <div className="label label-default">Restaurant</div>
-                                                    <h3>Marky’s Restaurant</h3>
-                                                    <h4>63 Birch Street</h4>
-                                                </div>
-                                                {/*end description*/}
-                                                <div className="image bg-transfer">
-                                                    <img src="assets/img/antenna5.jpg" alt=""/>
-                                                </div>
-                                                {/*end image*/}
-                                            </a>
-                                            <div className="controls-more">
-                                                <ul>
-                                                    <li><a href="#">Add to favorites</a></li>
-                                                    <li><a href="#">Add to watchlist</a></li>
-                                                    <li><a href="#" className="quick-detail">Quick detail</a></li>
-                                                </ul>
-                                            </div>
-                                        </div>
-                                        {/*end item*/}
-                                        <div className="item" data-id="2">
-                                            <a href="client/detail.html">
-                                                <div className="description">
-                                                    <div className="label label-default">Restaurant</div>
-                                                    <h3>Ironapple</h3>
-                                                    <h4>4209 Glenview Drive</h4>
-                                                </div>
-                                                {/*end description*/}
-                                                <div className="image bg-transfer">
-                                                    <img src="assets/img/antenna5.jpg" alt=""/>
-                                                </div>
-                                                {/*end image*/}
-                                            </a>
-                                            <div className="controls-more">
-                                                <ul>
-                                                    <li><a href="#">Add to favorites</a></li>
-                                                    <li><a href="#">Add to watchlist</a></li>
-                                                    <li><a href="#" className="quick-detail">Quick detail</a></li>
-                                                </ul>
-                                            </div>
-                                            {/*end controls-more*/}
-                                        </div>
-                                        {/*end item*/}
-                                        <div className="item" data-id="15">
-                                            <figure className="ribbon">Top</figure>
-                                            <a href="client/detail.html">
-                                                <div className="description">
-                                                    <figure>Happy hour: 18:00 - 19:00</figure>
-                                                    <div className="label label-default">Bar & Grill</div>
-                                                    <h3>Bambi Planet Houseboat Bar& Grill </h3>
-                                                    <h4>3857 Losh Lane</h4>
-                                                </div>
-                                                {/*end description*/}
-                                                <div className="image bg-transfer">
-                                                    <img src="assets/img/antenna5.jpg" alt=""/>
-                                                </div>
-                                                {/*end image*/}
-                                            </a>
-                                            <div className="controls-more">
-                                                <ul>
-                                                    <li><a href="#">Add to favorites</a></li>
-                                                    <li><a href="#">Add to watchlist</a></li>
-                                                    <li><a href="#" className="quick-detail">Quick detail</a></li>
-                                                </ul>
-                                            </div>
-                                            {/*end controls-more*/}
-                                        </div>
-                                        {/*end item*/}
-                                    </section>
+                                    {/*<section>*/}
+                                        {/*<h2>Recent Items</h2>*/}
+                                        {/*<div className="item" data-id="1">*/}
+                                            {/*<a href="client/detail.html">*/}
+                                                {/*<div className="description">*/}
+                                                    {/*<figure>Average Price: $8 - $30</figure>*/}
+                                                    {/*<div className="label label-default">Restaurant</div>*/}
+                                                    {/*<h3>Marky’s Restaurant</h3>*/}
+                                                    {/*<h4>63 Birch Street</h4>*/}
+                                                {/*</div>*/}
+                                                {/*/!*end description*!/*/}
+                                                {/*<div className="image bg-transfer">*/}
+                                                    {/*<img src="assets/img/antenna5.jpg" alt=""/>*/}
+                                                {/*</div>*/}
+                                                {/*/!*end image*!/*/}
+                                            {/*</a>*/}
+                                            {/*<div className="controls-more">*/}
+                                                {/*<ul>*/}
+                                                    {/*<li><a href="#">Add to favorites</a></li>*/}
+                                                    {/*<li><a href="#">Add to watchlist</a></li>*/}
+                                                    {/*<li><a href="#" className="quick-detail">Quick detail</a></li>*/}
+                                                {/*</ul>*/}
+                                            {/*</div>*/}
+                                        {/*</div>*/}
+                                        {/*/!*end item*!/*/}
+                                        {/*<div className="item" data-id="2">*/}
+                                            {/*<a href="client/detail.html">*/}
+                                                {/*<div className="description">*/}
+                                                    {/*<div className="label label-default">Restaurant</div>*/}
+                                                    {/*<h3>Ironapple</h3>*/}
+                                                    {/*<h4>4209 Glenview Drive</h4>*/}
+                                                {/*</div>*/}
+                                                {/*/!*end description*!/*/}
+                                                {/*<div className="image bg-transfer">*/}
+                                                    {/*<img src="assets/img/antenna5.jpg" alt=""/>*/}
+                                                {/*</div>*/}
+                                                {/*/!*end image*!/*/}
+                                            {/*</a>*/}
+                                            {/*<div className="controls-more">*/}
+                                                {/*<ul>*/}
+                                                    {/*<li><a href="#">Add to favorites</a></li>*/}
+                                                    {/*<li><a href="#">Add to watchlist</a></li>*/}
+                                                    {/*<li><a href="#" className="quick-detail">Quick detail</a></li>*/}
+                                                {/*</ul>*/}
+                                            {/*</div>*/}
+                                            {/*/!*end controls-more*!/*/}
+                                        {/*</div>*/}
+                                        {/*/!*end item*!/*/}
+                                        {/*<div className="item" data-id="15">*/}
+                                            {/*<figure className="ribbon">Top</figure>*/}
+                                            {/*<a href="client/detail.html">*/}
+                                                {/*<div className="description">*/}
+                                                    {/*<figure>Happy hour: 18:00 - 19:00</figure>*/}
+                                                    {/*<div className="label label-default">Bar & Grill</div>*/}
+                                                    {/*<h3>Bambi Planet Houseboat Bar& Grill </h3>*/}
+                                                    {/*<h4>3857 Losh Lane</h4>*/}
+                                                {/*</div>*/}
+                                                {/*/!*end description*!/*/}
+                                                {/*<div className="image bg-transfer">*/}
+                                                    {/*<img src="assets/img/antenna5.jpg" alt=""/>*/}
+                                                {/*</div>*/}
+                                                {/*/!*end image*!/*/}
+                                            {/*</a>*/}
+                                            {/*<div className="controls-more">*/}
+                                                {/*<ul>*/}
+                                                    {/*<li><a href="#">Add to favorites</a></li>*/}
+                                                    {/*<li><a href="#">Add to watchlist</a></li>*/}
+                                                    {/*<li><a href="#" className="quick-detail">Quick detail</a></li>*/}
+                                                {/*</ul>*/}
+                                            {/*</div>*/}
+                                            {/*/!*end controls-more*!/*/}
+                                        {/*</div>*/}
+                                        {/*/!*end item*!/*/}
+                                    {/*</section>*/}
                                 </aside>
                                 {/*end sidebar*/}
                             </div>
@@ -385,11 +364,11 @@ class Search extends Component {
 
                             <div className="col-md-9 col-sm-9">
                                 <section className="page-title">
-                                    <h1 className="head-search-title"></h1>
+                                    <h1 className="head-search-title">Search Sites</h1>
                                     <div className="form-group">
                                         <input type="text" className="form-control address-filter"
                                                name="keyword"
-                                               placeholder="antenna address" onChange={this.props.change}/>
+                                               placeholder="antenna address" onChange={(ev)=>{this.mainSearch.bind(this)(ev)}}/>
                                     </div>
                                 </section>
                                 {/*end section-title*/}
@@ -430,14 +409,14 @@ class Search extends Component {
                                     <div className="center">
                                         <nav aria-label="Page navigation">
                                             <ul className="pagination">
-                                                <li className="disabled previous">
+                                                {this.state.isntFirstPage?<li className="disabled previous">
                                                     <a href="#" aria-label="Previous">
                                                         <i className="arrow_left"></i>
                                                     </a>
-                                                </li>
-                                                <li><a href="#">1</a></li>
+                                                </li>:''}
+                                                <li className="active"><a href="#">1</a></li>
                                                 <li><a href="#">2</a></li>
-                                                <li className="active"><a href="#">3</a></li>
+                                                <li><a href="#">3</a></li>
                                                 <li><a href="#">4</a></li>
                                                 <li><a href="#">5</a></li>
                                                 <li className="next">

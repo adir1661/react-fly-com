@@ -10,7 +10,7 @@ class Navbar extends Component{
         return(
             <nav>
                 <div className="left">
-                    <a href="#" className="brand">
+                    <a href="/" className="brand">
                         <img className="logo-icon" src="/assets/img/logo/logo-13.png" alt=""/>
                         <img className="logo-text" src="/assets/img/logo/logo-14.png" alt=""/>
                     </a>
