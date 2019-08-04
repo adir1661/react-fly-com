@@ -38,7 +38,7 @@ let backendOptions = {
         lang:'en'
     }
 };
-i18n
+let I18n = i18n
 // load translation using xhr -> see /public/locales
 // learn more: https://github.com/i18next/i18next-xhr-backend
     .use(Backend)
@@ -50,13 +50,16 @@ i18n
     // init i18next
     // for all options read: https://www.i18next.com/overview/configuration-options
     .init({
-        fallbackLng: 'en',
+        // fallbackLng: 'en',
         debug: true,
         backend: backendOptions,
         interpolation: {
             escapeValue: false, // not needed for react as it escapes by default
-        }
+        },
+        lng:'en'
     });
-
-
+I18n.then((t)=>{
+   console.log('i18n langauges identified: ', i18n.languages);
+   console.log('lets test it : issue0 - ' , t('issue0'));
+});
 export default i18n;

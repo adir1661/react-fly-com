@@ -1,13 +1,23 @@
 import React ,{Component} from 'react';
 import {Link} from "react-router-dom";
+import {withTranslation} from "react-i18next";
+import Button from "react-bootstrap/Button";
+import ProgressBar from "react-bootstrap/ProgressBar";
+import Register from "./Register";
+import Modal from "react-bootstrap/Modal";
 
-class Navbar extends Component{
+class NavbarUntraslated extends Component{
     constructor(props){
         super(props);
+        this.state = {
+            registerModalOpen:false,
+        }
     }
 
     render(){
+        let {registerModalOpen} = this.state;
         return(
+            <>
             <nav>
                 <div className="left">
                     <a href="/" className="brand">
@@ -39,10 +49,8 @@ class Navbar extends Component{
 
                     </div>
                     <div className="secondary-nav">
-                        <a href="#" data-modal-external-file="modal_sign_in.php"
-                           data-target="modal-sign-in">Sign In</a>
-                        <a href="#" className="promoted" data-modal-external-file="modal_register.php"
-                           data-target="modal-register">Register</a>
+                        <a onClick={this.props.onSignIn}>Sign In</a>
+                        <a onClick={this.props.onRegister} className="" >Register</a>
                     </div>
                     <div className="third-nav">
                     </div>
@@ -56,10 +64,15 @@ class Navbar extends Component{
                         <i></i>
                         <i></i>
                     </div>
+                    {/*<ProgressBar animated now={45} />*/}
                 </div>
             </nav>
+                {/*<Modal show={registerModalOpen} onHide={()=>{this.setState({registerModalOpen:false})}}>*/}
+                    {/*<Register />*/}
+                {/*</Modal>*/}
+        </>
         )
     }
 }
-
+let Navbar = withTranslation()(NavbarUntraslated);
 export default Navbar;
