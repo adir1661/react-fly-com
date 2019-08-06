@@ -1,7 +1,7 @@
 import React, {Component, Suspense} from 'react';
 import {Modal} from 'react-bootstrap';
 import {filesToBase64} from "../helper/image";
-import { withTranslation } from 'react-i18next';
+import {withTranslation} from 'react-i18next';
 
 
 const useCahcedReportsForView = true;
@@ -16,8 +16,8 @@ class MainMap extends Component {
 
     componentDidMount = () => {
         console.log('componentDidMount mainmap');
-        if(window.$&&window.$('#map-homepage').find('div').length > 0){
-            console.log('window.$&&window.$(\'#map-homepage\').find(\'div\').length' , window.$&&window.$('#map-homepage').find('div').length)
+        if (window.$ && window.$('#map-homepage').find('div').length > 0) {
+            console.log('window.$&&window.$(\'#map-homepage\').find(\'div\').length', window.$ && window.$('#map-homepage').find('div').length)
             // Map = ()=>(
             //     <div className="map" id="map-homepage" ref={this.map} dangerouslySetInnerHTML={{__html: window.$('#map-homepage').html()}} ></div>
             // );
@@ -26,24 +26,24 @@ class MainMap extends Component {
         let self = this;
         window.t = this.props.t;
         let emailList = [
-            {email:'adir1551@gmail.com',name:'adir'},
+            {email: 'adir1551@gmail.com', name: 'adir'},
             // {email:'ASAFCH@cellcom.co.il',name:'asaf'},
             // {email:'YOSSIMAT@cellcom.co.il@gmail.com',name:'yossi'},
             // {email:'AVIGI@cellcom.co.il',name:'avi'},
-            {email:'Moshe@flycomm.co',name:'moshe ha\'boss ha\'gever'},
+            {email: 'Moshe@flycomm.co', name: 'moshe ha\'boss ha\'gever'},
         ];
-        emailList =[emailList[0]];
-        let singleEmail = (reportObj,email ,name) => {
+        emailList = [emailList[0]];
+        let singleEmail = (reportObj, email, name) => {
             let title = reportObj.title.replace(/\D/g, "");
-            let subject ='Report num. '+title+' had been added to the System';
-            let content = `New report with ID:${reportObj.title}, added to a Site with ID:${window.locations.find(site => site.id===reportObj.site).title}`;
-            let dataObj = {email, name, content,subject};
+            let subject = 'Report num. ' + title + ' had been added to the System';
+            let content = `New report with ID:${reportObj.title}, added to a Site with ID:${window.locations.find(site => site.id === reportObj.site).title}`;
+            let dataObj = {email, name, content, subject};
 
             window.$.ajax({
                 url: 'https://aut4pawf7k.execute-api.eu-west-1.amazonaws.com/dev/email',
                 method: 'POST',
                 data: JSON.stringify(dataObj),
-                dataType:'json',
+                dataType: 'json',
                 success: (result) => {
 
                 },
@@ -52,9 +52,9 @@ class MainMap extends Component {
                 }
             })
         };
-        let distributeEmails = (reportObj,emailList)=>{
-            emailList.forEach(email =>{
-                singleEmail(reportObj,email.email,email.name);
+        let distributeEmails = (reportObj, emailList) => {
+            emailList.forEach(email => {
+                singleEmail(reportObj, email.email, email.name);
             })
         };
         window.distributeEmails = distributeEmails;
@@ -193,26 +193,43 @@ class MainMap extends Component {
                 ]
             },
         ];
-        let attachListeners = ()=> {
+
+        let attachListeners = () => {
             let {$} = window;
-            $(document).on('click', '.modal-dialog button.back', function (ev) {
+            let clicked = false;
+            let counter = 0;
+            $(document).on('click', '.modal-dialog button.back,.modal-dialog button.back-to-site', function (ev) {
+                console.log('clicked count =', counter, '\nclicked = ', clicked);
+                if (clicked === true) {
+                    return;
+                }
+                counter++;
+                clicked = true;
                 let $this = $(this);
                 let modal = $this.closest('.modal-dialog');
                 let siteId = modal.attr('data-id');
                 modal.modal('hide');
                 modal.find("button.close").click();
                 setTimeout(() => {
-                    $('.modal-backdrop').remove();
+                    $('.modal-backdrop').remove();//fix some issue with bootstrap 3 modal background screen
                     modal.remove();
                     window.openModalFromTemplates("#modalItem", siteId, false, window.isFullScreen);//todo make function to handle specific modal open / reopen
+                    clicked = false;
+                    counter = 0;
                 }, 500);
             })
+            // $(document).on('click', '.modal-dialog button.close', function (ev) {
+            //     let $this = $(this);
+            //     let $modal = $this.closest('.modal')
+            //     $modal.removeClass('fade');
+            //     $modal.modal('hide');
+            // })
         };
         let redirected = false;
-        let redirectToHash = (site)=>{
-            console.log(site.longtitude,site.latitude);
-            if(!redirected) {
-                window.moveToLocation(site.latitude,site.longitude,13);
+        let redirectToHash = (site) => {
+            console.log(site.longtitude, site.latitude);
+            if (!redirected) {
+                window.moveToLocation(site.latitude, site.longitude, 13);
                 window.openModalFromTemplates("#modalItem", site.id, false, window.isFullScreen);
                 redirected = true;
             }
@@ -228,9 +245,10 @@ class MainMap extends Component {
             setTimeout(() => {
                 window.openModalFromTemplates("#modalItem", result.site, false, window.isFullScreen);//todo make function to handle specific modal open / reopen
             }, 300);
-            window.distributeEmails(result,emailList);
+            // window.distributeEmails(result,emailList);
         };
-        function moveToLocation(lat, lng,zoom =12 ) {
+
+        function moveToLocation(lat, lng, zoom = 12) {
             let lngNum = Number(lng);
             let latNum = Number(lat);
             if (isNaN(latNum) || isNaN(lngNum)) {
@@ -245,7 +263,8 @@ class MainMap extends Component {
                 bounds.extend(center);
             }, 400)
         }
-        window.moveToLocation= moveToLocation;
+
+        window.moveToLocation = moveToLocation;
         window.heroMap = function (_latitude, _longitude, element, markerTarget, sidebarResultTarget, showMarkerLabels, mapDefaultZoom) {
             attachListeners();
             let placeMarkers = function (markers) {
@@ -321,11 +340,11 @@ class MainMap extends Component {
                         console.log("No location coordinates for marker: ", markers[i].title);
                     }
 
-                    if(window.location.hash){
+                    if (window.location.hash) {
                         let hash = window.location.hash;
                         console.log(hash);
-                        let redirectedSite = window.locations.find(site=>site.id===hash.slice(1));
-                        if(redirectedSite){
+                        let redirectedSite = window.locations.find(site => site.id === hash.slice(1));
+                        if (redirectedSite) {
                             redirectToHash(redirectedSite);
                         }
 
@@ -609,17 +628,13 @@ class MainMap extends Component {
                 InfoBox, lastClickedMarker, MarkerClusterer, automaticGeoLocation,
                 autoComplete,
             } = window;
-            if ((element) != null) {
+            if ((element) !== null) {
                 // Create google map first -------------------------------------------------------------------------------------
-                if (!mapDefaultZoom) {
-                    mapDefaultZoom = 14;
-                }
-
                 if (!optimizedDatabaseLoading) {
                     var optimizedDatabaseLoading = 0;
                 }
                 window.map = new window.google.maps.Map((element), {
-                    zoom: mapDefaultZoom,
+                    zoom: mapDefaultZoom || 14,
                     scrollwheel: true,
                     center: new window.google.maps.LatLng(_latitude, _longitude),
                     //mapTypeId: "roadmap",
@@ -633,7 +648,7 @@ class MainMap extends Component {
 
                 //  When optimization is enabled, map will load the data in Map Bounds every time when it's moved. Otherwise will load data at once
 
-                if (optimizedDatabaseLoading === 1) {
+                if (optimizedDatabaseLoading === 1) {//todo: implement lazy loading for map content.
                     window.google.maps.event.addListener(window.map, 'idle', function () {
                         if (window.searchClicked !== 1) {
                             var ajaxData = {
@@ -682,10 +697,10 @@ class MainMap extends Component {
 
 
                     let locationFields = [
-                        {name:'haifa',lat:32.794273,lng:34.989132},
-                        {name:'jerusalem',lat:31.767698,lng: 35.212793},
-                        {name:'tel-aviv',lat:32.064062,lng: 34.777986},
-                        {name:'beer-sheva',lat:31.252010, lng:34.787117},
+                        {name: 'haifa', lat: 32.794273, lng: 34.989132},
+                        {name: 'jerusalem', lat: 31.767698, lng: 35.212793},
+                        {name: 'tel-aviv', lat: 32.064062, lng: 34.777986},
+                        {name: 'beer-sheva', lat: 31.252010, lng: 34.787117},
                     ];
                     // return moveToLocation(locationFields[0].lat,locationFields[0].lng,10);
                     // var dataFile = $(this).attr("data-ajax-data-file");
@@ -700,28 +715,28 @@ class MainMap extends Component {
                     let categoryValue = ajaxData['category'];
                     let sitesResult = window.locations.filter(site => (site.title.toLowerCase().includes(("" + siteId).toLowerCase())));
                     console.log(sitesResult);
-                    if (sitesResult.length > 0&&(siteId||!siteId&&!locationValue&&!categoryValue)) {
+                    if (sitesResult.length > 0 && (siteId || !siteId && !locationValue && !categoryValue)) {
                         if (!sitesResult[nextIndexSite]) {
                             nextIndexSite = 0;
                         }
                         let {latitude, longitude} = sitesResult[nextIndexSite];
-                        window.moveToLocation(latitude, longitude,13);
+                        window.moveToLocation(latitude, longitude, 13);
                         nextIndexSite++;
                         return;
                     }
-                    if(locationValue){
-                        let locationResult = locationFields.find(field => field.name===locationValue);
-                        moveToLocation(locationResult.lat,locationResult.lng,10);
+                    if (locationValue) {
+                        let locationResult = locationFields.find(field => field.name === locationValue);
+                        moveToLocation(locationResult.lat, locationResult.lng, 10);
                         return;
                     }
-                    let categoryResult = window.locations.filter(site =>site.type.replace(' ', '-').toLowerCase()===categoryValue.toLowerCase());
+                    let categoryResult = window.locations.filter(site => site.type.replace(' ', '-').toLowerCase() === categoryValue.toLowerCase());
 
-                    if(categoryResult.length>0&&categoryValue){
+                    if (categoryResult.length > 0 && categoryValue) {
                         if (!categoryResult[nextIndexSite]) {
                             nextIndexSite = 0;
                         }
                         let {latitude, longitude} = categoryResult[nextIndexSite];
-                        moveToLocation(latitude, longitude,14);
+                        moveToLocation(latitude, longitude, 14);
                         nextIndexSite++;
                         return;
                     }
@@ -776,7 +791,7 @@ class MainMap extends Component {
             key = key.slice(1);
             // if(true)return;
             if (key !== 'modalSubmit' && key !== 'modalItem') return;
-            $("body").append('<div class="modal modal-external fade" id="' + target + '" tabindex="-1" data-backdrop="static" role="dialog" aria-labelledby="' + target + '"><i class="loading-icon fa fa-circle-o-notch fa-spin"/></div>');
+            $("body").append('<div class="modal modal-external" id="' + target + '" tabindex="-1" data-backdrop="static" role="dialog" aria-labelledby="' + target + '"><i class="loading-icon fa fa-circle-o-notch fa-spin"/></div>');
             let $targetModal = $("#" + target + ".modal");
             $targetModal.on("show.bs.modal", function () {
                 let _this = $(this);
@@ -946,10 +961,10 @@ class MainMap extends Component {
                 return `<div class="modal-dialog width-800px" role="document" data-latitude="31.771959" data-longitude="35.217018" data-marker-drag="true" >
 <div class="modal-content" >
     <div class="modal-header">
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
         <div class="section-title">
             <h2>${window.t('Site_submit_title')}</h2>
         </div>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
     </div>
     <div class="modal-body">
         <form class="form inputs-underline">
@@ -957,7 +972,7 @@ class MainMap extends Component {
                 <div class="row">
                     <div class="col-md-7 col-sm-9">
                         <div class="form-group">
-                            <label for="title">${window.t('SITE_ID','SITE_ID')}</label>
+                            <label for="title">${window.t('SITE_ID', 'SITE_ID')}</label>
                             <input type="text" class="form-control" required name="provAntennaId" id="provAntennaId" placeholder="Proveider Antenna's ID">
                         </div>
                         <!--end form-group-->
@@ -965,7 +980,7 @@ class MainMap extends Component {
                     <!--end col-md-9-->
                     <div class="col-md-5 col-sm-3">
                         <div class="form-group">
-                            <label for="category">${window.t('SITE_TYPE_TITLE','SITE_TYPE_TITLE')}</label>
+                            <label for="category">${window.t('SITE_TYPE_TITLE', 'SITE_TYPE_TITLE')}</label>
                             <select class="form-control selectpicker" name="type" id="type" required>
                                 <option value="">Site Type</option>
                                 <option value="Rooftop-Site">Rooftop Site</option>
@@ -1042,7 +1057,7 @@ class MainMap extends Component {
             <hr>
             <section class="center">
                 <div class="form-group">
-                    <button type="submit" class="btn btn-primary btn-rounded">Add Site</button>
+                    <button type="submit" class="btn btn-primary btn-rounded back">Add Site</button>
                 </div>
             </section>
         </form>
@@ -1060,7 +1075,6 @@ class MainMap extends Component {
                 return `<div class="modal-item-detail modal-dialog" role="document" data-latitude="${site.latitude}" data-longitude="${site.longitude}" data-address data-id="${id}">
     <div class="modal-content">
         <div class="modal-header">
-            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
             <div class="section-title">
                 <h2>${site.title}                 
                 <span class="location" style="margin-left: 3px;font-size: 15px;">${site.address.split(',').length > 1 ? site.address.split(',')[site.address.split(',').length - 2].trim() : site.address}</span>
@@ -1079,9 +1093,11 @@ class MainMap extends Component {
                     </ul>
                 </div>
             </div>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
         </div>
-        <div class="modal-body">
-            <div class="left">
+
+        <div class="modal-body row">
+            <div class="left col-xs-6">
             <div class="gallery">
             ${site.gallery.length > 0 ? site.gallery.map((image) => (`<img src="${image}">`)).join('\n') : site.marker_image ? `<img src="${site.marker_image}">` : ''}
             </div>
@@ -1093,7 +1109,7 @@ class MainMap extends Component {
                 <h5><i class="fa fa-envelope"></i>${site.contact}</h5>
                 </section>
             </div>
-            <div class="right">
+            <div class="right col-xs-6">
                 <section>
                     <h3>Overview</h3>
                     <div class="read-more"><p>${site.description}</p></div>
@@ -1131,22 +1147,22 @@ class MainMap extends Component {
 </div>`
             },
             reportSubmit: (site) => {
-                return`<div class="modal-dialog modal-report width-800px" role="document" data-marker-drag="true" data-id="${site.id}">
+                return `<div class="modal-dialog modal-report width-800px" role="document" data-marker-drag="true" data-id="${site.id}">
 <div class="modal-content">
     <div class="modal-header">
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-            <span aria-hidden="true">&times;</span>
-        </button>
-    </div>
-    <section>
         <div class="section-title" style="overflow: auto;height: auto">
-            <div class="col-xs-10">
+            <div class="pull-left">
                 <h2>New Report</h2>
             </div>
             <div class="pull-right" >
                     <button type="button" class="back" />
             </div>
         </div>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+    <section>
         <div>
             <h3 style="margin-bottom: 10px">Site:</h3>
             <div class="row small-font">
@@ -1227,60 +1243,81 @@ class MainMap extends Component {
 </div>`
             },
             modalReportView: (report, antennaId,) => {
-                let {t } = window;
+                let {t} = window;
                 let antenna = window.locations.find((location) => location.id === antennaId);
-                return `<div class="modal-dialog modal-report width-800px" role="document" data-marker-drag="true" 
+return `
+<div class="modal-dialog modal-report width-800px" role="document" data-marker-drag="true" 
     data-id="${antennaId}">
-<div class="modal-content">
-   <div class="modal-header">
-       <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
-               aria-hidden="true">&times;</span></button>
-       <div class="section-title">
-           <h2 class="pull-left">${report.category ? report.category.charAt(0).toUpperCase() + report.category.slice(1) : ''} ${report.title ? t('report_id_pretitle')+' ' + report.title.charAt(0).toUpperCase() + report.title.slice(1) : ' - no ID.'}</h2>
-           <div class="pull-right">
+    <div class="modal-content">
+        <div class="modal-header">
+       
+            <div class="section-title">
+                <h2 class="pull-left">${report.category ? report.category.charAt(0).toUpperCase() + report.category.slice(1) : ''} ${report.title ? t('report_id_pretitle') + ' ' + report.title.charAt(0).toUpperCase() + report.title.slice(1) : ' - no ID.'}</h2>
+                <div class="pull-right">
                     <img  src="${report.providerLogo}" alt="">
                     <button type="button" class="back"></button>
-           </div>
-       </div>
-   </div>
-   <div class="modal-body">
-       <section>
-       <h3 style="margin-bottom: 10px">${t('site_title')}:</h3>
-               <div class="row small-font">
-                   <div class="col-md-2 col-sm-2">
-                           <h5 for="title"><strong>${t('site_name','site_name')}</strong>: <br>${antenna.address}</h5>
-                   </div>
-                   <div class="col-md-2 col-sm-2">
-                         <h5 for="title"><strong>${t('site_id','site_id')}</strong>: <br>${antenna.title}</h5>
-                   </div> 
-                   ${antenna.created ? `
-                   <div class="col-md-2 col-sm-2">
-                         <h5 for="title"><strong>${t('site_date','site_date')}</strong>: <br>${new Date(antenna.created).toLocaleDateString()}</h5>
-                   </div>  ` : '<div class="col-md-2 col-sm-2"></div>'}
-                   <div class="col-md-2 col-sm-2">
-                         <h5 for="title"><strong>${t('site_type','site_type')}</strong>: <br>${antenna.type}</h5>
-                   </div>
+                </div>
+            </div>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
+               aria-hidden="true">&times;</span></button>
+        </div>
+        <div class="modal-body">
+            <section>
+                <h3 style="margin-bottom: 10px">${t('site_title')}:</h3>
+                <div class="row small-font">
+                    <div class="col-md-2 col-sm-2">
+                       <h5 for="title"><strong>${t('site_name', 'site_name')}</strong>: <br>${antenna.address}</h5>
+                    </div>
+                    <div class="col-md-2 col-sm-2">
+                        <h5 for="title"><strong>${t('site_id', 'site_id')}</strong>: <br>${antenna.title}</h5>
+                    </div> 
+                    ${antenna.created ? `
+                    <div class="col-md-2 col-sm-2">
+                        <h5 for="title"><strong>${t('site_date', 'site_date')}</strong>: 
+                            <br>
+                            ${new Date(antenna.created).toLocaleDateString()}
+                        </h5>
+                    </div>` 
+                    : 
+                    '<div class="col-md-2 col-sm-2"></div>'
+                    }
+                    <div class="col-md-2 col-sm-2">
+                        <h5 for="title"><strong>${t('site_type', 'site_type')}</strong>: 
+                            <br>
+                            ${antenna.type}
+                        </h5>
+                    </div>
                     ${antenna.contact ? `
-                   <div class="col-md-2 col-sm-2">
-                         <h5 for="title"><strong>${t('filled_by','filled_by')}</strong>: <br>${report.filledBy || 'Not Assigned'}</h5>
-                   </div>  ` : '<div class="col-md-2 col-sm-2"></div>'}
-               </div>
+                    <div class="col-md-2 col-sm-2">
+                        <h5 for="title"><strong>${t('filled_by', 'filled_by')}</strong>: 
+                            <br>
+                            ${report.filledBy || 'Not Assigned'}
+                        </h5>
+                    </div>` 
+                    : 
+                    '<div class="col-md-2 col-sm-2"></div>'
+                    }
+                </div>
            </section>
            <hr>
            <section>
                <div class="row">
-                  <!-- <div class="col-md-9 col-sm-9">
-                       <div class="form-group">
-                           <h2 for="title">${'Report Details'}</h2>
-                       </div>
-                   </div>-->
-                   ${report.vid ? `<div class="col-xs-12 report-video">
+                      <!-- <div class="col-md-9 col-sm-9">
+                           <div class="form-group">
+                               <h2 for="title">${'Report Details'}</h2>
+                           </div>
+                       </div>-->
+                    ${report.vid ? 
+                    `<div class="col-xs-12 report-video">
                         <h6>${t('site_video')}:</h6>
                         <video width="320" height="240" controls>
                           <source src="${report.vid}" type="video/mp4">
                           Your browser does not support the video tag.
                         </video>                   
-                   </div>` : ''}
+                    </div>` 
+                    :   
+                    ''
+                    }
                </div>
            </section> 
            <section class="reports">
@@ -1291,45 +1328,47 @@ class MainMap extends Component {
                      <h4 for="category"></h4>
                 </div>  
                 ${report.issues ? report.issues.map(issue => window.Templates['issue'](issue)).join('') : ''}
-                ${report.description ? `<div class=col-xs-12>
+                ${report.description ? 
+                `<div class=col-xs-12>
                     <h3>Summary:</h3>
                     <div class="col-xs-10">
                         <p>${report.description}</p>
                     </div>
-                    <div class="col-xs-2">`:''}
-                    <h6>Overall Rating</h6>
-                        <div class="c100 p${Math.round(Number(report.rating))} small ${Number(report.rating) > 50 ? 'green' : Number(report.rating) > 30 ? 'orange' : 'red'}">
-                             <span>${Number(report.rating)}%</span>
-                             <div class="slice">
-                                  <div class="bar"></div>
-                                  <div class="fill"></div>
-                             </div>
-                        </div>
+                </div>` 
+                :
+                ''}
+                <div class="col-12 overall-rating">
+                    <h6 class="rating-title">Overall Rating</h6>
+                    <div class="rating-circle c100 p${Math.round(Number(report.rating))} small ${Number(report.rating) > 50 ? 'green' : Number(report.rating) > 30 ? 'orange' : 'red'}">
+                         <span>${Number(report.rating)}%</span>
+                         <div class="slice">
+                              <div class="bar"></div>
+                              <div class="fill"></div>
+                         </div>
                     </div>
-                    
                 </div>
-           </section>
-           <hr>
-           <section class="center">
-               <div class="form-group">
-                   <button type="submit" class="btn btn-primary btn-rounded back-to-site">${t('back_to_site_button')}</button>
-               </div>
-           </section>
-       </form>
-   </div>
-</div>
-</div>`     },
+                <hr>
+               <section class="center">
+                   <div class="form-group">
+                       <button type="submit" class="btn btn-primary btn-rounded back-to-site">${t('back_to_site_button')}</button>
+                   </div>
+               </section>
+            </div>
+        </div>
+    </div>
+</div>`
+            },
             issue: (issue) => {
                 let {t} = window;
                 return `<div class="issue row">
-    <div class="col-xs-7">
+    <div class="col-7">
         <h3>${t(issue.title)}</h3>
         <div class ='issue-subtitle' style="">
             <h5>${t('issue_number')}: ${issue.issueNum}</h5>
             <p>${issue.description}</p>
         </div>
     </div>
-    <div class="col-xs-2 " >
+    <div class="col-2 " >
         <div class="c100 p${Math.round(Number(issue.rating))} small ${Number(issue.rating) > 50 ? 'green' : Number(issue.rating) > 30 ? 'orange' : 'red'}">
              <span>${Number(issue.rating)}%</span>
              <div class="slice">
@@ -1338,7 +1377,7 @@ class MainMap extends Component {
              </div>
         </div>
     </div>
-    <div class="col-xs-3" style="height:100%;border-left: 1px solid var(--light-grey);text-align: right;overflow: hidden">
+    <div class="col-3" style="height:100%;border-left: 1px solid var(--light-grey);text-align: right;overflow: hidden">
         <a href="${issue.gallery && issue.gallery[0] ? issue.gallery[0] : issue.image ? issue.image : 'https://via.placeholder.com/150x100/000000/FFFFFF/?text=No+Image+Placed+Here'}" 
         data-lightbox="image-issues" data-title="${issue.title.charAt(0).toUpperCase() + issue.title.slice(1)}">
             <img style="height: 100px"  src="${issue.gallery && issue.gallery[0] ? issue.gallery[0] : issue.image ? issue.image : 'https://via.placeholder.com/150x100/000000/FFFFFF/?text=No+Image+Placed+Here'}" alt="report">
@@ -1347,13 +1386,14 @@ class MainMap extends Component {
 </div>`
             },
             issueSubmit: (issueName, id, i) => {
-                let {$,t} = window;
-                console.log('issue name '+issueName +' '+ + i + ' :',t(issueName));
+                let {$, t} = window;
+                console.log('issue name ' + issueName + ' ' + +i + ' :', t(issueName));
                 let template = $(
                     `<div class="form-group detail">
                         <div class="flex-wrap-form-group">
                         <label for="integrity">${t(issueName)}:</label>
-                  <select class="form-control selectpicker" name="issues[${i}][stability]" id="${id}" required>
+                    <span class="empty-grow"></span>
+                    <select class="form-control selectpicker report-status" name="issues[${i}][stability]" id="${id}" required>
                       <option value="Not Relevant">Not Relevant</option>
                       <option value="Stable">Stable</option>
                       <option value="Problematic">Problematic</option>
@@ -1383,6 +1423,7 @@ class MainMap extends Component {
                 return template;
             },
         };
+
         //  Render report details-----------------------------------------------------------------------------------------------
         function renderReportDetails() {
             let {$} = window;
@@ -1394,6 +1435,7 @@ class MainMap extends Component {
             });
             return issues;
         }
+
         console.log('assigned');
         document.addEventListener('initializeScripts', () => {
             let {$, locations, Templates} = window;
@@ -1432,32 +1474,35 @@ class MainMap extends Component {
                 $modal.html(Templates['modalReportView'](report, antenna_Id));
                 //renderReportDetails() todo: implement come back to
             });
-        })
+        });
+
     };
-    componentDidUpdate = () =>{
+    componentDidUpdate = () => {
         console.log('componentDidUpdate mainmap')
     };
+
     render() {
         console.log('Render Map');
         // noinspection CheckTagEmptyBody
-        if(window.$&&window.$('#map-homepage').find('div').length > 0){
-            console.log('window.$&&window.$(\'#map-homepage\').find(\'div\').length' , window.$&&window.$('#map-homepage').find('div').length)
+        if (window.$ && window.$('#map-homepage').find('div').length > 0) {
+            console.log('window.$&&window.$(\'#map-homepage\').find(\'div\').length', window.$ && window.$('#map-homepage').find('div').length)
             // Map = ()=>(
             //     <div className="map" id="map-homepage" ref={this.map} dangerouslySetInnerHTML={{__html: window.$('#map-homepage').html()}} ></div>
             // );
             // return;
         }
         return (
-            <div ref ={el => this.map = el}/>
+            <div ref={el => this.map = el}/>
         )
     }
-    componentWillUnmount=()=>{
-        console.log('componentWillUnmount mainmap')
+
+    componentWillUnmount = () => {
+        console.log('componentWillUnmount mainmap');
         let $map = window.$(this.map);
         $map.html('');
         console.log($map);
-        if(window.$&&window.$('#map-homepage').find('div').length > 0){
-            console.log('window.$&&window.$(\'#map-homepage\').find(\'div\').length' , window.$&&window.$('#map-homepage').find('div').length)
+        if (window.$ && window.$('#map-homepage').find('div').length > 0) {
+            console.log('window.$&&window.$(\'#map-homepage\').find(\'div\').length', window.$ && window.$('#map-homepage').find('div').length)
             // Map = ()=>(
             //     <div className="map" id="map-homepage" ref={this.map} dangerouslySetInnerHTML={{__html: window.$('#map-homepage').html()}} ></div>
             // );
@@ -1465,5 +1510,6 @@ class MainMap extends Component {
         }
     }
 }
+
 let MainMapTranslated = withTranslation()(MainMap);
 export default MainMapTranslated;

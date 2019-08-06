@@ -49,8 +49,8 @@ class NavbarUntraslated extends Component{
 
                     </div>
                     <div className="secondary-nav">
-                        <a onClick={this.props.onSignIn}>Sign In</a>
-                        <a onClick={this.props.onRegister} className="" >Register</a>
+                        <a onClick={()=>{}/*this.props.onSignIn*/}>Sign In</a>
+                        <a onClick={()=>{this.setState({registerModalOpen:true})}} className="" >Register</a>
                     </div>
                     <div className="third-nav">
                     </div>
@@ -67,9 +67,9 @@ class NavbarUntraslated extends Component{
                     {/*<ProgressBar animated now={45} />*/}
                 </div>
             </nav>
-                {/*<Modal show={registerModalOpen} onHide={()=>{this.setState({registerModalOpen:false})}}>*/}
-                    {/*<Register />*/}
-                {/*</Modal>*/}
+                <Modal show={registerModalOpen} onHide={()=>{this.setState({registerModalOpen:false})}}>
+                    <Register />
+                </Modal>
         </>
         )
     }

@@ -1,0 +1,38 @@
+service: sis-login
+provider:
+  name: aws
+  runtime: nodejs10.x
+package:
+  exclude:
+  - client/**
+  - node_modules/**
+  - '!node_modules/base64-js/**'
+  - '!node_modules/ieee754/**'
+  - '!node_modules/crypto-js/**'
+  - '!node_modules/js-cookie/**'
+  - '!node_modules/buffer/**'
+  - '!node_modules/isarray/**'
+  - '!node_modules/node-fetch/**'
+  - '!node_modules/amazon-cognito-identity-js/**'
+functions:
+  register:
+    handler: register.register
+    events:
+    - http:
+        path: register
+        method: post
+        cors: true
+  login:
+    handler: login.login
+    events:
+    - http:
+        path: login
+        method: post
+        cors: true
+  refresh:
+    handler: refreshToken.refresh
+    events:
+    - http:
+        path: refreshToken
+        method: post
+        cors: true

@@ -73,62 +73,6 @@ provider:
   stage: dev
 
 functions:
-  data:
-    handler: handler.data
-    events:
-      - http:
-          path: data/items
-          method: get
-  search:
-    handler: handler.search
-    events:
-      - http:
-         path: views/search_modal
-         method: get
-  database:
-    handler: handler.database
-    events:
-    - http:
-        path: database/test
-        method: get
-  create:
-    handler: todos/create.create
-    events:
-    - http:
-        path: todos
-        method: post
-        cors: true
-
-  list:
-    handler: todos/list.list
-    events:
-    - http:
-        path: todos
-        method: get
-        cors: true
-
-  get:
-    handler: todos/get.get
-    events:
-    - http:
-        path: todos/{id}
-        method: get
-        cors: true
-
-  update:
-    handler: todos/update.update
-    events:
-    - http:
-        path: todos/{id}
-        method: put
-        cors: true
-  delete:
-    handler: todos/delete.delete
-    events:
-    - http:
-        path: todos/{id}
-        method: delete
-        cors: true
   site-create:
     handler: sites/create.create
     optimize: ${self:custom.enable_optimize.${opt:stage,'dev'}, 'true'}
@@ -137,6 +81,10 @@ functions:
          path: sites
          method: post
          cors: true
+         authorizer:
+           type: COGNITO_USER_POOLS
+           authorizerId:
+             Ref: ApiGatewayAuthorizer
   site-list:
     handler: sites/list.list
     events:
@@ -144,6 +92,10 @@ functions:
         path: sites
         method: get
         cors: true
+        authorizer:
+          type: COGNITO_USER_POOLS
+          authorizerId:
+            Ref: ApiGatewayAuthorizer
     timeout: 60
   locations-list:
     handler: transformation/locations.list
@@ -152,6 +104,10 @@ functions:
         path: locations
         method: get
         cors: true
+        authorizer:
+          type: COGNITO_USER_POOLS
+          authorizerId:
+            Ref: ApiGatewayAuthorizer
     timeout: 60
   translations-list:
     handler: transformation/translations.list
@@ -160,6 +116,10 @@ functions:
         path: translations
         method: get
         cors: true
+        authorizer:
+          type: COGNITO_USER_POOLS
+          authorizerId:
+            Ref: ApiGatewayAuthorizer
     timeout: 60
   report-create:
     handler: reports/create.create
@@ -168,6 +128,10 @@ functions:
         path: sites/{id}/reports
         method: post
         cors: true
+        authorizer:
+          type: COGNITO_USER_POOLS
+          authorizerId:
+            Ref: ApiGatewayAuthorizer
   report-list:
     handler: reports/list.list
     events:
@@ -175,6 +139,10 @@ functions:
         path: reports
         method: get
         cors: true
+        authorizer:
+          type: COGNITO_USER_POOLS
+          authorizerId:
+            Ref: ApiGatewayAuthorizer
   upload-image:
     handler: images/image.site
     optimize: ${self:custom.enable_optimize.${opt:stage,'dev'}, 'true'}
@@ -223,22 +191,22 @@ resources:
             RequireNumbers: True
             RequireSymbols: False
             RequireUppercase: True
-      SisUserPoolClient:
-        Type: AWS::Cognito::UserPoolClient
-        Properties:
-          ClientName: flycomm-sis-client
-          GenerateSecret: False
-          UserPoolId:
-            Ref: SisUserPool
-      ApiGatewayAuthorizer:
-        DependsOn:
-        - ApiGatewayRestApi
-        Type: AWS::ApiGateway::Authorizer
-        Properties:
-          Name: cognito-authorizer
-          IdentitySource: method.request.header.Authorization
-          RestApiId:
-            Ref: ApiGatewayRestApi
-          Type: COGNITO_USER_POOLS
-          ProviderARNs:
-          - Fn::GetAtt: [SisUserPool, Arn]
+    SisUserPoolClient:
+      Type: AWS::Cognito::UserPoolClient
+      Properties:
+        ClientName: flycomm-sis-client
+        GenerateSecret: False
+        UserPoolId:
+          Ref: SisUserPool
+    ApiGatewayAuthorizer:
+      DependsOn:
+      - ApiGatewayRestApi
+      Type: AWS::ApiGateway::Authorizer
+      Properties:
+        Name: cognito-authorizer
+        IdentitySource: method.request.header.Authorization
+        RestApiId:
+          Ref: ApiGatewayRestApi
+        Type: COGNITO_USER_POOLS
+        ProviderARNs:
+        - Fn::GetAtt: [SisUserPool, Arn]
