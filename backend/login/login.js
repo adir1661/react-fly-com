@@ -1,8 +1,8 @@
 const Res = require("./response");
-
+const secret = require('./secret');
 var poolData = {
-    UserPoolId: 'eu-west-1_sSJnOX3r9',
-    ClientId: '248rjadpv612d4cbf723g2ubi4'
+    UserPoolId: secret.USER_POOL_ID,
+    ClientId: secret.USER_POOL_CLIENT_ID
 };
 global.fetch = require('node-fetch');
 var AmazonCognitoIdentity = require('amazon-cognito-identity-js');
@@ -36,9 +36,13 @@ function login(email, password) {
                 resolve(result);
             },
             onFailure: function (err) {
-                console.log(err);
+                console.log('authenticateUser onFailure: error - ', err);
                 reject(err);
             },
+            newPasswordRequired: function () {
+                console.log('newPasswordRequired');
+                cognitoUser.completeNewPasswordChallenge(password, {}, this);
+            }
 
         });
 

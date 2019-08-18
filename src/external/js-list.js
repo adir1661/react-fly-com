@@ -19,7 +19,6 @@ const Libraries = [
     "assets/js/jQuery.MultiFile.min.js",
     "assets/js/custom.js",
     "assets/js/maps.js",
-
 ];
 const afterLoad = [
     'assets/js/lightbox.min.js',

@@ -1,15 +1,10 @@
+service: sis-flycomm
 
 plugins:
-  - serverless-finch
 #  - serverless-plugin-optimize
 custom:
-  client:
-    bucketName: flycomm-sis-front-end
   enable_optimize:
     local: false
-
-
-service: sis-flycomm
 package:
 #  individually: true
   exclude:
@@ -44,13 +39,14 @@ package:
 provider:
   name: aws
   runtime: nodejs8.10
+  region: eu-west-1
+  stage: ${opt:stage, 'dev'}
   environment:
     REGION: ${self:provider.region}
     DYNAMODB_TABLE: ${self:service}-${opt:stage, self:provider.stage}
     MONGODB_URI: mongodb+srv://database-admin:${file(./secret.json):mongo.password}@flycomm-sis-aske2.mongodb.net/flycomm-sis?retryWrites=true
     MONGODB_TRANSLATIONS: translation
     MONGODB_SITES: flycomm-sis
-  region: ${opt:region, 'eu-west-1'}
   iamRoleStatements:
     - Effect: Allow
       Action:
@@ -70,7 +66,6 @@ provider:
       Action:
       - "s3:*"
       Resource: { "Fn::Join": ["", ["arn:aws:s3:::sis-flycomm-images", { "Ref": "ServerlessDeploymentBucket"} ] ] }
-  stage: dev
 
 functions:
   site-create:
@@ -81,10 +76,10 @@ functions:
          path: sites
          method: post
          cors: true
-         authorizer:
-           type: COGNITO_USER_POOLS
-           authorizerId:
-             Ref: ApiGatewayAuthorizer
+#         authorizer:
+#           type: COGNITO_USER_POOLS
+#           authorizerId:
+#             Ref: ApiGatewayAuthorizer
   site-list:
     handler: sites/list.list
     events:
@@ -92,10 +87,10 @@ functions:
         path: sites
         method: get
         cors: true
-        authorizer:
-          type: COGNITO_USER_POOLS
-          authorizerId:
-            Ref: ApiGatewayAuthorizer
+#        authorizer:
+#          type: COGNITO_USER_POOLS
+#          authorizerId:
+#            Ref: ApiGatewayAuthorizer
     timeout: 60
   locations-list:
     handler: transformation/locations.list
@@ -104,10 +99,10 @@ functions:
         path: locations
         method: get
         cors: true
-        authorizer:
-          type: COGNITO_USER_POOLS
-          authorizerId:
-            Ref: ApiGatewayAuthorizer
+#        authorizer:
+#          type: COGNITO_USER_POOLS
+#          authorizerId:
+#            Ref: ApiGatewayAuthorizer
     timeout: 60
   translations-list:
     handler: transformation/translations.list
@@ -116,10 +111,10 @@ functions:
         path: translations
         method: get
         cors: true
-        authorizer:
-          type: COGNITO_USER_POOLS
-          authorizerId:
-            Ref: ApiGatewayAuthorizer
+#        authorizer:
+#          type: COGNITO_USER_POOLS
+#          authorizerId:
+#            Ref: ApiGatewayAuthorizer
     timeout: 60
   report-create:
     handler: reports/create.create
@@ -128,10 +123,10 @@ functions:
         path: sites/{id}/reports
         method: post
         cors: true
-        authorizer:
-          type: COGNITO_USER_POOLS
-          authorizerId:
-            Ref: ApiGatewayAuthorizer
+#        authorizer:
+#          type: COGNITO_USER_POOLS
+#          authorizerId:
+#            Ref: ApiGatewayAuthorizer
   report-list:
     handler: reports/list.list
     events:
@@ -139,10 +134,10 @@ functions:
         path: reports
         method: get
         cors: true
-        authorizer:
-          type: COGNITO_USER_POOLS
-          authorizerId:
-            Ref: ApiGatewayAuthorizer
+#        authorizer:
+#          type: COGNITO_USER_POOLS
+#          authorizerId:
+#            Ref: ApiGatewayAuthorizer
   upload-image:
     handler: images/image.site
     optimize: ${self:custom.enable_optimize.${opt:stage,'dev'}, 'true'}

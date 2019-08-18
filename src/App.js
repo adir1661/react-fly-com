@@ -1,6 +1,6 @@
 import React, {Component, Suspense} from 'react';
 import {BrowserRouter as Router, Route, Switch} from 'react-router-dom';
-import Libraries ,{afterLoad} from './external/external';
+import Libraries ,{afterLoad} from './external/js-list';
 
 import './App.css';
 import Navbar from "./components/Navbar";
@@ -27,7 +27,6 @@ class App extends Component {
     isScriptsLoaded;
     constructor(props){
         super(props);
-        this.scriptsLoaded = new window.Event('initializeScripts');
         this.isScriptsLoaded = false;
         this.state = {
             registerModalOpen:false,
@@ -41,7 +40,7 @@ class App extends Component {
 
     scriptLoaded = () => {
         this.isScriptsLoaded=true;
-        document.dispatchEvent(this.scriptsLoaded);
+        document.dispatchEvent(new window.Event('initializeScripts'));
         insertScript(afterLoad,0,()=>{
             document.dispatchEvent(new window.Event('initializeAllScripts'));
         });
@@ -51,7 +50,6 @@ class App extends Component {
         console.log('APP RENDER');
         let {registerModalOpen} = this.state;
         return (
-
             <Router>
             <div className="App">
                 <div className="page-wrapper">
@@ -59,16 +57,15 @@ class App extends Component {
                         <Navbar onSignIn = {()=>{this.setState({signinModalOpen:true,registerModalOpen:false})}}
                                 onRegister={()=>{this.setState({registerModalOpen:true,signinModalOpen:false})}}/>
                     </header>
-                        <Switch>
-                            <Route path="/" exact component={(props)=>(<Home {...props} t ={this.props.t}/>)}/>
-                            <Route path="/search" render={(props) => (<Search {...props} isMainScritsLoaded={this.isScriptsLoaded}/>)}/>
-                        </Switch>
+                    <Switch>
+                        <Route path="/" exact component={(props)=>(<Home {...props} t ={this.props.t}/>)}/>
+                        <Route path="/search" render={(props) => (<Search {...props} isMainScritsLoaded={this.isScriptsLoaded}/>)}/>
+                    </Switch>
                 </div>
                 <a href="#" className="to-top scroll" data-show-after-scroll="600"><i className="arrow_up"/></a>
                 <Modal show={registerModalOpen} onHide={()=>{this.setState({registerModalOpen:false})}}>
                     <Register />
                 </Modal>
-
             </div>
             </Router>
         );
