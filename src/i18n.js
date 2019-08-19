@@ -8,7 +8,7 @@ import Constants from "./helper/Constants";
 // have a look at the Quick start guide
 // for passing in lng and translations on init
 let backendOptions = {
-    loadPath: Constants.TRANLATION_URL,
+    loadPath: Constants.TRANSLATION_URL,
     crossDomain: true,
     withCredentials: true,
     ajax: function (url, options, callback, data) {

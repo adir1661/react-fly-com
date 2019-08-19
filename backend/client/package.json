@@ -1,0 +1,14 @@
+{
+  "name": "client",
+  "version": "1.0.0",
+  "description": "client serverless deployment service",
+  "main": "handler.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "adir abargil",
+  "license": "ISC",
+  "devDependencies": {
+    "serverless-finch": "^2.4.2"
+  }
+}

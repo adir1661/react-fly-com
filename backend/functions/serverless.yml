@@ -76,10 +76,10 @@ functions:
          path: sites
          method: post
          cors: true
-#         authorizer:
-#           type: COGNITO_USER_POOLS
-#           authorizerId:
-#             Ref: ApiGatewayAuthorizer
+         authorizer:
+           type: COGNITO_USER_POOLS
+           authorizerId:
+             Ref: ApiGatewayAuthorizer
   site-list:
     handler: sites/list.list
     events:
@@ -87,10 +87,10 @@ functions:
         path: sites
         method: get
         cors: true
-#        authorizer:
-#          type: COGNITO_USER_POOLS
-#          authorizerId:
-#            Ref: ApiGatewayAuthorizer
+        authorizer:
+          type: COGNITO_USER_POOLS
+          authorizerId:
+            Ref: ApiGatewayAuthorizer
     timeout: 60
   locations-list:
     handler: transformation/locations.list
@@ -99,10 +99,10 @@ functions:
         path: locations
         method: get
         cors: true
-#        authorizer:
-#          type: COGNITO_USER_POOLS
-#          authorizerId:
-#            Ref: ApiGatewayAuthorizer
+        authorizer:
+          type: COGNITO_USER_POOLS
+          authorizerId:
+            Ref: ApiGatewayAuthorizer
     timeout: 60
   translations-list:
     handler: transformation/translations.list
@@ -111,10 +111,10 @@ functions:
         path: translations
         method: get
         cors: true
-#        authorizer:
-#          type: COGNITO_USER_POOLS
-#          authorizerId:
-#            Ref: ApiGatewayAuthorizer
+        authorizer:
+          type: COGNITO_USER_POOLS
+          authorizerId:
+            Ref: ApiGatewayAuthorizer
     timeout: 60
   report-create:
     handler: reports/create.create
@@ -123,10 +123,10 @@ functions:
         path: sites/{id}/reports
         method: post
         cors: true
-#        authorizer:
-#          type: COGNITO_USER_POOLS
-#          authorizerId:
-#            Ref: ApiGatewayAuthorizer
+        authorizer:
+          type: COGNITO_USER_POOLS
+          authorizerId:
+            Ref: ApiGatewayAuthorizer
   report-list:
     handler: reports/list.list
     events:
@@ -134,10 +134,10 @@ functions:
         path: reports
         method: get
         cors: true
-#        authorizer:
-#          type: COGNITO_USER_POOLS
-#          authorizerId:
-#            Ref: ApiGatewayAuthorizer
+        authorizer:
+          type: COGNITO_USER_POOLS
+          authorizerId:
+            Ref: ApiGatewayAuthorizer
   upload-image:
     handler: images/image.site
     optimize: ${self:custom.enable_optimize.${opt:stage,'dev'}, 'true'}
