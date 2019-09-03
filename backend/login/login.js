@@ -1,8 +1,10 @@
+const Constants = require("./Constants");
+
 const Res = require("./response");
 const secret = require('./secret');
 var poolData = {
-    UserPoolId: secret.USER_POOL_ID,
-    ClientId: secret.USER_POOL_CLIENT_ID
+    UserPoolId: Constants.USER_POOL_ID,
+    ClientId: Constants.USER_POOL_CLIENT_ID,
 };
 global.fetch = require('node-fetch');
 var AmazonCognitoIdentity = require('amazon-cognito-identity-js');

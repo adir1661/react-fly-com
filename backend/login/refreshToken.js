@@ -1,6 +1,7 @@
 const  Res = require("./response");
 global.fetch = require('node-fetch');
 const AmazonCognitoIdentity =require("amazon-cognito-identity-js");
+const Constants = require("./Constants");
 
 
 
@@ -23,8 +24,8 @@ function renew(email,oldToken) {
         const RefreshToken = new AmazonCognitoIdentity.CognitoRefreshToken({RefreshToken: oldToken});
 
         const userPool = new AmazonCognitoIdentity.CognitoUserPool({
-            UserPoolId: 'eu-west-1_sSJnOX3r9',
-            ClientId: '248rjadpv612d4cbf723g2ubi4'
+            UserPoolId: Constants.USER_POOL_ID,
+            ClientId: Constants.USER_POOL_CLIENT_ID,
         });
 
         const userData = {

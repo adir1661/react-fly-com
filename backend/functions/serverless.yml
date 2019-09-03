@@ -174,7 +174,7 @@ resources:
       Type: AWS::Cognito::UserPool
       Properties:
         MfaConfiguration: OFF
-        UserPoolName: flycomm-sis
+        UserPoolName: flycomm-sis-${opt:stage,'dev'}
         UsernameAttributes:
         - email
         AutoVerifiedAttributes:
@@ -189,7 +189,7 @@ resources:
     SisUserPoolClient:
       Type: AWS::Cognito::UserPoolClient
       Properties:
-        ClientName: flycomm-sis-client
+        ClientName: flycomm-sis-${opt:stage,'dev'}-client
         GenerateSecret: False
         UserPoolId:
           Ref: SisUserPool
@@ -198,7 +198,7 @@ resources:
       - ApiGatewayRestApi
       Type: AWS::ApiGateway::Authorizer
       Properties:
-        Name: cognito-authorizer
+        Name: cognito-authorizer-${opt:stage,'dev'}
         IdentitySource: method.request.header.Authorization
         RestApiId:
           Ref: ApiGatewayRestApi

@@ -1,8 +1,9 @@
+const Constants = require('./Constants');
 const Res =require("./response");
 global.fetch = require('node-fetch');
 var AmazonCognitoIdentity = require('amazon-cognito-identity-js');
-var poolData = { UserPoolId : 'eu-west-1_sSJnOX3r9',
-    ClientId : '248rjadpv612d4cbf723g2ubi4'
+var poolData = { UserPoolId : Constants.USER_POOL_ID,
+    ClientId :  Constants.USER_POOL_CLIENT_ID,
 };
 
 var userPool = new AmazonCognitoIdentity.CognitoUserPool(poolData);

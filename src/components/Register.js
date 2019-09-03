@@ -16,7 +16,7 @@ class Register extends Component{
                         </div>
                     </div>
                     <div className="modal-body">
-                        <form className="form inputs-underline">
+                        <form className="form inputs-underline" onSubmit={(ev)=>props.register(ev)}>
                             <div className="row">
                                 <div className="col-md-6 col-sm-6">
                                     <div className="form-group">
@@ -52,11 +52,8 @@ class Register extends Component{
                                 <button type="submit" className="btn btn-primary width-100">Register Now</button>
                             </div>
                         </form>
-
                         <hr/>
-
-                            <p className="center note">By clicking on “Register Now” button you are accepting the <a
-                                href="terms-and-conditions.html" className="underline">Terms & Conditions</a></p>
+                            <p className="center note">By clicking on “Register Now” button you are accepting the Terms & Conditions</p>
                     </div>
                 </div>
             </div>
